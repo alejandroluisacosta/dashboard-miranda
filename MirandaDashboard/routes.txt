@@ -1,0 +1,22 @@
+Bookings:
+- /bookings
+- /bookings/{id}
+- /bookings/{id}/edit
+- /bookings/add
+
+Rooms:
+- /rooms
+- /rooms/{id}
+- /rooms/{id}/edit
+- /rooms/add
+
+Users:
+- /users
+- /users/add
+
+Login
+- /login
+- /logout
+
+Contact:
+- GET /contact
