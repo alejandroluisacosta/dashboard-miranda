@@ -10,19 +10,24 @@ import ContactPage from './Pages/ContactPage/ContactPage'
 import BookingDetailsPage from './Pages/BookingDetailsPage/BookingDetailsPage'
 import AddRoomPage from './Pages/AddRoomPage/AddRoomPage'
 import AddUserPage from './Pages/AddUserPage/AddUserPage'
+import LoginPage from './Pages/LoginPage/LoginPage'
+import ProtectedRoute from './Components/ProtectedRouteComponent/ProtectedRoute'
+
+const auth = false;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<DashboardPage />}/>
-        <Route path="bookings" element={<BookingsPage />} />
-        <Route path="bookings/:id" element={<BookingDetailsPage />} />
-        <Route path="rooms" element={<RoomsPage />}/>
-        <Route path="rooms/add" element={<AddRoomPage />}/>
-        <Route path="users" element={<UsersPage />}/>
-        <Route path="users/add" element={<AddUserPage />}/>
-        <Route path="contact" element={<ContactPage />}/>
+        <Route path="login" element={<LoginPage />} />
+        <Route path="" element={<ProtectedRoute auth={auth}><DashboardPage /></ProtectedRoute>} />
+        <Route path="bookings" element={<ProtectedRoute auth={auth}><BookingsPage /></ProtectedRoute>} />
+        <Route path="bookings/:id" element={<ProtectedRoute auth={auth}><BookingDetailsPage /></ProtectedRoute>} />
+        <Route path="rooms" element={<ProtectedRoute auth={auth}><RoomsPage /></ProtectedRoute>} />
+        <Route path="rooms/add" element={<ProtectedRoute auth={auth}><AddRoomPage /></ProtectedRoute>} />
+        <Route path="users" element={<ProtectedRoute auth={auth}><UsersPage /></ProtectedRoute>} />
+        <Route path="users/add" element={<ProtectedRoute auth={auth}><AddUserPage /></ProtectedRoute>} />
+        <Route path="contact" element={<ProtectedRoute auth={auth}><ContactPage /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
