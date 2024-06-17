@@ -1,13 +1,11 @@
 Bookings:
 - /bookings
 - /bookings/{id}
-- /bookings/{id}/edit
-- /bookings/add
 
 Rooms:
 - /rooms
-- /rooms/{id}
-- /rooms/{id}/edit
+- /rooms/{id} (?)
+- /rooms/{id}/edit (?)
 - /rooms/add
 
 Users:
@@ -16,7 +14,6 @@ Users:
 
 Login
 - /login
-- /logout
 
 Contact:
-- GET /contact
+- /contact
