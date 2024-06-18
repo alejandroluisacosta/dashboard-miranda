@@ -10,6 +10,7 @@ const SideBar = styled.div`
     
     padding: 32px 56px 0;
     max-width: 345px;
+    background-color: white;
 
     .logo-container {
         display: flex;
@@ -54,6 +55,17 @@ const SideBar = styled.div`
             }
         }
     }
+
+    .user-container {
+        text-align: center;
+        padding: 24px 35px;
+        img {
+            width: 70px;
+        }
+        .name {
+            font-size: 23px;
+        }
+    }
 `;
 
 const SideBarComponent = () => {
@@ -90,7 +102,10 @@ const SideBarComponent = () => {
                     </div>
                 </div>
                 <div className="user-container">
-                    <img src="./"/>
+                    <img src="/assets/user.jpeg"/>
+                    <p className="name">William Johanson</p>
+                    <p className="email">williajohn@mail.com</p>
+                    <button>Contact Us</button>
                 </div>
             </SideBar>
         </>
