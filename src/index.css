@@ -15,3 +15,7 @@ h1, h2, h3, p {
 .main-content {
   width: 100%;
 }
+
+.page-container {
+  display: flex;
+}
