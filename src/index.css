@@ -1,14 +1,15 @@
 html, * { 
+  font-family: "Poppins";
   box-sizing: border-box;
   margin: 0; 
   padding: 0;
   --ocher-green: #799283;
   --dark-green: #135846;
   --lighter-green: #EBF1EF;
+  --light-gray: #F8F8F8;
 }
 
 h1, h2, h3, p {
-  font-family: "Poppins";
   margin: 0;
 }
 

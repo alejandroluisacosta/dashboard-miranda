@@ -5,7 +5,7 @@ import TableComponent from "../../Components/TableComponent/TableComponent";
 
 const Bookings = styled.div`
 
-    
+    background-color: var(--light-gray);
 
 `;
 
