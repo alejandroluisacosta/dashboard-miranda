@@ -28,6 +28,16 @@ const Dashboard = styled.div`
             }
         }
     }
+
+    .calendar-graph-container {
+        display: flex;
+        justify-content: space-around;
+        .calendar, .graph {
+            width: 500px;
+            height: 400px;
+            background-color: white;
+        }
+    }
 `;
 
 const DashboardPage = () => {
@@ -49,8 +59,8 @@ const DashboardPage = () => {
                     <div className="page-container">
                         <SideBarComponent/>
                         <div className="main-content">
-                        <h1>Dashboard Page</h1>
-                        <button onClick={logoutHandler}>Logout</button>
+                            <h1>Dashboard Page</h1>
+                            <button onClick={logoutHandler}>Logout</button>
                             <section className="kpi-container">
                                 <div className="kpi">
                                     <FaHotel className="icon"/>
@@ -81,6 +91,10 @@ const DashboardPage = () => {
                                     </div>
                                 </div>
                             </section>
+                            <div className="calendar-graph-container">
+                                <div className="calendar"></div>
+                                <div className="graph"></div>
+                            </div>
                         </div>
                     </div>
                 </Dashboard>
