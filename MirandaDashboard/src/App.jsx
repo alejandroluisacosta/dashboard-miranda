@@ -16,11 +16,15 @@ import ProtectedRoute from './Components/ProtectedRouteComponent/ProtectedRoute'
 
 const App = () => {
 
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(localStorage.getItem('token'));
+
   const authHandler = () => {
+    const token = "A1b2C3!?/"
+    localStorage.setItem('token', token);
     setAuth(true);
   }
-    console.log(auth);
+
+    console.log(localStorage.getItem('token'));
     return (
       <>
         <React.StrictMode>
@@ -37,7 +41,7 @@ const App = () => {
               <Route path="contact" element={<ProtectedRoute auth={auth}><ContactPage /></ProtectedRoute>} />
             </Routes>
           </BrowserRouter>
-        </React.StrictMode>,
+        </React.StrictMode>
       </>
     )
 }

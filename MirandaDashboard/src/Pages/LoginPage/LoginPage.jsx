@@ -6,12 +6,18 @@ const LoginPage = ({ authHandler }) => {
     const navigate = useNavigate();
     
     const submitHandler = (event) => {
+
         event.preventDefault()
-        console.log(event.target.elements.username.value)
-        if (event.target.elements.username.value === 'John') {
+
+        const username = event.target.elements.username.value;
+        const password = event.target.elements.password.value;
+
+        if (username === 'John' && password === '1234') {
             authHandler();
             navigate('/');
         }
+        else 
+            alert('Incorrect name or password')
     }
 
     return (
