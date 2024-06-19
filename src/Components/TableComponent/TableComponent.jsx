@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
-const Table = styled.div`
+const Grid = styled.div`
+    display: grid;
     background-color: white;
+    margin: 30px 50px;
+    border-radius: 20px;
     table {
         table-layout: auto;
     }
@@ -24,29 +27,46 @@ const Table = styled.div`
 
 const TableComponent = ({ data, columns }) => {
     return (
-        <>
-            <Table>
-                <table>
-                    <thead>
-                        <tr>
-                            {columns.map(column => 
-                                <th>{column}</th>
+        <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}>
+            <div class="grid-container">
+                <div class="grid-header">
+                    {columns.map(column => 
+                        <div class="grid-header-item">{column}</div>
+                    )}
+                </div>
+                <div class="grid-body">
+                    {data.map(row => 
+                        <div class="grid-row">
+                            {Object.values(row).map(dataPoint => 
+                                <div class="grid-cell">{dataPoint}</div>
                             )}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map(row => 
-                            <tr>
-                                {Object.values(row).map(dataPoint => 
-                                    <td>{dataPoint}</td>
-                                )}
-                            </tr>  
-                        )}
-                    </tbody>
-                </table>
-            </Table>
-        </>
+                        </div>  
+                    )}
+                </div>
+            </div>
+        </Grid>
     )
 }
 
 export default TableComponent;
+
+{/* <Table>
+<table>
+    <thead>
+        <tr>
+            {columns.map(column => 
+                <th>{column}</th>
+            )}
+        </tr>
+    </thead>
+    <tbody>
+        {data.map(row => 
+            <tr>
+                {Object.values(row).map(dataPoint => 
+                    <td>{dataPoint}</td>
+                )}
+            </tr>  
+        )}
+    </tbody>
+</table>
+</Table> */}

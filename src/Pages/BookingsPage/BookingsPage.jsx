@@ -2,11 +2,10 @@ import { Navigate, useNavigate } from "react-router-dom";
 import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent";
 import styled from "styled-components";
 import TableComponent from "../../Components/TableComponent/TableComponent";
+import Header from "../../Components/Header";
 
 const Bookings = styled.div`
-
     background-color: var(--light-gray);
-
 `;
 
 const data = [
@@ -78,9 +77,8 @@ const BookingsPage = () => {
                     <div className="page-container">
                         <SideBarComponent/>
                         <div className="main-content">
-                            <h1>Bookings</h1>
-                            <button onClick={logoutHandler}>Logout</button>
-                            <TableComponent data={data} columns={columns}/>
+                          <Header/>
+                          <TableComponent data={data} columns={columns}/>
                         </div>
                     </div>
                 </Bookings>

@@ -23,7 +23,7 @@ const MainContainer = styled.div`
 `; 
 
 const InfoContainer = styled.div`
-    margin-right: 100px;
+    margin-right: 50px;
     p {
         font-size: 20px;
         margin-bottom: 15px;
