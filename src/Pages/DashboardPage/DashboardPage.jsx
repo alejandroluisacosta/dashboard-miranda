@@ -2,6 +2,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent";
 import styled from "styled-components";
 import { FaHotel } from "react-icons/fa";
+import { LuBedDouble, LuCalendarCheck2 } from "react-icons/lu";
+import { BiLogIn, BiLogOut } from "react-icons/bi";
 import Header from "../../Components/Header";
 
 
@@ -19,33 +21,6 @@ const Dashboard = styled.div`
         overflow: hidden;
     }
 
-    .kpi-container {
-        display: flex;
-        justify-content: space-around;
-        margin: 50px; 
-        .kpi {
-            display: flex;
-            align-items: center;
-            padding: 30px;
-            border-radius: 8px;
-            background-color: white;
-            .icon-container {
-                width: 65px;
-                height: 65px;
-                background-color: #FFEDEC;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: 22px;
-            }
-            .icon {
-                width: 28px;
-                height: 28px;
-            }
-        }
-    }
-
     .calendar-graph-container {
         display: flex;
         justify-content: space-around;
@@ -55,6 +30,39 @@ const Dashboard = styled.div`
             background-color: white;
         }
     }
+`;
+
+const KpiContainer = styled.section`
+    display: flex;
+    justify-content: space-around;
+    margin: 50px; 
+
+        .icon {
+            width: 28px;
+            height: 28px;
+        }
+    }
+`;
+
+const Kpi = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: white;
+    width: 22.5%;
+`;
+
+const IconContainer = styled.div`
+    width: 65px;
+    height: 65px;
+    background-color: ${props => props.selected ? 'var(--red)' : 'var(--pink)'};
+    color: ${props => props.selected ? 'white' : 'var(--red)'};
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 22px;
 `;
 
 const DashboardPage = () => {
@@ -77,44 +85,44 @@ const DashboardPage = () => {
                         <SideBarComponent/>
                         <div className="main-content">
                             <Header/>
-                            <section className="kpi-container">
-                                <div className="kpi">
-                                    <div className="icon-container">
-                                        <FaHotel className="icon"/>
-                                    </div>
+                            <KpiContainer>
+                                <Kpi>
+                                    <IconContainer selected={false}>
+                                        <LuBedDouble className="icon"/>
+                                    </IconContainer>
                                     <div className="data">
                                         <p className="value">{mockData[0].bookings}</p>
                                         <p className="description">New booking</p>
                                     </div>
-                                </div>
-                                <div className="kpi">
-                                    <div className="icon-container">
-                                        <FaHotel className="icon"/>
-                                    </div>
+                                </Kpi>
+                                <Kpi>
+                                    <IconContainer selected={true}>
+                                        <LuCalendarCheck2 className="icon"/>
+                                    </IconContainer>
                                     <div className="data">
                                         <p className="value">{mockData[0].occupation}</p>
                                         <p className="description">New booking</p>
                                     </div>
-                                </div>
-                                <div className="kpi">
-                                    <div className="icon-container">
-                                        <FaHotel className="icon"/>
-                                    </div>
+                                </Kpi>
+                                <Kpi>
+                                    <IconContainer selected={false}>
+                                        <BiLogIn className="icon"/>
+                                    </IconContainer>
                                     <div className="data">
                                         <p className="value">{mockData[0]["check-ins"]}</p>
                                         <p className="description">New booking</p>
                                     </div>
-                                </div>
-                                <div className="kpi">
-                                    <div className="icon-container">
-                                        <FaHotel className="icon"/>
-                                    </div>
+                                </Kpi>
+                                <Kpi>
+                                    <IconContainer selected={false}>
+                                        <BiLogOut className="icon"/>
+                                    </IconContainer>
                                     <div className="data">
                                         <p className="value">{mockData[0]["check-outs"]}</p>
                                         <p className="description">New booking</p>
                                     </div>
-                                </div>
-                            </section>
+                                </Kpi>
+                            </KpiContainer>
                             <div className="calendar-graph-container">
                                 <div className="calendar"></div>
                                 <div className="graph"></div>
