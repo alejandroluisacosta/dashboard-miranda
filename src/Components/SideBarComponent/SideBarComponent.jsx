@@ -5,6 +5,7 @@ import { TfiKey } from "react-icons/tfi";
 import { LuCalendarCheck2 } from "react-icons/lu";
 import { CiUser } from "react-icons/ci";
 import { HiOutlinePuzzle } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = styled.div`
     
@@ -93,6 +94,13 @@ const SideBar = styled.div`
 `;
 
 const SideBarComponent = () => {
+
+    const navigate = useNavigate();
+
+    const navigateHandler = (route) => {
+        navigate("rooms");
+    }
+
     return (
         <>
             <SideBar>
@@ -104,23 +112,23 @@ const SideBarComponent = () => {
                     </div>
                 </div>
                 <div className="navigation">
-                    <div className="link-container">
+                    <div className="link-container" onClick={navigateHandler}>
                         <MdOutlineDashboard className="icon"/>
                         <p>Dashboard</p>
                     </div>
-                    <div className="link-container">
+                    <div className="link-container" onClick={navigateHandler}>
                         <TfiKey className="icon"/>
                         <p>Room</p>
                     </div>
-                    <div className="link-container">
+                    <div className="link-container" onClick={navigateHandler}>
                         <LuCalendarCheck2 className="icon"/>
                         <p>Bookings</p>
                     </div>
-                    <div className="link-container">
+                    <div className="link-container" onClick={navigateHandler}>
                         <CiUser className="icon"/>
                         <p>Guest</p>
                     </div>
-                    <div className="link-container">
+                    <div className="link-container" onClick={navigateHandler}>
                         <HiOutlinePuzzle className="icon"/>
                         <p>Users</p>
                     </div>

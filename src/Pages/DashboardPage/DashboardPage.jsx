@@ -20,11 +20,26 @@ const Dashboard = styled.div`
     .kpi-container {
         display: flex;
         justify-content: space-around;
+        margin: 50px; 
         .kpi {
             display: flex;
             align-items: center;
-            .icon {
+            padding: 30px;
+            border-radius: 8px;
+            background-color: white;
+            .icon-container {
+                width: 65px;
+                height: 65px;
+                background-color: #FFEDEC;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 margin-right: 22px;
+            }
+            .icon {
+                width: 28px;
+                height: 28px;
             }
         }
     }
@@ -63,28 +78,36 @@ const DashboardPage = () => {
                             <button onClick={logoutHandler}>Logout</button>
                             <section className="kpi-container">
                                 <div className="kpi">
-                                    <FaHotel className="icon"/>
+                                    <div className="icon-container">
+                                        <FaHotel className="icon"/>
+                                    </div>
                                     <div className="data">
                                         <p className="value">{mockData[0].bookings}</p>
                                         <p className="description">New booking</p>
                                     </div>
                                 </div>
                                 <div className="kpi">
-                                    <FaHotel className="icon"/>
+                                    <div className="icon-container">
+                                        <FaHotel className="icon"/>
+                                    </div>
                                     <div className="data">
                                         <p className="value">{mockData[0].occupation}</p>
                                         <p className="description">New booking</p>
                                     </div>
                                 </div>
                                 <div className="kpi">
-                                    <FaHotel className="icon"/>
+                                    <div className="icon-container">
+                                        <FaHotel className="icon"/>
+                                    </div>
                                     <div className="data">
                                         <p className="value">{mockData[0]["check-ins"]}</p>
                                         <p className="description">New booking</p>
                                     </div>
                                 </div>
                                 <div className="kpi">
-                                    <FaHotel className="icon"/>
+                                    <div className="icon-container">
+                                        <FaHotel className="icon"/>
+                                    </div>
                                     <div className="data">
                                         <p className="value">{mockData[0]["check-outs"]}</p>
                                         <p className="description">New booking</p>
