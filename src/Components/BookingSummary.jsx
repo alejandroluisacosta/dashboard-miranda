@@ -1,8 +1,11 @@
 import styled from "styled-components";
 
 const MainContainer = styled.div`
+    position: relative;
     display: flex;
-    margin: 0 50px 40px;
+    align-items: center;
+    margin: 0 0 40px;
+    max-width: 47%;
     padding: 30px;
     background-color: white;
     img {
@@ -20,6 +23,7 @@ const MainContainer = styled.div`
 `; 
 
 const InfoContainer = styled.div`
+    margin-right: 100px;
     p {
         font-size: 20px;
         margin-bottom: 15px;
@@ -46,24 +50,35 @@ const InfoContainer = styled.div`
 `;
 
 const NumberContainer = styled.div`
+    position: absolute;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    background-color: var(--dark-green);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
+  
 
+const BookingSummary = ({ booking, timeAgo }) => {
 
-const BookingSummary = () => {
     return (
         <MainContainer>
                 <img src="/assets/HotelRoom3.jpeg" alt="Room"/>
                 <InfoContainer>
-                    <p>Queen Bed A-12234</p>
+                    <p>{booking.roomType} {booking.roomNumber}</p>
                     <div>
                         <img src="/assets/user.jpeg" alt="Client"/>
-                        <p>James Sukardi</p>
-                        <p>10 min ago</p>
+                        <p>{booking.clientName}</p>
+                        <p>{timeAgo > 30 ? '+30' : timeAgo} minutes ago</p>
                     </div>
                 </InfoContainer>
                 <NumberContainer>
-                    <p>5</p>
+                    <p>{booking.checkInDate.split('-')[2]}</p>
                 </NumberContainer>
         </MainContainer>
     )

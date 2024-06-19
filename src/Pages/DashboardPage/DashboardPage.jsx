@@ -6,6 +6,8 @@ import { LuBedDouble, LuCalendarCheck2 } from "react-icons/lu";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import Header from "../../Components/Header";
 import BookingSummary from "../../Components/BookingSummary";
+import { useEffect, useState } from "react";
+import Comment from "../../Components/Comment";
 
 
 const mockData = [
@@ -14,6 +16,94 @@ const mockData = [
 {"month":3,"bookings":2074,"occupation":231,"check-ins":175,"check-outs":987},
 {"month":4,"bookings":7985,"occupation":576,"check-ins":400,"check-outs":107}
 ]
+
+const mockBookings = [
+    {
+      "images": {
+        "image1": "/path/to/image1.jpg",
+        "image2": "/path/to/image2.jpg",
+        "image3": "/path/to/image3.jpg"
+      },
+      "roomType": "Queen Bed",
+      "roomNumber": "A-1234",
+      "clientName": "John Doe",
+      "checkInDate": "2025-01-05",
+      "checkOutDate": "2025-01-10",
+      "timestamp": "2024-06-19T10:00:00Z"
+    },
+    {
+      "images": {
+        "image1": "/path/to/image4.jpg",
+        "image2": "/path/to/image5.jpg",
+        "image3": "/path/to/image6.jpg"
+      },
+      "roomType": "Deluxe Room",
+      "roomNumber": "B-2345",
+      "clientName": "Jane Smith",
+      "checkInDate": "2025-01-12",
+      "checkOutDate": "2025-01-15",
+      "timestamp": "2024-06-19T12:00:00Z"
+    },
+    {
+      "images": {
+        "image1": "/path/to/image7.jpg",
+        "image2": "/path/to/image8.jpg",
+        "image3": "/path/to/image9.jpg"
+      },
+      "roomType": "King Big",
+      "roomNumber": "C-3456",
+      "clientName": "Alice Johnson",
+      "checkInDate": "2025-01-20",
+      "checkOutDate": "2025-01-25",
+      "timestamp": "2024-06-19T14:00:00Z"
+    },
+    {
+      "images": {
+        "image1": "/path/to/image10.jpg",
+        "image2": "/path/to/image11.jpg",
+        "image3": "/path/to/image12.jpg"
+      },
+      "roomType": "Queen Bed",
+      "roomNumber": "A-4567",
+      "clientName": "Bob Brown",
+      "checkInDate": "2025-01-07",
+      "checkOutDate": "2025-01-09",
+      "timestamp": "2024-06-19T11:00:00Z"
+    },
+    {
+      "images": {
+        "image1": "/path/to/image13.jpg",
+        "image2": "/path/to/image14.jpg",
+        "image3": "/path/to/image15.jpg"
+      },
+      "roomType": "Deluxe Room",
+      "roomNumber": "B-5678",
+      "clientName": "Carol White",
+      "checkInDate": "2025-01-15",
+      "checkOutDate": "2025-01-18",
+      "timestamp": "2024-06-19T12:00:00Z"
+    }
+  ]
+
+const mockComments = [
+    {
+      "text": "Great article! Really enjoyed reading it.",
+      "userName": "John Doe",
+      "timestamp": "2023-06-15T08:30:00Z"
+    },
+    {
+      "text": "Interesting insights. Looking forward to more!",
+      "userName": "Alice Johnson",
+      "timestamp": "2024-06-19T15:25:00Z"
+    },
+    {
+      "text": "Well written. Thanks for sharing.",
+      "userName": "Jane Smith",
+      "timestamp": "2023-06-13T12:00:00Z"
+    }
+  ]
+  
+  
 
 const Dashboard = styled.div`
     background-color: #F8F8F8;
@@ -67,15 +157,58 @@ const IconContainer = styled.div`
     margin-right: 22px;
 `;
 
+const BookingSummaryList = styled.div`
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 50px 40px;
+    border-radius: 20px;
+`;
+
+const CommentList = styled.div`
+    margin: 0 50px 50px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px 30px 70px;
+    h3 {
+        font-size: 20px;
+        margin-bottom: 30px;
+        font-weight: 400;
+    }
+    div {
+        display: flex;
+        justify-content: space-between;
+    }
+    `;
+
 const DashboardPage = () => {
 
     let isLoggedIn = localStorage.getItem('token');
+    const [sortedBookings, setSortedBookings] = useState([]);
 
     const navigate = useNavigate();
     const logoutHandler = () => {
         localStorage.setItem('token', 'false');
         navigate('login');
     }
+
+    const sortBookings = (bookings) => {
+        return bookings.sort((a, b) => new Date(a.checkInDate) - new Date(b.checkInDate));
+    }
+
+    const getTimeDifference = (timestamp) => {
+        const now = new Date();
+        const then = new Date(timestamp);
+        const differenceInMs = now - then;
+        const differenceInMinutes = Math.floor(differenceInMs / 60000);
+        return `${differenceInMinutes}`;
+      };
+      
+
+    useEffect(() => {
+        setSortedBookings(sortBookings(mockBookings));
+    }, [])
 
     return (
         <>
@@ -129,7 +262,19 @@ const DashboardPage = () => {
                                 <div className="calendar"></div>
                                 <div className="graph"></div>
                             </div>
-                            <BookingSummary/>
+                            <BookingSummaryList>
+                                {sortedBookings.slice(0, 4).map(booking => (
+                                    <BookingSummary booking={booking} timeAgo={getTimeDifference(booking.timestamp)}/>
+                                ))}
+                            </BookingSummaryList>
+                            <CommentList>
+                                <h3>Latest Reviews by Customers</h3>
+                                <div>
+                                    {mockComments.map(comment => (
+                                        <Comment comment={comment} timeAgo={getTimeDifference(comment.timestamp)}/>
+                                    ))}
+                                </div>    
+                            </CommentList>
                         </div>
                     </div>
                 </Dashboard>

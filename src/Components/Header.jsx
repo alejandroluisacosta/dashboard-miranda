@@ -42,30 +42,30 @@ const Header = () => {
     return (
         <HeaderContainer>
             <Left>
-                <span class="material-symbols-outlined">
+                <span className="material-symbols-outlined">
                     menu
                 </span>
                 <p>Dashboard</p>
             </Left>
             <Right>
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
                 search
             </span>
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
                 favorite
             </span>
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
                 inbox
             </span>
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
                 room_service
             </span>
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
                 chat
             </span>
                 <div>
                     <p>EN</p>
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         keyboard_arrow_down
                     </span>
                 </div>
