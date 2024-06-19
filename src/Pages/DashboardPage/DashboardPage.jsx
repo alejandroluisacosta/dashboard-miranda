@@ -5,6 +5,7 @@ import { FaHotel } from "react-icons/fa";
 import { LuBedDouble, LuCalendarCheck2 } from "react-icons/lu";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import Header from "../../Components/Header";
+import BookingSummary from "../../Components/BookingSummary";
 
 
 const mockData = [
@@ -23,7 +24,8 @@ const Dashboard = styled.div`
 
     .calendar-graph-container {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        margin: 0 50px;
         .calendar, .graph {
             width: 500px;
             height: 400px;
@@ -34,7 +36,7 @@ const Dashboard = styled.div`
 
 const KpiContainer = styled.section`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 50px; 
 
         .icon {
@@ -127,6 +129,7 @@ const DashboardPage = () => {
                                 <div className="calendar"></div>
                                 <div className="graph"></div>
                             </div>
+                            <BookingSummary/>
                         </div>
                     </div>
                 </Dashboard>

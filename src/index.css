@@ -9,6 +9,7 @@ html, * {
   --light-gray: #F8F8F8;
   --red: #E23428;
   --pink: #FFEDEC;
+  --gray: #393939;
 }
 
 h1, h2, h3, p {
