@@ -2,6 +2,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent";
 import styled from "styled-components";
 import { FaHotel } from "react-icons/fa";
+import Header from "../../Components/Header";
 
 
 const mockData = [
@@ -15,6 +16,7 @@ const Dashboard = styled.div`
     background-color: #F8F8F8;
     .page-container {
         display: flex;
+        overflow: hidden;
     }
 
     .kpi-container {
@@ -74,8 +76,7 @@ const DashboardPage = () => {
                     <div className="page-container">
                         <SideBarComponent/>
                         <div className="main-content">
-                            <h1>Dashboard Page</h1>
-                            <button onClick={logoutHandler}>Logout</button>
+                            <Header/>
                             <section className="kpi-container">
                                 <div className="kpi">
                                     <div className="icon-container">
