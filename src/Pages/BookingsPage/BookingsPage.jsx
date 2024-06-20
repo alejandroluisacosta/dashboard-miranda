@@ -3,6 +3,7 @@ import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent
 import styled from "styled-components";
 import TableComponent from "../../Components/TableComponent/TableComponent";
 import Header from "../../Components/Header";
+import FilterTabs from "../../Components/FilterTabs";
 
 const Bookings = styled.div`
     background-color: var(--light-gray);
@@ -130,6 +131,7 @@ const BookingsPage = () => {
                         <SideBarComponent/>
                         <div className="main-content">
                           <Header/>
+                          <FilterTabs />
                           <TableComponent data={data} columns={columns}/>
                         </div>
                     </div>
