@@ -6,18 +6,87 @@ import TableComponent from "../../Components/TableComponent/TableComponent";
 import Header from "../../Components/Header";
 
 const StyledNameColumn = styled.div`
+    display: flex;
+    border-bottom: 0 !important;
     img {
         width: 150px;
         height: 77px;
     }
+    div {
+      border-bottom: 0;
+    }
 `;
+
+const mockRooms = [
+  {
+    roomDescription: {
+      name: 'Ocean View Suite',
+      id: '#1234',
+      image: '/assets/HotelRoom3.jpeg',
+    },
+    'room type': 'Suite',
+    amenities: 'Ocean view, King bed, Jacuzzi',
+    price: '$300',
+    offer: '20% off',
+    status: 'Available',
+  },
+  {
+    roomDescription: {
+      name: 'Standard Room',
+      id: '#5678',
+      image: '/assets/HotelRoom3.jpeg',
+    },
+    'room type': 'Standard',
+    amenities: 'Queen bed, City view',
+    price: '$150',
+    offer: '10% off',
+    status: 'Available',
+  },
+  {
+    roomDescription: {
+      name: 'Executive Suite',
+      id: '#9012',
+      image: '/assets/HotelRoom3.jpeg',
+    },
+    'room type': 'Executive',
+    amenities: 'City view, Living room, Kitchenette',
+    price: '$400',
+    offer: '30% off',
+    status: 'Booked',
+  },
+  {
+    roomDescription: {
+      name: 'Family Room',
+      id: '#3456',
+      image: '/assets/HotelRoom3.jpeg',
+    },
+    'room type': 'Family',
+    amenities: 'Two bedrooms, Garden view',
+    price: '$250',
+    offer: '15% off',
+    status: 'Available',
+  },
+  {
+    roomDescription: {
+      name: 'Deluxe Room',
+      id: '#7890',
+      image: '/assets/HotelRoom3.jpeg',
+    },
+    'room type': 'Deluxe',
+    amenities: 'Ocean view, Balcony',
+    price: '$350',
+    offer: '25% off',
+    status: 'Booked',
+  }
+];
+
 
 const columns = [
     {
       label: 'Room Name',
       display: row => (
         <StyledNameColumn>
-          <img src="/assets/HotelRoom3.jpeg"/>
+          <img src={row.image} alt="Room image"/>
           <div>
             <p>{row.name}</p>
             <p>{row.id}</p>
@@ -27,19 +96,20 @@ const columns = [
     },
     {
       label: 'Room Type',
-      property: 'room type'
+      property: 'room type',
     },
     {
       label: 'Amenities',
-      property: 'amenities'
+      property: 'amenities',
+
     },
     {
       label: 'Price',
-      property: 'price'
+      property: 'price',
     },
     {
       label: 'Offer',
-      property: 'offer'
+      property: 'offer',
     },
     {
       label: 'Status',
@@ -48,10 +118,10 @@ const columns = [
       )
     },
   ];
-
-const StyledRooms = styled.div`
-
-`;
+  
+  const StyledRooms = styled.div`
+  
+  `;
 
 const RoomsPage = () => {
 
@@ -76,7 +146,7 @@ const RoomsPage = () => {
                           <div className="filter-container">
                             <FilterTabs/>
                           </div>
-                          {/* <TableComponent/> */}
+                          <TableComponent data={mockRooms} columns={columns}/>
                         </div>
                     </div>
                 </StyledRooms>
