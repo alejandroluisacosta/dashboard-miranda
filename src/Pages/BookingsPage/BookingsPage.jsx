@@ -140,6 +140,7 @@ const BookingsPage = () => {
         const sortedBookings = allBookings.sort((a, b) => new Date(a[value]) - new Date(b[value]));
         setRenderedBookigs(sortedBookings);
       }
+      event.target.selected = true; // NOT WORKING
     }
 
     const filterByNameHandler = (event) => {

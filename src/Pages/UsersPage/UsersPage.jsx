@@ -4,6 +4,7 @@ import styled from "styled-components";
 import TableComponent from "../../Components/TableComponent/TableComponent";
 import Header from "../../Components/Header";
 import { useEffect, useState } from "react";
+import FilterTabs from "../../Components/FilterTabs";
 
 
 const Users = styled.div`
@@ -144,18 +145,25 @@ const UsersPage = () => {
       return users.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn));
   }
 
-  useEffect(() => {
-    setUsers(sortUsersHandler('incorporatedOn'));
-  }, [])
+  // useEffect(() => {
+  //   setUsers(sortUsersHandler('incorporatedOn'));
+  // }, [])
 
     const sortUsersHandler = (event, value) => {
+      const allUsers = [...mockUsers];
       if (value === 'incorporatedOn') {
-        setUsers(users.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn)));
-      } else {
-        setUsers(users.sort((a, b) => a.basicInfo.name.localeCompare(b.basicInfo.name)));
+        setUsers(allUsers.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn)));
+      } else if (value === 'active') {
+        const filteredUsers = allUsers.filter(user => user.status === 'Active')
+        setUsers(filteredUsers);
+      } else if (value === 'inactive') {
+        const filteredUsers = allUsers.filter(user => user.status === 'Inactive')
+        setUsers(filteredUsers);
+      } else if (value === 'name') {
+        setUsers(allUsers.sort((a, b) => a.basicInfo.name.localeCompare(b.basicInfo.name)));
       }
     }
-    
+
     return (
         <>
             {
@@ -166,7 +174,15 @@ const UsersPage = () => {
                         <SideBarComponent/>
                         <div className="main-content">
                             <Header/>
-                            <TableComponent data={mockUsers} columns={columns}/>
+                            <FilterTabs 
+                              sortHandler={sortUsersHandler}
+                              fields={{
+                                'All employees': 'incorporatedOn',
+                                'Active employees': 'Active',
+                                'Inactive employees': 'inactive',
+                              }}
+                            />
+                            <TableComponent data={users} columns={columns}/>
                         </div>
                     </div>
                 </Users>
