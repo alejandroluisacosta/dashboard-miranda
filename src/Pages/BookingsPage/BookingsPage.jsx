@@ -56,7 +56,7 @@ const data = [
     },
   ];
   
-const columns = ['Name', 'Order Date', 'Check-in Date', 'Check-out Date', 'Special Request', 'Room Type', 'Status'];
+const columns = ['Guest', 'Order Date', 'Check In', 'Check Out', 'Special Request', 'Room Type', 'Status'];
 
 
 const BookingsPage = () => {

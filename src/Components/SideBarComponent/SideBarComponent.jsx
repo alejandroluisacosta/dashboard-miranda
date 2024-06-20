@@ -3,7 +3,6 @@ import { FaHotel } from "react-icons/fa";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TfiKey } from "react-icons/tfi";
 import { LuCalendarCheck2 } from "react-icons/lu";
-import { CiUser } from "react-icons/ci";
 import { HiOutlinePuzzle } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 

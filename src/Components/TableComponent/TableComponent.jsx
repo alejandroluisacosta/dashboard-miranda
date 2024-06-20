@@ -5,22 +5,14 @@ const Grid = styled.div`
     background-color: white;
     margin: 30px 50px;
     border-radius: 20px;
-    table {
-        table-layout: auto;
-    }
-    table {
-        width: 100%;
-        padding: 20px 30px;
-        border-collapse: collapse;
-        text-align: left;
-    }
-    th, td {
+    padding: 20px 30px;
+    div {
         border-bottom: 1px solid #ccc;
     }
-    th {
-        padding: 20px 30px;
+    .grid-header-item {
+        padding: 20px 0;
     }
-    td {
+    .grid-cell {
         padding: 24px 0;
     }
 `;
@@ -28,45 +20,16 @@ const Grid = styled.div`
 const TableComponent = ({ data, columns }) => {
     return (
         <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}>
-            <div class="grid-container">
-                <div class="grid-header">
-                    {columns.map(column => 
-                        <div class="grid-header-item">{column}</div>
-                    )}
-                </div>
-                <div class="grid-body">
-                    {data.map(row => 
-                        <div class="grid-row">
-                            {Object.values(row).map(dataPoint => 
-                                <div class="grid-cell">{dataPoint}</div>
-                            )}
-                        </div>  
-                    )}
-                </div>
-            </div>
+            {columns.map(column => 
+                <div class="grid-header-item">{column}</div>
+            )}
+            {data.map(row => 
+                Object.values(row).map(dataPoint => 
+                    <div class="grid-cell">{dataPoint}</div>
+                )
+            )}
         </Grid>
     )
 }
 
 export default TableComponent;
-
-{/* <Table>
-<table>
-    <thead>
-        <tr>
-            {columns.map(column => 
-                <th>{column}</th>
-            )}
-        </tr>
-    </thead>
-    <tbody>
-        {data.map(row => 
-            <tr>
-                {Object.values(row).map(dataPoint => 
-                    <td>{dataPoint}</td>
-                )}
-            </tr>  
-        )}
-    </tbody>
-</table>
-</Table> */}
