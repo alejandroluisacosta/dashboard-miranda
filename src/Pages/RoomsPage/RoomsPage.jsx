@@ -11,6 +11,7 @@ const StyledNameColumn = styled.div`
     img {
         width: 150px;
         height: 77px;
+        margin-right: 30px;
     }
     div {
       border-bottom: 0;
@@ -20,11 +21,11 @@ const StyledNameColumn = styled.div`
 const mockRooms = [
   {
     roomDescription: {
-      name: 'Ocean View Suite',
+      name: 'Deluxe A-91234',
       id: '#1234',
       image: '/assets/HotelRoom3.jpeg',
     },
-    'room type': 'Suite',
+    'room type': 'Single Bed',
     amenities: 'Ocean view, King bed, Jacuzzi',
     price: '$300',
     offer: '20% off',
@@ -32,11 +33,11 @@ const mockRooms = [
   },
   {
     roomDescription: {
-      name: 'Standard Room',
+      name: 'Deluxe A-91234',
       id: '#5678',
       image: '/assets/HotelRoom3.jpeg',
     },
-    'room type': 'Standard',
+    'room type': 'Single Bed',
     amenities: 'Queen bed, City view',
     price: '$150',
     offer: '10% off',
@@ -44,11 +45,11 @@ const mockRooms = [
   },
   {
     roomDescription: {
-      name: 'Executive Suite',
+      name: 'Deluxe A-91234',
       id: '#9012',
       image: '/assets/HotelRoom3.jpeg',
     },
-    'room type': 'Executive',
+    'room type': 'Double Bed',
     amenities: 'City view, Living room, Kitchenette',
     price: '$400',
     offer: '30% off',
@@ -56,11 +57,11 @@ const mockRooms = [
   },
   {
     roomDescription: {
-      name: 'Family Room',
+      name: 'Deluxe A-91234',
       id: '#3456',
       image: '/assets/HotelRoom3.jpeg',
     },
-    'room type': 'Family',
+    'room type': 'Double Superior',
     amenities: 'Two bedrooms, Garden view',
     price: '$250',
     offer: '15% off',
@@ -68,11 +69,11 @@ const mockRooms = [
   },
   {
     roomDescription: {
-      name: 'Deluxe Room',
+      name: 'Deluxe A-91234',
       id: '#7890',
       image: '/assets/HotelRoom3.jpeg',
     },
-    'room type': 'Deluxe',
+    'room type': 'Suite',
     amenities: 'Ocean view, Balcony',
     price: '$350',
     offer: '25% off',
@@ -88,8 +89,8 @@ const columns = [
         <StyledNameColumn>
           <img src={row.image} alt="Room image"/>
           <div>
-            <p>{row.name}</p>
             <p>{row.id}</p>
+            <p>{row.name}</p>
           </div>
         </StyledNameColumn>
       )
@@ -119,9 +120,9 @@ const columns = [
     },
   ];
   
-  const StyledRooms = styled.div`
-  
-  `;
+const StyledRooms = styled.div`
+  background-color: var(--light-gray);
+`;
 
 const RoomsPage = () => {
 
@@ -143,9 +144,6 @@ const RoomsPage = () => {
                         <SideBarComponent/>
                         <div className="main-content">
                           <Header/>
-                          <div className="filter-container">
-                            <FilterTabs/>
-                          </div>
                           <TableComponent data={mockRooms} columns={columns}/>
                         </div>
                     </div>

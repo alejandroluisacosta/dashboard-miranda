@@ -13,13 +13,13 @@ const Grid = styled.div`
         padding: 20px 0;
     }
     .grid-cell {
-        padding: 24px 0;
+        padding: 24px 10px;
     }
 `;
 
 const TableComponent = ({ data, columns }) => {
     return (
-        <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}>
+        <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
             {columns.map(column => 
                 <div className="grid-header-item">{column.label}</div>
             )}
