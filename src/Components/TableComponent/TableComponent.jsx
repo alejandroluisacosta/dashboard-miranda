@@ -21,11 +21,11 @@ const TableComponent = ({ data, columns }) => {
     return (
         <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}>
             {columns.map(column => 
-                <div class="grid-header-item">{column}</div>
+                <div className="grid-header-item">{column.label}</div>
             )}
             {data.map(row => 
-                Object.values(row).map(dataPoint => 
-                    <div class="grid-cell">{dataPoint}</div>
+                Object.values(row).map((dataPoint, index) => 
+                    <div className="grid-cell">{columns[index].display ? columns[index].display(dataPoint) : dataPoint}</div>
                 )
             )}
         </Grid>
