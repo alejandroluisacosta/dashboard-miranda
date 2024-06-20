@@ -4,12 +4,13 @@ import styled from "styled-components";
 import TableComponent from "../../Components/TableComponent/TableComponent";
 import Header from "../../Components/Header";
 import FilterTabs from "../../Components/FilterTabs";
+import { useEffect, useState } from "react";
 
 const Bookings = styled.div`
     background-color: var(--light-gray);
 `;
 
-const data = [
+const mockBookings = [
   {
     identification: {
       name: 'John Doe',
@@ -17,7 +18,7 @@ const data = [
     },
     orderDate: '2024-06-01',
     checkInDate: '2024-06-15',
-    checkOutDate: '2024-06-20',
+    checkOutDate: '2024-06-17',
     specialRequest: true,
     roomType: 'Double Room',
     status: 'booked'
@@ -113,12 +114,27 @@ const columns = [
 
 
 const BookingsPage = () => {
+
+    const [renderedBookings, setRenderedBookigs] = useState(mockBookings);
+
     let isLoggedIn = localStorage.getItem('token');
 
     const navigate = useNavigate();
     const logoutHandler = () => {
         localStorage.setItem('token', 'false');
         navigate('login');
+    }
+
+    const sortBookingsHandler = (event, value) => {
+      const allBookings = [...mockBookings];
+      if (value === 'inProgress') {
+        const today = new Date();
+        const filteredBookings = renderedBookings.filter(booking => new Date(booking.checkInDate) < today && new Date(booking.checkOutDate) > today);
+        setRenderedBookigs(filteredBookings);
+      } else {
+        const sortedBookings = allBookings.sort((a, b) => new Date(a[value]) - new Date(b[value]));
+        setRenderedBookigs(sortedBookings);
+      }
     }
 
     return (
@@ -131,8 +147,8 @@ const BookingsPage = () => {
                         <SideBarComponent/>
                         <div className="main-content">
                           <Header/>
-                          <FilterTabs />
-                          <TableComponent data={data} columns={columns}/>
+                          <FilterTabs sortBookings={sortBookingsHandler}/>
+                          <TableComponent data={renderedBookings} columns={columns}/>
                         </div>
                     </div>
                 </Bookings>
