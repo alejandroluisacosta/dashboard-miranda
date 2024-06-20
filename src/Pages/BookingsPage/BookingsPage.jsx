@@ -5,9 +5,14 @@ import TableComponent from "../../Components/TableComponent/TableComponent";
 import Header from "../../Components/Header";
 import FilterTabs from "../../Components/FilterTabs";
 import { useEffect, useState } from "react";
+import FilterInput from "../../Components/FilterInput";
 
 const Bookings = styled.div`
     background-color: var(--light-gray);
+    .filter-container {
+      display: flex;
+      align-items: center;
+    }
 `;
 
 const mockBookings = [
@@ -137,6 +142,12 @@ const BookingsPage = () => {
       }
     }
 
+    const filterByNameHandler = (event) => {
+      const allBookings = [...mockBookings];
+      const bookingsFilteredByName = allBookings.filter(booking => booking.identification.name.includes(event.target.value));
+      setRenderedBookigs(bookingsFilteredByName);
+  };
+
     return (
         <>
             {
@@ -147,7 +158,10 @@ const BookingsPage = () => {
                         <SideBarComponent/>
                         <div className="main-content">
                           <Header/>
-                          <FilterTabs sortBookings={sortBookingsHandler}/>
+                          <div className="filter-container">
+                            <FilterTabs sortBookings={sortBookingsHandler}/>
+                            <FilterInput filterByName={filterByNameHandler}/>
+                          </div>
                           <TableComponent data={renderedBookings} columns={columns}/>
                         </div>
                     </div>
