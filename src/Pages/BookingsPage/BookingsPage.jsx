@@ -159,7 +159,15 @@ const BookingsPage = () => {
                         <div className="main-content">
                           <Header/>
                           <div className="filter-container">
-                            <FilterTabs sortBookings={sortBookingsHandler}/>
+                            <FilterTabs 
+                              sortHandler={sortBookingsHandler}
+                              fields={{
+                                'All bookings': 'orderDate',
+                                'Check in': 'checkInDate',
+                                'Check Out': 'checkOutDate',
+                                'In Progress': 'inProgress',
+                              }}
+                            />
                             <FilterInput filterByName={filterByNameHandler}/>
                           </div>
                           <TableComponent data={renderedBookings} columns={columns}/>

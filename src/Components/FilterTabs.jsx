@@ -12,13 +12,12 @@ const StyledButton = styled.p`
     border-bottom: ${props => props.selected ? '1px solid var(--ocher-green)' : 'none' }
 `;
 
-const FilterTabs = ({ sortBookings }) => {
+const FilterTabs = ({ sortHandler, fields }) => {
     return (
         <StyledFilterTabs>
-            <StyledButton value="orderDate" selected={true} onClick={event => sortBookings(event, 'orderDate')}>All Bookings</StyledButton>
-            <StyledButton value="checkInDate" selected={false} onClick={event => sortBookings(event, 'checkInDate')}>Check In</StyledButton>
-            <StyledButton value="checkOutDate" selected={false} onClick={event => sortBookings(event, 'checkOutDate')}>Check Out</StyledButton>
-            <StyledButton value="inProgress" selected={false} onClick={event => sortBookings(event, 'inProgress')}>In Progress</StyledButton>
+            {Object.entries(fields).map(([key, value]) => (
+                <StyledButton value={value} onClick={event => sortHandler(event, value)}>{key}</StyledButton>
+            ))}
         </StyledFilterTabs>
     )
 }

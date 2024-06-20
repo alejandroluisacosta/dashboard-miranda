@@ -3,6 +3,7 @@ import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent
 import styled from "styled-components";
 import TableComponent from "../../Components/TableComponent/TableComponent";
 import Header from "../../Components/Header";
+import { useEffect, useState } from "react";
 
 
 const Users = styled.div`
@@ -102,6 +103,18 @@ const mockUsers = [
   },
   {
     basicInfo: {
+      name: 'Edward Wilson',
+      id: '#005',
+      incorporatedOn: '2022-05-05',
+      image: '/assets/user.jpeg'
+    },
+    jobDesk: 'Managing restaurant operations, overseeing food and beverage services, and ensuring guest satisfaction.',
+    schedule: 'Friday, Sunday',
+    contact: '555-7890',
+    status: 'Active',
+  },
+  {
+    basicInfo: {
       name: 'Diana Evans',
       id: '#004',
       incorporatedOn: '2022-04-30',
@@ -112,18 +125,6 @@ const mockUsers = [
     contact: '555-4321',
     status: 'Inactive',
   },
-  {
-    basicInfo: {
-      name: 'Edward Wilson',
-      id: '#005',
-      incorporatedOn: '2022-05-05',
-      image: '/assets/user.jpeg'
-    },
-    jobDesk: 'Managing restaurant operations, overseeing food and beverage services, and ensuring guest satisfaction.',
-    schedule: 'Friday, Sunday',
-    contact: '555-7890',
-    status: 'Active',
-  }
 ];
 
 
@@ -131,11 +132,28 @@ const mockUsers = [
 const UsersPage = () => {
     
     let isLoggedIn = localStorage.getItem('token');
+    const [users, setUsers] = useState(mockUsers);
 
     const navigate = useNavigate();
     const logoutHandler = () => {
         localStorage.setItem('token', 'false');
         navigate('login');
+    }
+
+    const sortUsersInitially = (users) => {
+      return users.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn));
+  }
+
+  useEffect(() => {
+    setUsers(sortUsersHandler('incorporatedOn'));
+  }, [])
+
+    const sortUsersHandler = (event, value) => {
+      if (value === 'incorporatedOn') {
+        setUsers(users.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn)));
+      } else {
+        setUsers(users.sort((a, b) => a.basicInfo.name.localeCompare(b.basicInfo.name)));
+      }
     }
     
     return (
