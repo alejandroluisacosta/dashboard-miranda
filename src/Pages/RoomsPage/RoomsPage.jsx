@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent";
 import FilterTabs from "../../Components/FilterTabs";
