@@ -2,9 +2,10 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Header from "../../Components/Header";
 import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent";
 import styled from "styled-components";
+import BookingDetails from "../../Components/BookingDetails";
 
-const StyledRoomDetails = styled.div`
-
+const StyledBookingDetailsPage = styled.div`
+    background-color: var(--light-gray);
 `;
 
 const BookingDetailsPage = () => {
@@ -22,14 +23,15 @@ const BookingDetailsPage = () => {
         {
         isLoggedIn && isLoggedIn !== 'false' ? 
         <>
-            <StyledRoomDetails>
+            <StyledBookingDetailsPage>
                 <div className="page-container">
                     <SideBarComponent/>
                     <div className="main-content">
                       <Header />
+                      <BookingDetails />
                     </div>
                 </div>
-            </StyledRoomDetails>
+            </StyledBookingDetailsPage>
         </>
         :
         <Navigate to="/login"/>
