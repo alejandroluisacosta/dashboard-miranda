@@ -145,14 +145,15 @@ const UsersPage = () => {
       return users.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn));
   }
 
-  // useEffect(() => {
-  //   setUsers(sortUsersHandler('incorporatedOn'));
-  // }, [])
+  useEffect(() => {
+    setUsers(sortUsersHandler('incorporatedOn'));
+  }, [])
 
     const sortUsersHandler = (event, value) => {
       const allUsers = [...mockUsers];
       if (value === 'incorporatedOn') {
-        setUsers(allUsers.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn)));
+        allUsers.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn));
+        setUsers(allUsers);
       } else if (value === 'active') {
         const filteredUsers = allUsers.filter(user => user.status === 'Active')
         setUsers(filteredUsers);
