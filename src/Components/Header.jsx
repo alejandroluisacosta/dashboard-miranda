@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { AuthContext } from "./Auth";
 
 const HeaderContainer = styled.div`
     padding: 30px 5%;
@@ -36,9 +38,25 @@ const Right = styled.div`
             color: var(--red);
         }
     }
+    img {
+        width: 45px;
+        height: 45px;
+        border-radius: 8px;
+    }
 `;
 
 const Header = () => {
+
+    const { authDispatch } = useContext(AuthContext);
+
+    const logOutHandler = () => {
+        authDispatch({type: 'LOGOUT'});
+    }
+
+    const modifyUserHandler = () => {
+        authDispatch
+    }
+
     return (
         <HeaderContainer>
             <Left>
@@ -63,6 +81,7 @@ const Header = () => {
             <span className="material-symbols-outlined">
                 chat
             </span>
+            <img src="/assets/user.jpeg" onClick={logOutHandler} alt="Profile icon"/>
                 <div>
                     <p>EN</p>
                     <span className="material-symbols-outlined">

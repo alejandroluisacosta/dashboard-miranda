@@ -14,22 +14,32 @@ const getInitialAuthState = () => {
 const types = {
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
+    MODIFY: 'MODIFY',
 }
 
 const authReducer = (state, action) => {
+    const newState = {};
     switch (action.type) {
         case types.LOGIN:
-            const newState = {
-                ...state,
-                userName: action.payload.userName,
-                userEmail: action.payload.userEmail,
-                isLoggedIn: true
+                newState = {
+                    ...state,
+                    userName: action.payload.userName,
+                    userEmail: action.payload.userEmail,
+                    isLoggedIn: true
             };
             localStorage.setItem('auth', JSON.stringify(newState));
             return newState;
         case types.LOGOUT:
             localStorage.removeItem('auth');
             return null;
+        case types.MODIFY:
+                newState = {
+                    ...state,
+                    userName: 'Alejandro',
+                    userEmail: 'alejandro@oxygen.com',
+            };
+            localStorage.setItem('auth', JSON.stringify(newState));
+            return newState;
         default:
             return {...state};
     }
