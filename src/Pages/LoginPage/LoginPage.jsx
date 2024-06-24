@@ -1,7 +1,12 @@
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Components/Auth";
 import { useNavigate } from "react-router-dom"
 
 
-const LoginPage = ({ authHandler }) => {
+const LoginPage = () => {
+
+    const { authDispatch } = useContext(AuthContext);
+    const [error, setError] = useState("");
 
     const navigate = useNavigate();
     
@@ -13,16 +18,17 @@ const LoginPage = ({ authHandler }) => {
         const password = event.target.elements.password.value;
 
         if (username === 'John' && password === '1234') {
-            authHandler();
+            authDispatch({type: 'LOGIN', payload: {userName: username, userEmail: 'john@oxygen.com'}});
             navigate('/');
         }
         else 
-            alert('Incorrect name or password')
+            setError("Incorrect username or password.");
     }
 
     return (
         <>
             <h1>Login</h1>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={submitHandler}>
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username" placeholder="Your username"/>

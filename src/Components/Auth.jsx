@@ -19,9 +19,17 @@ const types = {
 const authReducer = (state, action) => {
     switch (action.type) {
         case types.LOGIN:
-            return {...state, userName: action.payload.username, userEmail: action.payload.email, isLoggedIn: true}
+            const newState = {
+                ...state,
+                userName: action.payload.userName,
+                userEmail: action.payload.userEmail,
+                isLoggedIn: true
+            };
+            localStorage.setItem('auth', JSON.stringify(newState));
+            return newState;
         case types.LOGOUT:
-            return {isLoggedIn: false};
+            localStorage.removeItem('auth');
+            return null;
         default:
             return {...state};
     }
@@ -29,7 +37,7 @@ const authReducer = (state, action) => {
 
 export const AuthProvider = ({ children }) => {
     
-    const [authState, authDispatch] = useReducer(authReducer, getInitialAuthState);
+    const [authState, authDispatch] = useReducer(authReducer, getInitialAuthState());
 
     return (
         <AuthContext.Provider value={{ authState, authDispatch }}>

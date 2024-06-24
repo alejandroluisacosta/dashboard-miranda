@@ -17,29 +17,21 @@ import { AuthProvider } from './Components/Auth'
 
 const App = () => {
 
-  const [auth, setAuth] = useState(localStorage.getItem('token'));
-
-  const authHandler = () => {
-    const token = "A1b2C3!?/"
-    localStorage.setItem('token', token);
-    setAuth(true);
-  }
-
     return (
       <>
         <React.StrictMode>
           <AuthProvider>
             <BrowserRouter>
               <Routes>
-                <Route path="login" element={<LoginPage authHandler={authHandler}/>} />
-                <Route path="" element={<ProtectedRoute auth={auth}><DashboardPage /></ProtectedRoute>} />
-                <Route path="bookings" element={<ProtectedRoute auth={auth}><BookingsPage /></ProtectedRoute>} />
-                <Route path="bookings/:id" element={<ProtectedRoute auth={auth}><BookingDetailsPage /></ProtectedRoute>} />
-                <Route path="rooms" element={<ProtectedRoute auth={auth}><RoomsPage /></ProtectedRoute>} />
-                <Route path="rooms/add" element={<ProtectedRoute auth={auth}><AddRoomPage /></ProtectedRoute>} />
-                <Route path="users" element={<ProtectedRoute auth={auth}><UsersPage /></ProtectedRoute>} />
-                <Route path="users/add" element={<ProtectedRoute auth={auth}><AddUserPage /></ProtectedRoute>} />
-                <Route path="contact" element={<ProtectedRoute auth={auth}><ContactPage /></ProtectedRoute>} />
+                <Route path="login" element={<LoginPage/>} />
+                <Route path="" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+                <Route path="bookings" element={<ProtectedRoute><BookingsPage /></ProtectedRoute>} />
+                <Route path="bookings/:id" element={<ProtectedRoute><BookingDetailsPage /></ProtectedRoute>} />
+                <Route path="rooms" element={<ProtectedRoute><RoomsPage /></ProtectedRoute>} />
+                <Route path="rooms/add" element={<ProtectedRoute><AddRoomPage /></ProtectedRoute>} />
+                <Route path="users" element={<ProtectedRoute><UsersPage /></ProtectedRoute>} />
+                <Route path="users/add" element={<ProtectedRoute><AddUserPage /></ProtectedRoute>} />
+                <Route path="contact" element={<ProtectedRoute><ContactPage /></ProtectedRoute>} />
               </Routes>
             </BrowserRouter>
           </AuthProvider>
