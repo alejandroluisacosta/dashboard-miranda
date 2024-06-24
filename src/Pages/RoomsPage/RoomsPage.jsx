@@ -1,8 +1,8 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent";
+import SideBarComponent from "../../Components/SideBarComponent";
 import FilterTabs from "../../Components/FilterTabs";
-import TableComponent from "../../Components/TableComponent/TableComponent";
+import TableComponent from "../../Components/TableComponent";
 import Header from "../../Components/Header";
 
 const StyledNameColumn = styled.div`

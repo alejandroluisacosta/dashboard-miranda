@@ -11,7 +11,8 @@ import BookingDetailsPage from './Pages/BookingDetailsPage/BookingDetailsPage'
 import AddRoomPage from './Pages/AddRoomPage/AddRoomPage'
 import AddUserPage from './Pages/AddUserPage/AddUserPage'
 import LoginPage from './Pages/LoginPage/LoginPage'
-import ProtectedRoute from './Components/ProtectedRouteComponent/ProtectedRoute'
+import ProtectedRoute from './Components/ProtectedRoute'
+import { AuthProvider } from './Components/Auth'
 
 
 const App = () => {
@@ -27,19 +28,21 @@ const App = () => {
     return (
       <>
         <React.StrictMode>
-          <BrowserRouter>
-            <Routes>
-              <Route path="login" element={<LoginPage authHandler={authHandler}/>} />
-              <Route path="" element={<ProtectedRoute auth={auth}><DashboardPage /></ProtectedRoute>} />
-              <Route path="bookings" element={<ProtectedRoute auth={auth}><BookingsPage /></ProtectedRoute>} />
-              <Route path="bookings/:id" element={<ProtectedRoute auth={auth}><BookingDetailsPage /></ProtectedRoute>} />
-              <Route path="rooms" element={<ProtectedRoute auth={auth}><RoomsPage /></ProtectedRoute>} />
-              <Route path="rooms/add" element={<ProtectedRoute auth={auth}><AddRoomPage /></ProtectedRoute>} />
-              <Route path="users" element={<ProtectedRoute auth={auth}><UsersPage /></ProtectedRoute>} />
-              <Route path="users/add" element={<ProtectedRoute auth={auth}><AddUserPage /></ProtectedRoute>} />
-              <Route path="contact" element={<ProtectedRoute auth={auth}><ContactPage /></ProtectedRoute>} />
-            </Routes>
-          </BrowserRouter>
+          <AuthProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="login" element={<LoginPage authHandler={authHandler}/>} />
+                <Route path="" element={<ProtectedRoute auth={auth}><DashboardPage /></ProtectedRoute>} />
+                <Route path="bookings" element={<ProtectedRoute auth={auth}><BookingsPage /></ProtectedRoute>} />
+                <Route path="bookings/:id" element={<ProtectedRoute auth={auth}><BookingDetailsPage /></ProtectedRoute>} />
+                <Route path="rooms" element={<ProtectedRoute auth={auth}><RoomsPage /></ProtectedRoute>} />
+                <Route path="rooms/add" element={<ProtectedRoute auth={auth}><AddRoomPage /></ProtectedRoute>} />
+                <Route path="users" element={<ProtectedRoute auth={auth}><UsersPage /></ProtectedRoute>} />
+                <Route path="users/add" element={<ProtectedRoute auth={auth}><AddUserPage /></ProtectedRoute>} />
+                <Route path="contact" element={<ProtectedRoute auth={auth}><ContactPage /></ProtectedRoute>} />
+              </Routes>
+            </BrowserRouter>
+          </AuthProvider>
         </React.StrictMode>
       </>
     )

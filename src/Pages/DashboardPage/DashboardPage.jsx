@@ -1,5 +1,5 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent";
+import SideBarComponent from "../../Components/SideBarComponent";
 import styled from "styled-components";
 import { FaHotel } from "react-icons/fa";
 import { LuBedDouble, LuCalendarCheck2 } from "react-icons/lu";

@@ -1,6 +1,6 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import Header from "../../Components/Header";
-import SideBarComponent from "../../Components/SideBarComponent/SideBarComponent";
+import SideBarComponent from "../../Components/SideBarComponent";
 import styled from "styled-components";
 import BookingDetails from "../../Components/BookingDetails";
 
