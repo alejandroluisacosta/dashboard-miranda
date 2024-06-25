@@ -19,17 +19,17 @@ export const GetBooking = createAsyncThunk('Bookings/GetBooking', async(id) => {
     return Booking;
 })
 
-export const AddBooking = createAsyncThunk('Bookings/CreateBooking', async() => {
-    const Bookings = delay(mockBookings);
-    return Bookings;
+export const AddBooking = createAsyncThunk('Bookings/CreateBooking', async(newBooking) => {
+    const Booking = delay(newBooking);
+    return Booking;
 })
 
-export const RemoveBooking = createAsyncThunk('Bookings/RemoveBooking', async() => {
-    const Bookings = delay(mockBookings);
-    return Bookings; 
+export const RemoveBooking = createAsyncThunk('Bookings/RemoveBooking', async(id) => {
+    const bookingId = delay(id);
+    return bookingId; 
 })
 
-export const EditBooking = createAsyncThunk('Bookings/RemoveBooking', async(id) => {
+export const EditBooking = createAsyncThunk('Bookings/EditBooking', async(id) => {
     const Booking = delay(mockBookings[id]);
     return Bookings; 
 })
@@ -95,7 +95,7 @@ const Bookings = createSlice({
         .addCase(RemoveBooking.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items.filter(booking => booking.id !== action.payload.id);
+            state.items = state.items.filter(booking => booking.identification.id !== action.payload);
         })
         .addCase(EditBooking.pending, state => {
             state.status = 'pending';

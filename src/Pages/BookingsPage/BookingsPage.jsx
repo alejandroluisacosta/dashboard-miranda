@@ -7,7 +7,7 @@ import FilterTabs from "../../Components/FilterTabs";
 import { useEffect, useState } from "react";
 import FilterInput from "../../Components/FilterInput";
 import { useDispatch, useSelector } from "react-redux";
-import { GetBookings } from "../../Features/Bookings";
+import { AddBooking, GetBookings, RemoveBooking } from "../../Features/Bookings";
 
 const Bookings = styled.div`
     background-color: var(--light-gray);
@@ -16,49 +16,64 @@ const Bookings = styled.div`
       align-items: center;
     }
 `;
-  
-const columns = [
-  {
-    label: 'Guest',
-    display: row => (
-      <>
-        <p>{row.name}</p>
-        <p>{row.id}</p>
-      </>
-    )
-  },
-  {
-    label: 'Order Date',
-    property: 'order date'
-  },
-  {
-    label: 'Check In',
-    property: 'check in'
-  },
-  {
-    label: 'Check Out',
-    property: 'check out'
-  },
-  {
-    label: 'Special Request',
-    display: specialRequest => (
-      specialRequest ? <button>View Notes</button> : <button disabled>View Notes</button>
-    )
-  },
-  {
-    label: 'Room Type',
-    property: 'room type'
-  },
-  {
-    label: 'Status',
-    property: 'status'
-  }
-];
+
+const StyledStatus = styled.div`
+    position: relative;
+    border-bottom: 0 !important;
+    span {
+      position: absolute;
+      right: 0;
+      top: 50%;
+    }
+`;
+
 
 
 const BookingsPage = () => {
-
-    const [renderedBookings, setRenderedBookigs] = useState([{a: "a"}]);
+  
+    const columns = [
+      {
+        label: 'Guest',
+        display: row => (
+          <>
+            <p>{row.name}</p>
+            <p>{row.id}</p>
+          </>
+        )
+      },
+      {
+        label: 'Order Date',
+        property: 'order date'
+      },
+      {
+        label: 'Check In',
+        property: 'check in'
+      },
+      {
+        label: 'Check Out',
+        property: 'check out'
+      },
+      {
+        label: 'Special Request',
+        display: specialRequest => (
+          specialRequest ? <button>View Notes</button> : <button disabled>View Notes</button>
+        )
+      },
+      {
+        label: 'Room Type',
+        property: 'room type'
+      },
+      {
+        label: 'Status',
+        display: (status, identification) => (
+          <StyledStatus>
+            <p>{status}</p>
+            <span className="material-symbols-outlined" onClick={() => {console.log(identification); dispatch(RemoveBooking(identification))}}>delete</span>
+          </StyledStatus>
+        )
+      },
+    ];
+    const [renderedBookings, setRenderedBookigs] = useState([]);
     let isLoggedIn = localStorage.getItem('token');
     const dispatch = useDispatch();
     const BookingsStatus = useSelector(state => state.Bookings.status);
@@ -81,48 +96,57 @@ const BookingsPage = () => {
       const allBookings = [...renderedBookings];
       const bookingsFilteredByName = allBookings.filter(booking => booking.identification.name.includes(event.target.value));
       setRenderedBookigs(bookingsFilteredByName);
-  };
+    };
 
-  useEffect(() => {
-    if (BookingsStatus === 'idle')
-      dispatch(GetBookings());
-    else if (BookingsStatus === 'pending')
-      console.log('pending...');
-    else if (BookingsStatus === 'fulfilled') {
-      setRenderedBookigs(BookingsFromSlice);
+    const addBookingHandler = () => {
+      dispatch(AddBooking({
+        identification: {
+          name: 'Jude Bellingham',
+          id: '#7171'
+        },
+        orderDate: '2024-06-06',
+        checkInDate: '2024-06-19',
+        checkOutDate: '2024-06-24',
+        specialRequest: false,
+        roomType: 'Double Room',
+        status: 'booked'
+      }))
     }
-  }, [BookingsFromSlice, BookingsStatus, dispatch])
+
+    useEffect(() => {
+      if (BookingsStatus === 'idle')
+        dispatch(GetBookings());
+      else if (BookingsStatus === 'pending')
+        console.log('pending...');
+      else if (BookingsStatus === 'fulfilled') {
+        setRenderedBookigs(BookingsFromSlice);
+      }
+    }, [BookingsFromSlice, BookingsStatus, dispatch])
 
     return (
         <>
-            {
-            isLoggedIn && isLoggedIn !== 'false' ? 
-            <>
-                <Bookings>
-                    <div className="page-container">
-                        <SideBarComponent/>
-                        <div className="main-content">
-                          <Header/>
-                          <div className="filter-container">
-                            <FilterTabs 
-                              sortHandler={sortBookingsHandler}
-                              fields={{
-                                'All bookings': 'orderDate',
-                                'Check in': 'checkInDate',
-                                'Check Out': 'checkOutDate',
-                                'In Progress': 'inProgress',
-                              }}
-                            />
-                            <FilterInput filterByName={filterByNameHandler}/>
-                          </div>
-                          <TableComponent data={renderedBookings} columns={columns}/>
-                        </div>
+          <Bookings>
+              <div className="page-container">
+                  <SideBarComponent/>
+                  <div className="main-content">
+                    <Header/>
+                    <div className="filter-container">
+                      <FilterTabs 
+                        sortHandler={sortBookingsHandler}
+                        fields={{
+                          'All bookings': 'orderDate',
+                          'Check in': 'checkInDate',
+                          'Check Out': 'checkOutDate',
+                          'In Progress': 'inProgress',
+                        }}
+                      />
+                      <FilterInput filterByName={filterByNameHandler}/>
                     </div>
-                </Bookings>
-            </>
-            :
-            <Navigate to="/login"/>
-            }
+                    <h1 onClick={addBookingHandler} style={{ marginLeft: '50px' }}>Add booking</h1>
+                    <TableComponent data={renderedBookings} columns={columns}/>
+                  </div>
+              </div>
+          </Bookings>
         </>
     )
 }

@@ -9,7 +9,7 @@ const mockBookings = [
       checkOutDate: '2024-06-17',
       specialRequest: true,
       roomType: 'Double Room',
-      status: 'booked'
+      status: 'booked',
     },
     {
       identification: {
@@ -21,7 +21,7 @@ const mockBookings = [
       checkOutDate: '2024-06-25',
       specialRequest: false,
       roomType: 'Single Room',
-      status: 'pending'
+      status: 'pending',
     },
     {
       identification: {

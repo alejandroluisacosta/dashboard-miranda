@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
 
+
 const StyledBookingDetails = styled.div`
     display: flex;
     margin: 50px;
@@ -132,22 +133,23 @@ const Right = styled.div`
     }
 `;
 
-const BookingDetails = () => {
+const BookingDetails = ({ booking }) => {
+
     return (
         <StyledBookingDetails>
             <Left>
                 <ClientContainer>
                     <img src="/assets/user.jpeg" alt="User image"/>
                     <div>
-                        <p>Client Name</p>
-                        <p>Booking ID</p>
+                        <p>{booking.identification.name}</p>
+                        <p>Booking {booking.identification.id}</p>
                         <ContactContainer>
-                            <div class="call-container">
-                                <FaPhoneAlt class="icon"/>
+                            <div className="call-container">
+                                <FaPhoneAlt className="icon"/>
                             </div>
                             <SendMessageContainer>
-                                <SiGooglemessages class="icon"/>
-                                <p class="send-message">Send Message</p>
+                                <SiGooglemessages className="icon"/>
+                                <p className="send-message">Send Message</p>
                             </SendMessageContainer>
                         </ContactContainer>
                     </div>
@@ -165,18 +167,18 @@ const BookingDetails = () => {
                 <RoomContainer>
                     <RoomTopContainer>
                         <div>
-                            <p class="label">Room Info</p>
-                            <p class="bigger-text">Deluxe Z - 002323</p>
+                            <p className="label">Room Info</p>
+                            <p className="bigger-text">Deluxe Z - 002323</p>
                         </div>
                         <div>
-                            <p class="label">Price</p>
-                            <div class="price-container">
-                                <p class="bigger-text">145$</p>
+                            <p className="label">Price</p>
+                            <div className="price-container">
+                                <p className="bigger-text">145$</p>
                                 <p>/night</p>
                             </div>
                         </div>
                     </RoomTopContainer>
-                    <p class="room-description">
+                    <p className="room-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
                     </p>
                     <Facilities>
