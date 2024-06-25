@@ -66,7 +66,7 @@ const BookingsPage = () => {
 
     const sortBookingsHandler = (event, value) => {
       const allBookings = [...renderedBookings];
-      if (value === 'inProgress') {
+      if (value === 'inProgress') { // ONCE USED, ARRAY TRUNCATED
         const today = new Date();
         const filteredBookings = renderedBookings.filter(booking => new Date(booking.checkInDate) < today && new Date(booking.checkOutDate) > today);
         setRenderedBookigs(filteredBookings);
