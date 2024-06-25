@@ -20,12 +20,12 @@ const Grid = styled.div`
 const TableComponent = ({ data, columns }) => {
     return (
         <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
-            {columns.map(column => 
-                <div className="grid-header-item">{column.label}</div>
+            {columns.map((column, index) => 
+                <div className="grid-header-item" key={index}>{column.label}</div>
             )}
             {data.map(row => 
                 Object.values(row).map((dataPoint, index) => 
-                    <div className="grid-cell">{columns[index].display ? columns[index].display(dataPoint) : dataPoint}</div>
+                    <div className="grid-cell" key={index}>{columns[index].display ? columns[index].display(dataPoint) : dataPoint}</div>
                 )
             )}
         </Grid>

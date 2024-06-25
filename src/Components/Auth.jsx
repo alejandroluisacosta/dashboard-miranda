@@ -14,11 +14,11 @@ const getInitialAuthState = () => {
 const types = {
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
-    MODIFY: 'MODIFY',
+    UPDATE_USER: 'UPDATE_USER',
 }
 
 const authReducer = (state, action) => {
-    const newState = {};
+    let newState = {};
     switch (action.type) {
         case types.LOGIN:
                 newState = {
@@ -32,11 +32,11 @@ const authReducer = (state, action) => {
         case types.LOGOUT:
             localStorage.removeItem('auth');
             return null;
-        case types.MODIFY:
+        case types.UPDATE_USER:
                 newState = {
                     ...state,
-                    userName: 'Alejandro',
-                    userEmail: 'alejandro@oxygen.com',
+                    userName: action.payload.userName,
+                    userEmail: action.payload.userEmail,
             };
             localStorage.setItem('auth', JSON.stringify(newState));
             return newState;

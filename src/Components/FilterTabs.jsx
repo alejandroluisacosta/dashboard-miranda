@@ -15,8 +15,8 @@ const StyledButton = styled.p`
 const FilterTabs = ({ sortHandler, fields }) => {
     return (
         <StyledFilterTabs>
-            {Object.entries(fields).map(([key, value]) => (
-                <StyledButton value={value} selected={false} onClick={event => sortHandler(event, value)}>{key}</StyledButton>
+            {Object.entries(fields).map(([key, value], index) => (
+                <StyledButton value={value} selected={false} onClick={event => sortHandler(event, value)} key={index}>{key}</StyledButton>
             ))}
         </StyledFilterTabs>
     )

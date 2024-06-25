@@ -6,6 +6,8 @@ import Header from "../../Components/Header";
 import FilterTabs from "../../Components/FilterTabs";
 import { useEffect, useState } from "react";
 import FilterInput from "../../Components/FilterInput";
+import { useDispatch, useSelector } from "react-redux";
+import { GetBookings } from "../../Features/Bookings";
 
 const Bookings = styled.div`
     background-color: var(--light-gray);
@@ -14,70 +16,6 @@ const Bookings = styled.div`
       align-items: center;
     }
 `;
-
-const mockBookings = [
-  {
-    identification: {
-      name: 'John Doe',
-      id: '#1234'
-    },
-    orderDate: '2024-06-01',
-    checkInDate: '2024-06-15',
-    checkOutDate: '2024-06-17',
-    specialRequest: true,
-    roomType: 'Double Room',
-    status: 'booked'
-  },
-  {
-    identification: {
-      name: 'Jane Smith',
-      id: '#3456'
-    },
-    orderDate: '2024-06-02',
-    checkInDate: '2024-06-18',
-    checkOutDate: '2024-06-25',
-    specialRequest: false,
-    roomType: 'Single Room',
-    status: 'pending'
-  },
-  {
-    identification: {
-      name: 'Michael Johnson',
-      id: '#7890'
-    },
-    orderDate: '2024-06-05',
-    checkInDate: '2024-06-20',
-    checkOutDate: '2024-06-23',
-    specialRequest: true,
-    roomType: 'Suite',
-    status: 'cancelled'
-  },
-  {
-    identification: {
-      name: 'Emily Davis',
-      id: '#7891'
-    },
-    orderDate: '2024-06-08',
-    checkInDate: '2024-06-25',
-    checkOutDate: '2024-06-28',
-    specialRequest: false,
-    roomType: 'Double Room',
-    status: 'booked'
-  },
-  {
-    identification: {
-      name: 'Daniel Wilson',
-      id: '#7892'
-    },
-    orderDate: '2024-06-10',
-    checkInDate: '2024-06-22',
-    checkOutDate: '2024-06-27',
-    specialRequest: true,
-    roomType: 'Single Room',
-    status: 'pending'
-  }
-];
-
   
 const columns = [
   {
@@ -120,18 +58,14 @@ const columns = [
 
 const BookingsPage = () => {
 
-    const [renderedBookings, setRenderedBookigs] = useState(mockBookings);
-
+    const [renderedBookings, setRenderedBookigs] = useState([{a: "a"}]);
     let isLoggedIn = localStorage.getItem('token');
-
-    const navigate = useNavigate();
-    const logoutHandler = () => {
-        localStorage.setItem('token', 'false');
-        navigate('login');
-    }
+    const dispatch = useDispatch();
+    const BookingsStatus = useSelector(state => state.Bookings.status);
+    const BookingsFromSlice = useSelector(state => state.Bookings.items);
 
     const sortBookingsHandler = (event, value) => {
-      const allBookings = [...mockBookings];
+      const allBookings = [...renderedBookings];
       if (value === 'inProgress') {
         const today = new Date();
         const filteredBookings = renderedBookings.filter(booking => new Date(booking.checkInDate) < today && new Date(booking.checkOutDate) > today);
@@ -144,10 +78,20 @@ const BookingsPage = () => {
     }
 
     const filterByNameHandler = (event) => {
-      const allBookings = [...mockBookings];
+      const allBookings = [...renderedBookings];
       const bookingsFilteredByName = allBookings.filter(booking => booking.identification.name.includes(event.target.value));
       setRenderedBookigs(bookingsFilteredByName);
   };
+
+  useEffect(() => {
+    if (BookingsStatus === 'idle')
+      dispatch(GetBookings());
+    else if (BookingsStatus === 'pending')
+      console.log('pending...');
+    else if (BookingsStatus === 'fulfilled') {
+      setRenderedBookigs(BookingsFromSlice);
+    }
+  }, [BookingsFromSlice, BookingsStatus, dispatch])
 
     return (
         <>

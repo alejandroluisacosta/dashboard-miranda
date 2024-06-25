@@ -54,7 +54,7 @@ const Header = () => {
     }
 
     const modifyUserHandler = () => {
-        authDispatch
+        authDispatch({type: 'UPDATE_USER', payload: {userName: 'Joe', userEmail: 'joe@oxygen.com'}});
     }
 
     return (
@@ -81,9 +81,9 @@ const Header = () => {
             <span className="material-symbols-outlined">
                 chat
             </span>
-            <img src="/assets/user.jpeg" onClick={logOutHandler} alt="Profile icon"/>
+            <img src="/assets/user.jpeg" onClick={modifyUserHandler} alt="Profile icon"/>
                 <div>
-                    <p>EN</p>
+                    <p onClick={logOutHandler}>EN</p>
                     <span className="material-symbols-outlined">
                         keyboard_arrow_down
                     </span>

@@ -263,15 +263,15 @@ const DashboardPage = () => {
                                 <div className="graph"></div>
                             </div>
                             <BookingSummaryList>
-                                {sortedBookings.slice(0, 4).map(booking => (
-                                    <BookingSummary booking={booking} timeAgo={getTimeDifference(booking.timestamp)}/>
+                                {sortedBookings.slice(0, 4).map((booking, index) => (
+                                    <BookingSummary booking={booking} timeAgo={getTimeDifference(booking.timestamp)} key={index}/>
                                 ))}
                             </BookingSummaryList>
                             <CommentList>
                                 <h3>Latest Reviews by Customers</h3>
                                 <div>
-                                    {mockComments.map(comment => (
-                                        <Comment comment={comment} timeAgo={getTimeDifference(comment.timestamp)}/>
+                                    {mockComments.map((comment, index) => (
+                                        <Comment comment={comment} timeAgo={getTimeDifference(comment.timestamp)} key={index}/>
                                     ))}
                                 </div>    
                             </CommentList>
