@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import mockBookings from "../data/mockBookings";
+import mockRooms from "../data/mockRooms";
 
 const delay = (data) => {
     return new Promise((resolve) => {
@@ -9,33 +9,33 @@ const delay = (data) => {
     })
 }
 
-export const GetBookings = createAsyncThunk('Bookings/GetBookings', async() => {
-    const bookings = delay(mockBookings);
-    return bookings;
+export const GetRooms = createAsyncThunk('Rooms/GetRooms', async() => {
+    const rooms = delay(mockRooms);
+    return rooms;
 })
 
-export const GetBooking = createAsyncThunk('Bookings/GetBooking', async(id) => {
-    const booking = delay(mockBookings[id]);
-    return booking;
+export const GetRoom = createAsyncThunk('Rooms/GetRoom', async(id) => {
+    const room = delay(mockRooms[id]);
+    return room;
 })
 
-export const AddBooking = createAsyncThunk('Bookings/CreateBooking', async(newBooking) => {
-    const booking = delay(newBooking);
-    return booking;
+export const AddRoom = createAsyncThunk('Rooms/CreateRoom', async(newRoom) => {
+    const room = delay(newRoom);
+    return room;
 })
 
-export const RemoveBooking = createAsyncThunk('Bookings/RemoveBooking', async(id) => {
-    const bookingId = delay(id);
-    return bookingId; 
+export const RemoveRoom = createAsyncThunk('Rooms/RemoveRoom', async(id) => {
+    const room = delay(id);
+    return room; 
 })
 
-export const EditBooking = createAsyncThunk('Bookings/EditBooking', async(id) => {
-    const booking = delay(mockBookings[id]);
-    return booking; 
+export const EditRoom = createAsyncThunk('Rooms/EditRoom', async(id) => {
+    const room = delay(mockRooms[id]);
+    return room; 
 })
 
-const Bookings = createSlice({
-    name: 'Bookings',
+const Rooms = createSlice({
+    name: 'Rooms',
     initialState: {
         status: 'idle',
         items: [],
@@ -45,67 +45,67 @@ const Bookings = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(GetBookings.pending, state => {
+        .addCase(GetRooms.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(GetBookings.rejected, state => {
+        .addCase(GetRooms.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(GetBookings.fulfilled, (state, action) => {
+        .addCase(GetRooms.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = action.payload;
         })
-        .addCase(GetBooking.pending, state => {
+        .addCase(GetRoom.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(GetBooking.rejected, state => {
+        .addCase(GetRoom.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(GetBooking.fulfilled, (state, action) => {
+        .addCase(GetRoom.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.single = action.payload;
         })
-        .addCase(AddBooking.pending, state => {
+        .addCase(AddRoom.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(AddBooking.rejected, state => {
+        .addCase(AddRoom.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(AddBooking.fulfilled, (state, action) => {
+        .addCase(AddRoom.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items.push(action.payload);
         })
-        .addCase(RemoveBooking.pending, state => {
+        .addCase(RemoveRoom.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(RemoveBooking.rejected, state => {
+        .addCase(RemoveRoom.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(RemoveBooking.fulfilled, (state, action) => {
+        .addCase(RemoveRoom.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = state.items.filter(booking => booking.identification.id !== action.payload);
         })
-        .addCase(EditBooking.pending, state => {
+        .addCase(EditRoom.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(EditBooking.rejected, state => {
+        .addCase(EditRoom.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(EditBooking.fulfilled, (state, action) => {
+        .addCase(EditRoom.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items.map(booking => booking.id === action.payload.id ? booking = action.payload : booking);
@@ -113,4 +113,4 @@ const Bookings = createSlice({
     }
 })
 
-export default Bookings;
+export default Rooms;

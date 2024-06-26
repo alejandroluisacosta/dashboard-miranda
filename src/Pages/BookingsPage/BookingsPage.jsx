@@ -9,7 +9,7 @@ import FilterInput from "../../Components/FilterInput";
 import { useDispatch, useSelector } from "react-redux";
 import { AddBooking, GetBookings, RemoveBooking } from "../../Features/Bookings";
 
-const Bookings = styled.div`
+const StyledBookings = styled.div`
     background-color: var(--light-gray);
     .filter-container {
       display: flex;
@@ -68,20 +68,21 @@ const BookingsPage = () => {
         display: (status, identification) => (
           <StyledStatus>
             <p>{status}</p>
+            {/* IDENTIFICATION NO DISPONIBLE PARA ESTA COLUMNA */}
             <span className="material-symbols-outlined" onClick={() => {console.log(identification); dispatch(RemoveBooking(identification))}}>delete</span>
           </StyledStatus>
         )
       },
-    ];
+    ];  
+
     const [renderedBookings, setRenderedBookigs] = useState([]);
-    let isLoggedIn = localStorage.getItem('token');
     const dispatch = useDispatch();
     const BookingsStatus = useSelector(state => state.Bookings.status);
-    const BookingsFromSlice = useSelector(state => state.Bookings.items);
+    const Bookings = useSelector(state => state.Bookings.items);
 
     const sortBookingsHandler = (event, value) => {
-      const allBookings = [...renderedBookings];
-      if (value === 'inProgress') { // ONCE USED, ARRAY TRUNCATED
+      const allBookings = [...Bookings];
+      if (value === 'inProgress') { 
         const today = new Date();
         const filteredBookings = renderedBookings.filter(booking => new Date(booking.checkInDate) < today && new Date(booking.checkOutDate) > today);
         setRenderedBookigs(filteredBookings);
@@ -93,9 +94,13 @@ const BookingsPage = () => {
     }
 
     const filterByNameHandler = (event) => {
-      const allBookings = [...renderedBookings];
-      const bookingsFilteredByName = allBookings.filter(booking => booking.identification.name.includes(event.target.value));
-      setRenderedBookigs(bookingsFilteredByName);
+      const allBookings = [...renderedBookings]; 
+      if (!event.target.value)
+        setRenderedBookigs(Bookings);
+      else { 
+        const bookingsFilteredByName = allBookings.filter(booking => booking.identification.name.toLowerCase().includes(event.target.value.toLowerCase()));
+        setRenderedBookigs(bookingsFilteredByName);
+      }
     };
 
     const addBookingHandler = () => {
@@ -119,13 +124,13 @@ const BookingsPage = () => {
       else if (BookingsStatus === 'pending')
         console.log('pending...');
       else if (BookingsStatus === 'fulfilled') {
-        setRenderedBookigs(BookingsFromSlice);
+        setRenderedBookigs(Bookings);
       }
-    }, [BookingsFromSlice, BookingsStatus, dispatch])
+    }, [Bookings, BookingsStatus, dispatch])
 
     return (
         <>
-          <Bookings>
+          <StyledBookings>
               <div className="page-container">
                   <SideBarComponent/>
                   <div className="main-content">
@@ -146,7 +151,7 @@ const BookingsPage = () => {
                     <TableComponent data={renderedBookings} columns={columns}/>
                   </div>
               </div>
-          </Bookings>
+          </StyledBookings>
         </>
     )
 }

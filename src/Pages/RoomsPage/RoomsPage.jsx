@@ -4,6 +4,10 @@ import SideBarComponent from "../../Components/SideBarComponent";
 import FilterTabs from "../../Components/FilterTabs";
 import TableComponent from "../../Components/TableComponent";
 import Header from "../../Components/Header";
+import mockRooms from "../../data/mockRooms";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AddRoom, GetRooms } from "../../Features/Rooms";
 
 const StyledNameColumn = styled.div`
     display: flex;
@@ -17,69 +21,6 @@ const StyledNameColumn = styled.div`
       border-bottom: 0;
     }
 `;
-
-const mockRooms = [
-  {
-    roomDescription: {
-      name: 'Deluxe A-91234',
-      id: '#1234',
-      image: '/assets/HotelRoom3.jpeg',
-    },
-    'room type': 'Single Bed',
-    amenities: 'Ocean view, King bed, Jacuzzi',
-    price: '$300',
-    offer: '20% off',
-    status: 'Available',
-  },
-  {
-    roomDescription: {
-      name: 'Deluxe A-91234',
-      id: '#5678',
-      image: '/assets/HotelRoom3.jpeg',
-    },
-    'room type': 'Single Bed',
-    amenities: 'Queen bed, City view',
-    price: '$150',
-    offer: '10% off',
-    status: 'Available',
-  },
-  {
-    roomDescription: {
-      name: 'Deluxe A-91234',
-      id: '#9012',
-      image: '/assets/HotelRoom3.jpeg',
-    },
-    'room type': 'Double Bed',
-    amenities: 'City view, Living room, Kitchenette',
-    price: '$400',
-    offer: '30% off',
-    status: 'Booked',
-  },
-  {
-    roomDescription: {
-      name: 'Deluxe A-91234',
-      id: '#3456',
-      image: '/assets/HotelRoom3.jpeg',
-    },
-    'room type': 'Double Superior',
-    amenities: 'Two bedrooms, Garden view',
-    price: '$250',
-    offer: '15% off',
-    status: 'Available',
-  },
-  {
-    roomDescription: {
-      name: 'Deluxe A-91234',
-      id: '#7890',
-      image: '/assets/HotelRoom3.jpeg',
-    },
-    'room type': 'Suite',
-    amenities: 'Ocean view, Balcony',
-    price: '$350',
-    offer: '25% off',
-    status: 'Booked',
-  }
-];
 
 
 const columns = [
@@ -126,33 +67,49 @@ const StyledRooms = styled.div`
 
 const RoomsPage = () => {
 
-    let isLoggedIn = localStorage.getItem('token');
+    const [renderedRooms, setRenderedRooms] = useState([]);
+    const dispatch = useDispatch();
+    const RoomsStatus = useSelector(state => state.Rooms.status);
+    const Rooms = useSelector(state => state.Rooms.items);
 
-    const navigate = useNavigate();
-    const logoutHandler = () => {
-        localStorage.setItem('token', 'false');
-        navigate('login');
+    const addRoomHandler = () => {
+      dispatch(AddRoom({
+        roomDescription: {
+          name: 'Triple Pleasure',
+          id: '#7123',
+          image: '/assets/HotelRoom3.jpeg',
+        },
+        'room type': 'Single Bed',
+        amenities: 'Ocean view, King bed',
+        price: '$325',
+        offer: '18% off',
+        status: 'Available',
+      }))
     }
+
+    useEffect(() => {
+      if (RoomsStatus === 'idle')
+        dispatch(GetRooms());
+      else if (RoomsStatus === 'pending')
+        console.log('pending...');
+      else if (RoomsStatus === 'fulfilled') {
+        setRenderedRooms(Rooms);
+      }
+    }, [Rooms, RoomsStatus, dispatch])
 
     return (
         <>
-            {
-            isLoggedIn && isLoggedIn !== 'false' ? 
-            <>
-                <StyledRooms>
-                    <div className="page-container">
-                        <SideBarComponent/>
-                        <div className="main-content">
-                          <Header/>
-                          <TableComponent data={mockRooms} columns={columns}/>
-                        </div>
-                    </div>
-                </StyledRooms>
-            </>
-            :
-            <Navigate to="/login"/>
-            }
-        </>
+          <StyledRooms>
+              <div className="page-container">
+                  <SideBarComponent/>
+                  <div className="main-content">
+                    <Header/>
+                    <h1 onClick={addRoomHandler} style={{ marginLeft: '50px' }}>Add Room</h1>
+                    <TableComponent data={renderedRooms} columns={columns}/>
+                  </div>
+              </div>
+          </StyledRooms>
+      </>
     )
 }
 
