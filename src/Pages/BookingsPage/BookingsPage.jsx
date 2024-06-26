@@ -7,7 +7,7 @@ import FilterTabs from "../../Components/FilterTabs";
 import { useEffect, useState } from "react";
 import FilterInput from "../../Components/FilterInput";
 import { useDispatch, useSelector } from "react-redux";
-import { AddBooking, GetBookings, RemoveBooking } from "../../Features/Bookings";
+import { GetBookingsThunk, RemoveBookingThunk } from "../../Features/Bookings";
 
 const StyledBookings = styled.div`
     background-color: var(--light-gray);
@@ -27,8 +27,6 @@ const StyledStatus = styled.div`
     }
 `;
 
-
-
 const BookingsPage = () => {
   
     const columns = [
@@ -43,15 +41,15 @@ const BookingsPage = () => {
       },
       {
         label: 'Order Date',
-        property: 'order date'
+        property: 'orderDate'
       },
       {
         label: 'Check In',
-        property: 'check in'
+        property: 'checkInDate'
       },
       {
         label: 'Check Out',
-        property: 'check out'
+        property: 'checkOutDate'
       },
       {
         label: 'Special Request',
@@ -61,15 +59,14 @@ const BookingsPage = () => {
       },
       {
         label: 'Room Type',
-        property: 'room type'
+        property: 'roomType'
       },
       {
         label: 'Status',
-        display: (status, identification) => (
+        display: row => (
           <StyledStatus>
-            <p>{status}</p>
-            {/* IDENTIFICATION NO DISPONIBLE PARA ESTA COLUMNA */}
-            <span className="material-symbols-outlined" onClick={() => {console.log(identification); dispatch(RemoveBooking(identification))}}>delete</span>
+            <p>{row.status}</p>
+            <span className="material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row.id))}>delete</span>
           </StyledStatus>
         )
       },
@@ -98,17 +95,15 @@ const BookingsPage = () => {
       if (!event.target.value)
         setRenderedBookigs(Bookings);
       else { 
-        const bookingsFilteredByName = allBookings.filter(booking => booking.identification.name.toLowerCase().includes(event.target.value.toLowerCase()));
+        const bookingsFilteredByName = allBookings.filter(booking => booking.name.toLowerCase().includes(event.target.value.toLowerCase()));
         setRenderedBookigs(bookingsFilteredByName);
       }
     };
 
     const addBookingHandler = () => {
       dispatch(AddBooking({
-        identification: {
-          name: 'Jude Bellingham',
-          id: '#7171'
-        },
+        name: 'Jude Bellingham',
+        id: '#7171',
         orderDate: '2024-06-06',
         checkInDate: '2024-06-19',
         checkOutDate: '2024-06-24',
@@ -120,7 +115,7 @@ const BookingsPage = () => {
 
     useEffect(() => {
       if (BookingsStatus === 'idle')
-        dispatch(GetBookings());
+        dispatch(GetBookingsThunk());
       else if (BookingsStatus === 'pending')
         console.log('pending...');
       else if (BookingsStatus === 'fulfilled') {

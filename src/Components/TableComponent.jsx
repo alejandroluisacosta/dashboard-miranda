@@ -24,8 +24,8 @@ const TableComponent = ({ data, columns }) => {
                 <div className="grid-header-item" key={index}>{column.label}</div>
             )}
             {data.map(row => 
-                Object.values(row).map((dataPoint, index) => 
-                    <div className="grid-cell" key={index}>{columns[index].display ? columns[index].display(dataPoint) : dataPoint}</div>
+                columns.map((column, index) => 
+                    <div className="grid-cell" key={index}>{column.display ? column.display(row) : row[column.property]}</div>
                 )
             )}
         </Grid>

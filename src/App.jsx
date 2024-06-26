@@ -15,6 +15,7 @@ import ProtectedRoute from './Components/ProtectedRoute'
 import { AuthProvider } from './Components/Auth'
 import { Provider } from 'react-redux'
 import Store from './app/Store'
+import AddBookingPage from './Pages/AddBookingPage'
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
                   <Route path="" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
                   <Route path="bookings" element={<ProtectedRoute><BookingsPage /></ProtectedRoute>} />
                   <Route path="bookings/:bookingId" element={<ProtectedRoute><BookingDetailsPage /></ProtectedRoute>} />
+                  <Route path="bookings/add" element={<ProtectedRoute><AddBookingPage /></ProtectedRoute>} />
                   <Route path="rooms" element={<ProtectedRoute><RoomsPage /></ProtectedRoute>} />
                   <Route path="rooms/add" element={<ProtectedRoute><AddRoomPage /></ProtectedRoute>} />
                   <Route path="users" element={<ProtectedRoute><UsersPage /></ProtectedRoute>} />

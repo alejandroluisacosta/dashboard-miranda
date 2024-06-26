@@ -5,7 +5,7 @@ import BookingDetails from "../../Components/BookingDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GetBooking } from "../../Features/Bookings";
+import { GetBookingThunk } from "../../Features/Bookings";
 
 const StyledBookingDetailsPage = styled.div`
     background-color: var(--light-gray);
@@ -19,7 +19,7 @@ const BookingDetailsPage = () => {
     const [fetched, setFetched] = useState(false);
 
     const initialFetch = async () => {
-        await dispatch(GetBooking(bookingId)).unwrap();
+        await dispatch(GetBookingThunk(bookingId)).unwrap();
         setFetched(true)
     }
 

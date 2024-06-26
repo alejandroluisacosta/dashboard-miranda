@@ -74,11 +74,9 @@ const RoomsPage = () => {
 
     const addRoomHandler = () => {
       dispatch(AddRoom({
-        roomDescription: {
-          name: 'Triple Pleasure',
-          id: '#7123',
-          image: '/assets/HotelRoom3.jpeg',
-        },
+        name: 'Triple Pleasure',
+        id: '#7123',
+        image: '/assets/HotelRoom3.jpeg',
         'room type': 'Single Bed',
         amenities: 'Ocean view, King bed',
         price: '$325',

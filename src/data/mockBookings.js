@@ -1,9 +1,7 @@
 const mockBookings = [
     {
-      identification: {
-        name: 'John Doe',
-        id: '#1234'
-      },
+      name: 'John Doe',
+      id: '#1234',
       orderDate: '2024-06-01',
       checkInDate: '2024-06-15',
       checkOutDate: '2024-06-17',
@@ -12,10 +10,8 @@ const mockBookings = [
       status: 'booked',
     },
     {
-      identification: {
-        name: 'Jane Smith',
-        id: '#3456'
-      },
+      name: 'Jane Smith',
+      id: '#3456',
       orderDate: '2024-06-02',
       checkInDate: '2024-06-18',
       checkOutDate: '2024-06-25',
@@ -24,10 +20,8 @@ const mockBookings = [
       status: 'pending',
     },
     {
-      identification: {
-        name: 'Michael Johnson',
-        id: '#7890'
-      },
+      name: 'Michael Johnson',
+      id: '#7890',
       orderDate: '2024-06-05',
       checkInDate: '2024-06-20',
       checkOutDate: '2024-06-23',
@@ -36,10 +30,8 @@ const mockBookings = [
       status: 'cancelled'
     },
     {
-      identification: {
-        name: 'Emily Davis',
-        id: '#7891'
-      },
+      name: 'Emily Davis',
+      id: '#7891',
       orderDate: '2024-06-08',
       checkInDate: '2024-06-25',
       checkOutDate: '2024-06-28',
@@ -48,10 +40,8 @@ const mockBookings = [
       status: 'booked'
     },
     {
-      identification: {
-        name: 'Daniel Wilson',
-        id: '#7892'
-      },
+      name: 'Daniel Wilson',
+      id: '#7892',
       orderDate: '2024-06-10',
       checkInDate: '2024-06-22',
       checkOutDate: '2024-06-27',

@@ -141,8 +141,8 @@ const BookingDetails = ({ booking }) => {
                 <ClientContainer>
                     <img src="/assets/user.jpeg" alt="User image"/>
                     <div>
-                        <p>{booking.identification.name}</p>
-                        <p>Booking {booking.identification.id}</p>
+                        <p>{booking.name}</p>
+                        <p>Booking {booking.id}</p>
                         <ContactContainer>
                             <div className="call-container">
                                 <FaPhoneAlt className="icon"/>
@@ -188,7 +188,7 @@ const BookingDetails = ({ booking }) => {
                 </RoomContainer>
             </Left>
             <Right>
-                <img src="/assets/HotelRoom3.jpeg" />
+                <img src="/assets/HotelRoom3.jpeg" alt="Room Image"/>
             </Right>
         </StyledBookingDetails>
     )

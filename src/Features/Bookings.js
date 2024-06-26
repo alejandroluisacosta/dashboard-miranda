@@ -9,27 +9,27 @@ const delay = (data) => {
     })
 }
 
-export const GetBookings = createAsyncThunk('Bookings/GetBookings', async() => {
+export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async() => {
     const bookings = delay(mockBookings);
     return bookings;
 })
 
-export const GetBooking = createAsyncThunk('Bookings/GetBooking', async(id) => {
+export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id) => {
     const booking = delay(mockBookings[id]);
     return booking;
 })
 
-export const AddBooking = createAsyncThunk('Bookings/CreateBooking', async(newBooking) => {
+export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(newBooking) => {
     const booking = delay(newBooking);
     return booking;
 })
 
-export const RemoveBooking = createAsyncThunk('Bookings/RemoveBooking', async(id) => {
+export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', async(id) => {
     const bookingId = delay(id);
     return bookingId; 
 })
 
-export const EditBooking = createAsyncThunk('Bookings/EditBooking', async(id) => {
+export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(id) => {
     const booking = delay(mockBookings[id]);
     return booking; 
 })
@@ -45,67 +45,67 @@ const Bookings = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(GetBookings.pending, state => {
+        .addCase(GetBookingsThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(GetBookings.rejected, state => {
+        .addCase(GetBookingsThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(GetBookings.fulfilled, (state, action) => {
+        .addCase(GetBookingsThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = action.payload;
         })
-        .addCase(GetBooking.pending, state => {
+        .addCase(GetBookingThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(GetBooking.rejected, state => {
+        .addCase(GetBookingThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(GetBooking.fulfilled, (state, action) => {
+        .addCase(GetBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.single = action.payload;
         })
-        .addCase(AddBooking.pending, state => {
+        .addCase(AddBookingThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(AddBooking.rejected, state => {
+        .addCase(AddBookingThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(AddBooking.fulfilled, (state, action) => {
+        .addCase(AddBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items.push(action.payload);
         })
-        .addCase(RemoveBooking.pending, state => {
+        .addCase(RemoveBookingThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(RemoveBooking.rejected, state => {
+        .addCase(RemoveBookingThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(RemoveBooking.fulfilled, (state, action) => {
+        .addCase(RemoveBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items = state.items.filter(booking => booking.identification.id !== action.payload);
+            state.items = state.items.filter(booking => booking.id !== action.payload);
         })
-        .addCase(EditBooking.pending, state => {
+        .addCase(EditBookingThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(EditBooking.rejected, state => {
+        .addCase(EditBookingThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(EditBooking.fulfilled, (state, action) => {
+        .addCase(EditBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items.map(booking => booking.id === action.payload.id ? booking = action.payload : booking);
