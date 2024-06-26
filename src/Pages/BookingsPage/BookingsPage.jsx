@@ -1,4 +1,3 @@
-import { Navigate, useNavigate } from "react-router-dom";
 import SideBarComponent from "../../Components/SideBarComponent";
 import styled from "styled-components";
 import TableComponent from "../../Components/TableComponent";
@@ -8,12 +7,21 @@ import { useEffect, useState } from "react";
 import FilterInput from "../../Components/FilterInput";
 import { useDispatch, useSelector } from "react-redux";
 import { GetBookingsThunk, RemoveBookingThunk } from "../../Features/Bookings";
+import { Link } from "react-router-dom";
 
 const StyledBookings = styled.div`
     background-color: var(--light-gray);
     .filter-container {
       display: flex;
       align-items: center;
+      margin: 50px 50px 30px;
+    }
+    .add-button {
+        padding: 10px 18px;
+        background-color: var(--dark-green);
+        border-radius: 12px;
+        color: white;
+        font-size: 14px;
     }
 `;
 
@@ -100,19 +108,6 @@ const BookingsPage = () => {
       }
     };
 
-    const addBookingHandler = () => {
-      dispatch(AddBooking({
-        name: 'Jude Bellingham',
-        id: '#7171',
-        orderDate: '2024-06-06',
-        checkInDate: '2024-06-19',
-        checkOutDate: '2024-06-24',
-        specialRequest: false,
-        roomType: 'Double Room',
-        status: 'booked'
-      }))
-    }
-
     useEffect(() => {
       if (BookingsStatus === 'idle')
         dispatch(GetBookingsThunk());
@@ -134,15 +129,15 @@ const BookingsPage = () => {
                       <FilterTabs 
                         sortHandler={sortBookingsHandler}
                         fields={{
-                          'All bookings': 'orderDate',
-                          'Check in': 'checkInDate',
+                          'All Bookings': 'orderDate',
+                          'Check In': 'checkInDate',
                           'Check Out': 'checkOutDate',
                           'In Progress': 'inProgress',
                         }}
                       />
                       <FilterInput filterByName={filterByNameHandler}/>
+                      <Link to='add'><button className="add-button" style={{ marginLeft: '50px' }}>Add booking</button></Link>
                     </div>
-                    <h1 onClick={addBookingHandler} style={{ marginLeft: '50px' }}>Add booking</h1>
                     <TableComponent data={renderedBookings} columns={columns}/>
                   </div>
               </div>

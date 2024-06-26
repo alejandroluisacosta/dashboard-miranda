@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { AddBookingThunk } from "../Features/Bookings";
+import { Link } from "react-router-dom";
 
 const StyledAddBooking = styled.div`
     display: flex;
@@ -75,8 +76,30 @@ const AddBooking = () => {
 
     const dispatch = useDispatch();
 
-    const createBookingHandler = (event) => {
-        dispatch(AddBookingThunk)
+    const addBookingHandler = (event) => {
+
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const orderDate = new Date().toISOString().split('T')[0];
+        const checkInDate = form.checkIn.value;
+        const checkOutDate = form.checkOut.value;
+        const specialRequest = form['special-request'].value;
+        const roomType = form['room-type'].value;
+        const status = form.status.value;
+
+        dispatch(AddBookingThunk({
+            name: name,
+            id: `#${Math.floor(Math.random() * 1000)}`,
+            orderDate: orderDate,
+            checkInDate: checkInDate,
+            checkOutDate: checkOutDate,
+            specialRequest: specialRequest,
+            roomType: roomType,
+            status: status,
+        }))
+
+        alert('done Sr.')
     }
 
     return (
@@ -84,35 +107,35 @@ const AddBooking = () => {
             <StyledAddBooking>
                 <Left>
                     <h1>Add Booking</h1>
-                    <form>
+                    <form onSubmit={addBookingHandler}>
                         <StyledRow>
                             <div className="name-row">
-                                <label for="name">Name</label>
+                                <label htmlFor="name">Name</label>
                                 <input id="name" type="text"/>
                             </div>
                         </StyledRow>
                         <StyledRow>
                             <div>
-                                <label for="checkIn">Check In Date</label>
+                                <label htmlFor="checkIn">Check In Date</label>
                                 <input id="checkIn" type="date"/>
                             </div>
                             <div>
-                                <label for="checkOut">Check Out Date</label>
+                                <label htmlFor="checkOut">Check Out Date</label>
                                 <input id="checkOut" type="date"/>
                             </div>
                         </StyledRow>
                         <StyledRow>
                             <div>
-                                <label for="room-type">Room Type</label>
+                                <label htmlFor="room-type">Room Type</label>
                                 <select id="room-type">
-                                    <option value="single">Single Room</option>
-                                    <option value="double">Double Room</option>
-                                    <option value="double-superior">Double Superior</option>
-                                    <option value="suite">Suite</option>
+                                    <option value="Single">Single Room</option>
+                                    <option value="Double">Double Room</option>
+                                    <option value="Double Superior">Double Superior</option>
+                                    <option value="Suite">Suite</option>
                                 </select>
                             </div>
                             <div>
-                                <label for="status">Status</label>
+                                <label htmlFor="status">Status</label>
                                 <select id="status">
                                     <option value="booked">Booked</option>
                                     <option value="pending">Pending</option>
@@ -120,11 +143,12 @@ const AddBooking = () => {
                             </div>
                         </StyledRow>
                         <div>
-                            <label for="special-request">Special Request</label>
+                            <label htmlFor="special-request">Special Request</label>
                             <textarea id="special-request" />
                         </div>
                         <div className="button-container">
                             <button type="submit">Create Booking</button>
+                            <Link to='/bookings'><p>Bookings</p></Link>
                         </div>
                     </form>
                 </Left>

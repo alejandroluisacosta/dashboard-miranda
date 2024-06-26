@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 const StyledFilterTabs = styled.div`
     display: flex;
-    margin: 50px 50px 35px;
 `;
 
 const StyledButton = styled.p`

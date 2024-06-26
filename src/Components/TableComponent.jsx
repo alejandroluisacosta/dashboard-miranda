@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Grid = styled.div`
     display: grid;
     background-color: white;
-    margin: 30px 50px;
+    margin: 0 50px 30px;
     border-radius: 20px;
     padding: 20px 30px;
     div {
