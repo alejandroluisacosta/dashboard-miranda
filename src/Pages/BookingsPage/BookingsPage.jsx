@@ -22,6 +22,7 @@ const StyledBookings = styled.div`
         border-radius: 12px;
         color: white;
         font-size: 14px;
+        margin-left: 50px;
     }
 `;
 
@@ -35,16 +36,33 @@ const StyledStatus = styled.div`
     }
 `;
 
+const StyledGuestColumn = styled.div`
+  display: flex;
+  border-bottom: 0 !important;
+  div {
+    border-bottom: 0 !important;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 16px;
+  }
+`;
+
 const BookingsPage = () => {
   
     const columns = [
       {
         label: 'Guest',
         display: row => (
-          <>
-            <p>{row.name}</p>
-            <p>{row.id}</p>
-          </>
+          <StyledGuestColumn>
+            <img src="/assets/womanUser.jpeg" alt="User Image"/>
+            <div>
+              <p>{row.name}</p>
+              <p>{row.id}</p>
+            </div>
+          </StyledGuestColumn>
         )
       },
       {
@@ -136,7 +154,7 @@ const BookingsPage = () => {
                         }}
                       />
                       <FilterInput filterByName={filterByNameHandler}/>
-                      <Link to='add'><button className="add-button" style={{ marginLeft: '50px' }}>Add booking</button></Link>
+                      <Link to='add'><button className="add-button">Add booking</button></Link>
                     </div>
                     <TableComponent data={renderedBookings} columns={columns}/>
                   </div>

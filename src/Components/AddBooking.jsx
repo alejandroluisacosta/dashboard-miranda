@@ -67,7 +67,6 @@ const Right = styled.div`
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        background-color: black;
         border-radius: 12px;
     }
 `;
