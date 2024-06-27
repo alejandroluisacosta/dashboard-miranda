@@ -2,6 +2,11 @@ import styled from "styled-components"
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { EditBookingThunk } from "../Features/Bookings";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StyledBookingDetails = styled.div`
     display: flex;
@@ -38,6 +43,11 @@ const ClientContainer = styled.div`
         }
     }
     .edit {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    button {
         position: absolute;
         right: 0;
         top: 0;
@@ -99,9 +109,15 @@ const DatesContainer = styled.div`
 `;
 
 const RoomContainer = styled.div`
-    .room-description {
+    .special-request {
         font-size: 14px;
         margin-bottom: 30px;
+        min-height: 150px;
+    }
+    textarea {
+        min-height: 150px;
+        width: 100%;
+        padding: 10px;
     }
 `;
 
@@ -147,11 +163,64 @@ const Right = styled.div`
 
 const BookingDetails = ({ booking }) => {
 
+    const [isEditing, setIsEditing] = useState(false);
+    const [checkInDate, setCheckInDate] = useState(booking.checkInDate);
+    const [checkOutDate, setCheckOutDate] = useState(booking.checkOutDate);
+    const [roomType, setRoomType] = useState(booking.roomType);
+    const [specialRequest, setSpecialRequest] = useState(booking.specialRequest);
+    const dispatch = useDispatch();
+
+    const notify = () => toast.success('Booking successfully modified', {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    }
+
+    const handleSaveClick = async () => {
+        dispatch(EditBookingThunk({
+            name: booking.name,
+            id: booking.id,
+            orderDate: booking.orderDate,
+            checkInDate: checkInDate,
+            checkOutDate: checkOutDate,
+            roomType: roomType,
+            specialRequest: specialRequest,
+            status: booking.status,
+        }))
+        setIsEditing(false);
+        notify();
+    }
+
     return (
         <StyledBookingDetails>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={1000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                    theme="light"
+                />
             <Left>
                 <ClientContainer>
-                    <PiDotsThreeOutlineVerticalFill class="edit"/>
+                    {isEditing ? 
+                        <button onClick={handleSaveClick}>Save</button>
+                    :
+                        <PiDotsThreeOutlineVerticalFill className="edit" onClick={handleEditClick}/>
+                    }
                     <img src="/assets/user.jpeg" alt="User image"/>
                     <div>
                         <p>{booking.name}</p>
@@ -170,18 +239,43 @@ const BookingDetails = ({ booking }) => {
                 <DatesContainer>
                     <div>
                         <p>Check In</p>
-                        <p>October 30th, 2020 | 8:23 AM</p>
+                        {isEditing ? (
+                            <input
+                                type="date"
+                                value={checkInDate}
+                                onChange={(event) => setCheckInDate(event.target.value)}
+                            />
+                        ) : 
+                        <p>{new Date(checkInDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', })}</p>
+                        }
                     </div>
                     <div>
                         <p>Check Out</p>
-                        <p>November 2th, 2020</p>
+                        {isEditing ? (
+                            <input
+                                type="date"
+                                value={checkOutDate}
+                                onChange={(event) => setCheckOutDate(event.target.value)}
+                            />
+                        ) : 
+                        <p>{new Date(checkOutDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', })}</p>
+                        }
                     </div>
                 </DatesContainer>
                 <RoomContainer>
                     <RoomTopContainer>
                         <div>
                             <p className="label">Room Info</p>
-                            <p className="bigger-text">Deluxe Z - 002323</p>
+                            {isEditing ? (
+                            <select type="date" defaultValue={roomType} onChange={(event) => setRoomType(event.target.value)}>
+                                <option value="Single Bed">Single Bed</option>
+                                <option value="Double Bed">Double Bed</option>
+                                <option value="Double Superior">Double Superior</option>
+                                <option value="Suite">Suite</option>
+                            </select>
+                            ) : 
+                            <p>{roomType}</p>
+                        }
                         </div>
                         <div>
                             <p className="label">Price</p>
@@ -191,9 +285,11 @@ const BookingDetails = ({ booking }) => {
                             </div>
                         </div>
                     </RoomTopContainer>
-                    <p className="room-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                    </p>
+                    {isEditing ? (
+                            <textarea type="text" placeholder={specialRequest} onChange={(event) => setSpecialRequest(event.target.value)}/>
+                            ) : 
+                            <p className="special-request">{specialRequest}</p>
+                            }
                     <Facilities>
                         <p>Facilities</p>
                         <h1>Tags here</h1>

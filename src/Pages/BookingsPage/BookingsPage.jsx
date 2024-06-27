@@ -143,6 +143,7 @@ const BookingsPage = () => {
                   <SideBarComponent/>
                   <div className="main-content">
                     <Header/>
+                    <Link to="0"><p>Go to booking</p></Link>
                     <div className="filter-container">
                       <FilterTabs 
                         sortHandler={sortBookingsHandler}

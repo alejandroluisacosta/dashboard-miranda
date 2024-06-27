@@ -77,7 +77,7 @@ const Right = styled.div`
 const AddBooking = () => {
 
     const dispatch = useDispatch();
-    const notify = () => toast.success('Booking created successfully!', {
+    const notify = () => toast.success('Booking created successfully', {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: true,

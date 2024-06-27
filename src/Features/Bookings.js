@@ -30,9 +30,9 @@ export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', asy
     return bookingId; 
 })
 
-export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(id) => {
-    const booking = delay(mockBookings[id]);
-    return booking; 
+export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(updatedData) => {
+    const newData = delay(updatedData);
+    return newData; 
 })
 
 const Bookings = createSlice({
@@ -109,7 +109,7 @@ const Bookings = createSlice({
         .addCase(EditBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items.map(booking => booking.id === action.payload.id ? booking = action.payload : booking);
+            state.items = state.items.map(booking => booking.id === action.payload.id ? action.payload : booking);
         })
     }
 })

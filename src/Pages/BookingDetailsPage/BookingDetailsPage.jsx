@@ -4,7 +4,7 @@ import styled from "styled-components";
 import BookingDetails from "../../Components/BookingDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GetBookingThunk } from "../../Features/Bookings";
 
 const StyledBookingDetailsPage = styled.div`
@@ -34,6 +34,7 @@ const BookingDetailsPage = () => {
                     <SideBarComponent/>
                     <div className="main-content">
                         <Header />
+                        <Link to="/bookings"><p>All Bookings</p></Link>
                         {fetched ? 
                         <BookingDetails booking={Booking}/>
                         :
