@@ -34,6 +34,7 @@ const StyledAddBooking = styled.div`
             border-radius: 12px;
             color: white;
             font-size: 18px;
+            margin-bottom: 12px;
         }
     }
 `;
@@ -98,7 +99,6 @@ const AddBooking = () => {
             status: status,
         }))
 
-        alert('done Sr.')
     }
 
     return (
@@ -109,24 +109,24 @@ const AddBooking = () => {
                     <form onSubmit={addBookingHandler}>
                         <StyledRow>
                             <div className="name-row">
-                                <label htmlFor="name">Name</label>
-                                <input id="name" type="text"/>
+                                <label htmlFor="name">* Name</label>
+                                <input id="name" type="text" required/>
                             </div>
                         </StyledRow>
                         <StyledRow>
                             <div>
-                                <label htmlFor="checkIn">Check In Date</label>
-                                <input id="checkIn" type="date"/>
+                                <label htmlFor="checkIn">* Check In Date</label>
+                                <input id="checkIn" type="date" required/>
                             </div>
                             <div>
-                                <label htmlFor="checkOut">Check Out Date</label>
-                                <input id="checkOut" type="date"/>
+                                <label htmlFor="checkOut">* Check Out Date</label>
+                                <input id="checkOut" type="date" required/>
                             </div>
                         </StyledRow>
                         <StyledRow>
                             <div>
-                                <label htmlFor="room-type">Room Type</label>
-                                <select id="room-type">
+                                <label htmlFor="room-type">* Room Type</label>
+                                <select id="room-type" required>
                                     <option value="Single">Single Room</option>
                                     <option value="Double">Double Room</option>
                                     <option value="Double Superior">Double Superior</option>
@@ -134,20 +134,20 @@ const AddBooking = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="status">Status</label>
-                                <select id="status">
+                                <label htmlFor="status">* Status</label>
+                                <select id="status" required>
                                     <option value="booked">Booked</option>
                                     <option value="pending">Pending</option>
                                 </select>
                             </div>
                         </StyledRow>
                         <div>
-                            <label htmlFor="special-request">Special Request</label>
+                            <label htmlFor="special-request">Special Request (optional)</label>
                             <textarea id="special-request" />
                         </div>
                         <div className="button-container">
                             <button type="submit">Create Booking</button>
-                            <Link to='/bookings'><p>Bookings</p></Link>
+                            <Link to='/bookings'><p>All Bookings</p></Link>
                         </div>
                     </form>
                 </Left>

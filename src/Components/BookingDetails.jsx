@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
-
+import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 
 const StyledBookingDetails = styled.div`
     display: flex;
@@ -16,6 +16,7 @@ const Left = styled.div`
 `;
 
 const ClientContainer = styled.div`
+    position: relative;
     display: flex;
     margin-bottom: 30px;
     img {
@@ -35,6 +36,11 @@ const ClientContainer = styled.div`
             color: var(--ocher-green);
             margin-bottom: 20px;
         }
+    }
+    .edit {
+        position: absolute;
+        right: 0;
+        top: 0;
     }
 `;
 
@@ -128,8 +134,14 @@ const Facilities = styled.div`
 
 const Right = styled.div`
     width: 50%;
-    img {
-        width: 730px;
+    div {
+        min-height: 100%;
+        width: 100%;
+        padding-bottom: 50%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        border-radius: 12px;
     }
 `;
 
@@ -139,6 +151,7 @@ const BookingDetails = ({ booking }) => {
         <StyledBookingDetails>
             <Left>
                 <ClientContainer>
+                    <PiDotsThreeOutlineVerticalFill class="edit"/>
                     <img src="/assets/user.jpeg" alt="User image"/>
                     <div>
                         <p>{booking.name}</p>
@@ -188,7 +201,7 @@ const BookingDetails = ({ booking }) => {
                 </RoomContainer>
             </Left>
             <Right>
-                <img src="/assets/HotelRoom3.jpeg" alt="Room Image"/>
+            <div style={{backgroundImage: `url(../assets/HotelRoom3.jpeg)`}}></div>
             </Right>
         </StyledBookingDetails>
     )
