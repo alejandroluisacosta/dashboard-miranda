@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { AddBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StyledAddBooking = styled.div`
     display: flex;
@@ -75,6 +77,16 @@ const Right = styled.div`
 const AddBooking = () => {
 
     const dispatch = useDispatch();
+    const notify = () => toast.success('Booking created successfully!', {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     const addBookingHandler = (event) => {
 
@@ -99,11 +111,25 @@ const AddBooking = () => {
             status: status,
         }))
 
+        notify();
+
     }
 
     return (
         <>
             <StyledAddBooking>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={1000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                    theme="light"
+                />
                 <Left>
                     <h1>Add Booking</h1>
                     <form onSubmit={addBookingHandler}>
