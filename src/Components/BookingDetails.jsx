@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const StyledBookingDetails = styled.div`
     display: flex;
-    margin: 50px;
+    margin: 0 50px 50px;
     background-color: white;
     border-radius: 12px;
 `;
