@@ -18,6 +18,15 @@ const StyledBookingDetails = styled.div`
 const Left = styled.div`
     width: 50%;
     padding: 40px 40px 50px;
+    background-color: ${props => props.isEditing ? 'var(--lighter-green)' : 'unset'};
+    textarea {
+        padding: 10px;
+        border-radius: 8px;
+    }
+    input, select {
+        border-radius: 8px;
+        padding: 5px;
+    }
 `;
 
 const ClientContainer = styled.div`
@@ -51,6 +60,10 @@ const ClientContainer = styled.div`
         position: absolute;
         right: 0;
         top: 0;
+        padding: 10px 20px;
+        color: var(--dark-green);
+        background-color: white;
+        border-radius: 12px;
     }
 `;
 
@@ -117,7 +130,6 @@ const RoomContainer = styled.div`
     textarea {
         min-height: 150px;
         width: 100%;
-        padding: 10px;
     }
 `;
 
@@ -164,10 +176,11 @@ const Right = styled.div`
 const BookingDetails = ({ booking }) => {
 
     const [isEditing, setIsEditing] = useState(false);
-    const [checkInDate, setCheckInDate] = useState(booking.checkInDate);
-    const [checkOutDate, setCheckOutDate] = useState(booking.checkOutDate);
-    const [roomType, setRoomType] = useState(booking.roomType);
-    const [specialRequest, setSpecialRequest] = useState(booking.specialRequest);
+    const Booking = useSelector(state => state.Bookings.items.find(item => item.id === booking.id));
+    const [checkInDate, setCheckInDate] = useState(Booking.checkInDate);
+    const [checkOutDate, setCheckOutDate] = useState(Booking.checkOutDate);
+    const [roomType, setRoomType] = useState(Booking.roomType);
+    const [specialRequest, setSpecialRequest] = useState(Booking.specialRequest);
     const dispatch = useDispatch();
 
     const notify = () => toast.success('Booking successfully modified', {
@@ -214,10 +227,10 @@ const BookingDetails = ({ booking }) => {
                     pauseOnHover={false}
                     theme="light"
                 />
-            <Left>
+            <Left isEditing={isEditing}>
                 <ClientContainer>
                     {isEditing ? 
-                        <button onClick={handleSaveClick}>Save</button>
+                        <button onClick={handleSaveClick} className="save">Save changes</button>
                     :
                         <PiDotsThreeOutlineVerticalFill className="edit" onClick={handleEditClick}/>
                     }
