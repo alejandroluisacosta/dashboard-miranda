@@ -1,7 +1,7 @@
 const mockRooms = [
     {
       name: 'Deluxe A-91234',
-      id: '#1234',
+      id: '1234',
       image: '/assets/HotelRoom3.jpeg',
       'room type': 'Single Bed',
       amenities: 'Ocean view, King bed, Jacuzzi',
@@ -11,7 +11,7 @@ const mockRooms = [
     },
     {
       name: 'Deluxe A-91234',
-      id: '#5678',
+      id: '5678',
       image: '/assets/HotelRoom3.jpeg',
       'room type': 'Single Bed',
       amenities: 'Queen bed, City view',
@@ -21,7 +21,7 @@ const mockRooms = [
     },
     {
       name: 'Deluxe A-91234',
-      id: '#9012',
+      id: '9012',
       image: '/assets/HotelRoom3.jpeg',
       'room type': 'Double Bed',
       amenities: 'City view, Living room, Kitchenette',
@@ -31,7 +31,7 @@ const mockRooms = [
     },
     {
       name: 'Deluxe A-91234',
-      id: '#3456',
+      id: '3456',
       image: '/assets/HotelRoom3.jpeg',
       'room type': 'Double Superior',
       amenities: 'Two bedrooms, Garden view',
@@ -41,7 +41,7 @@ const mockRooms = [
     },
     {
       name: 'Deluxe A-91234',
-      id: '#7890',
+      id: '7890',
       image: '/assets/HotelRoom3.jpeg',
       'room type': 'Suite',
       amenities: 'Ocean view, Balcony',

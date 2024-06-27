@@ -1,17 +1,19 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SideBarComponent from "../../Components/SideBarComponent";
-import FilterTabs from "../../Components/FilterTabs";
 import TableComponent from "../../Components/TableComponent";
 import Header from "../../Components/Header";
-import mockRooms from "../../data/mockRooms";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddRoom, GetRooms } from "../../Features/Rooms";
+import { AddRoomThunk, GetRoomsThunk } from "../../Features/Rooms";
 
 const StyledNameColumn = styled.div`
-    display: flex;
     border-bottom: 0 !important;
+    a {
+      display: flex;
+      text-decoration: none;
+      color: inherit; 
+    }
     img {
         width: 150px;
         height: 77px;
@@ -28,11 +30,13 @@ const columns = [
       label: 'Room Name',
       display: row => (
         <StyledNameColumn>
-          <img src={row.image} alt="Room image"/>
-          <div>
-            <p>{row.id}</p>
-            <p>{row.name}</p>
-          </div>
+          <Link to={row.id}>
+            <img src={row.image} alt="Room image"/>
+            <div>
+              <p>{row.id}</p>
+              <p>{row.name}</p>
+            </div>
+          </Link>
         </StyledNameColumn>
       )
     },
@@ -73,7 +77,7 @@ const RoomsPage = () => {
     const Rooms = useSelector(state => state.Rooms.items);
 
     const addRoomHandler = () => {
-      dispatch(AddRoom({
+      dispatch(AddRoomThunk({
         name: 'Triple Pleasure',
         id: '#7123',
         image: '/assets/HotelRoom3.jpeg',
@@ -87,7 +91,7 @@ const RoomsPage = () => {
 
     useEffect(() => {
       if (RoomsStatus === 'idle')
-        dispatch(GetRooms());
+        dispatch(GetRoomsThunk());
       else if (RoomsStatus === 'pending')
         console.log('pending...');
       else if (RoomsStatus === 'fulfilled') {
@@ -102,7 +106,7 @@ const RoomsPage = () => {
                   <SideBarComponent/>
                   <div className="main-content">
                     <Header/>
-                    <h1 onClick={addRoomHandler} style={{ marginLeft: '50px' }}>Add Room</h1>
+                    <Link to="add"><h1 style={{ marginLeft: '50px' }}>Add Room</h1></Link>
                     <TableComponent data={renderedRooms} columns={columns}/>
                   </div>
               </div>

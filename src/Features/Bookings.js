@@ -20,7 +20,6 @@ export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id)
 })
 
 export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(newBooking) => {
-    console.log(newBooking);
     const booking = delay(newBooking);
     return booking;
 })

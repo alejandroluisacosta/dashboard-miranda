@@ -9,27 +9,27 @@ const delay = (data) => {
     })
 }
 
-export const GetRooms = createAsyncThunk('Rooms/GetRooms', async() => {
+export const GetRoomsThunk = createAsyncThunk('Rooms/GetRooms', async() => {
     const rooms = delay(mockRooms);
     return rooms;
 })
 
-export const GetRoom = createAsyncThunk('Rooms/GetRoom', async(id) => {
+export const GetRoomThunk = createAsyncThunk('Rooms/GetRoom', async(id) => {
     const room = delay(mockRooms[id]);
     return room;
 })
 
-export const AddRoom = createAsyncThunk('Rooms/AddRoom', async(newRoom) => {
+export const AddRoomThunk = createAsyncThunk('Rooms/AddRoom', async(newRoom) => {
     const room = delay(newRoom);
     return room;
 })
 
-export const RemoveRoom = createAsyncThunk('Rooms/RemoveRoom', async(id) => {
+export const RemoveRoomThunk = createAsyncThunk('Rooms/RemoveRoom', async(id) => {
     const room = delay(id);
     return room; 
 })
 
-export const EditRoom = createAsyncThunk('Rooms/EditRoom', async(id) => {
+export const EditRoomThunk = createAsyncThunk('Rooms/EditRoom', async(id) => {
     const room = delay(mockRooms[id]);
     return room; 
 })
@@ -45,67 +45,67 @@ const Rooms = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(GetRooms.pending, state => {
+        .addCase(GetRoomsThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(GetRooms.rejected, state => {
+        .addCase(GetRoomsThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(GetRooms.fulfilled, (state, action) => {
+        .addCase(GetRoomsThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = action.payload;
         })
-        .addCase(GetRoom.pending, state => {
+        .addCase(GetRoomThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(GetRoom.rejected, state => {
+        .addCase(GetRoomThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(GetRoom.fulfilled, (state, action) => {
+        .addCase(GetRoomThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.single = action.payload;
         })
-        .addCase(AddRoom.pending, state => {
+        .addCase(AddRoomThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(AddRoom.rejected, state => {
+        .addCase(AddRoomThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(AddRoom.fulfilled, (state, action) => {
+        .addCase(AddRoomThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items.push(action.payload);
         })
-        .addCase(RemoveRoom.pending, state => {
+        .addCase(RemoveRoomThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(RemoveRoom.rejected, state => {
+        .addCase(RemoveRoomThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(RemoveRoom.fulfilled, (state, action) => {
+        .addCase(RemoveRoomThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = state.items.filter(room => room.id !== action.payload);
         })
-        .addCase(EditRoom.pending, state => {
+        .addCase(EditRoomThunk.pending, state => {
             state.status = 'pending';
             state.error = 'false';
         })
-        .addCase(EditRoom.rejected, state => {
+        .addCase(EditRoomThunk.rejected, state => {
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(EditRoom.fulfilled, (state, action) => {
+        .addCase(EditRoomThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
             state.items.map(room => room.id === action.payload.id ? booking = action.payload : booking);

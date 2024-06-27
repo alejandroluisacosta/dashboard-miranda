@@ -41,11 +41,9 @@ const StyledGuestColumn = styled.div`
   div {
     border-bottom: 0 !important;
   }
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    margin-right: 16px;
+  a {
+      text-decoration: none;
+      color: inherit; 
   }
 `;
 
@@ -53,7 +51,7 @@ const BookingsPage = () => {
   
     const columns = [
       {
-        label: 'Guest',
+      label: 'Guest',
       display: row => (
         <StyledGuestColumn>
             <Link to={row.id}>
@@ -141,7 +139,6 @@ const BookingsPage = () => {
                   <SideBarComponent/>
                   <div className="main-content">
                     <Header/>
-                    <Link to="0"><p>Go to booking</p></Link>
                     <div className="filter-container">
                       <FilterTabs 
                         sortHandler={sortBookingsHandler}
