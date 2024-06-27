@@ -15,8 +15,8 @@ export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async()
 })
 
 export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id) => {
-    const booking = delay(mockBookings[id]);
-    return booking;
+    const bookingId = delay(id);
+    return bookingId;
 })
 
 export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(newBooking) => {
@@ -70,7 +70,7 @@ const Bookings = createSlice({
         .addCase(GetBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.single = action.payload;
+            state.single = state.items.find(booking => booking.id === action.payload);
         })
         .addCase(AddBookingThunk.pending, state => {
             state.status = 'pending';

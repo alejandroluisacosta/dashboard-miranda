@@ -49,7 +49,7 @@ const BookingDetailsPage = () => {
                         <Header />
                         <div className="back-link-container">
                             <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
-                            <Link to="/bookings"><a>All Bookings</a></Link>
+                            <Link to="/bookings">All Bookings</Link>
                         </div>
                         {fetched ? 
                         <BookingDetails booking={Booking}/>

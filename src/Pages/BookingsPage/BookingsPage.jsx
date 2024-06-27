@@ -37,7 +37,6 @@ const StyledStatus = styled.div`
 `;
 
 const StyledGuestColumn = styled.div`
-  display: flex;
   border-bottom: 0 !important;
   div {
     border-bottom: 0 !important;
@@ -55,13 +54,12 @@ const BookingsPage = () => {
     const columns = [
       {
         label: 'Guest',
-        display: row => (
-          <StyledGuestColumn>
-            <img src="/assets/womanUser.jpeg" alt="User Image"/>
-            <div>
+      display: row => (
+        <StyledGuestColumn>
+            <Link to={row.id}>
               <p>{row.name}</p>
-              <p>{row.id}</p>
-            </div>
+              <p>{`#${row.id}`}</p>
+            </Link>
           </StyledGuestColumn>
         )
       },

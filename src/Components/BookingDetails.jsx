@@ -176,7 +176,7 @@ const Right = styled.div`
 const BookingDetails = ({ booking }) => {
 
     const [isEditing, setIsEditing] = useState(false);
-    const Booking = useSelector(state => state.Bookings.items.find(item => item.id === booking.id));
+    const Booking = useSelector(state => state.Bookings.single);
     const [checkInDate, setCheckInDate] = useState(Booking.checkInDate);
     const [checkOutDate, setCheckOutDate] = useState(Booking.checkOutDate);
     const [roomType, setRoomType] = useState(Booking.roomType);
@@ -227,7 +227,7 @@ const BookingDetails = ({ booking }) => {
                     pauseOnHover={false}
                     theme="light"
                 />
-            <Left isEditing={isEditing}>
+            <Left>
                 <ClientContainer>
                     {isEditing ? 
                         <button onClick={handleSaveClick} className="save">Save changes</button>
