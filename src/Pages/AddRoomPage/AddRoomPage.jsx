@@ -1,6 +1,26 @@
+import styled from "styled-components";
+import SideBarComponent from "../../Components/SideBarComponent";
+import Header from "../../Components/Header";
+import AddRoom from "../../Components/AddRoom";
+;
+
+const StyledAddRoomPage = styled.div`
+    background-color: var(--light-gray);
+`;
+
 const AddRoomPage = () => {
     return (
-        <h1>Add Room Page</h1>
+        <>
+            <StyledAddRoomPage>
+                <div className="page-container">
+                    <SideBarComponent/>
+                    <div className="main-content">
+                        <Header />
+                        <AddRoom />
+                    </div>
+                </div>
+            </StyledAddRoomPage>
+        </>
     )
 }
 

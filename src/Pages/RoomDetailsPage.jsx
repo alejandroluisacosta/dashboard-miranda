@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { GetRoomThunk } from "../Features/Rooms";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import RoomDetails from "../Components/RoomDetails";
 
 const StyledRoomDetailsPage = styled.div`
     background-color: var(--light-gray);
@@ -49,7 +50,7 @@ const RoomDetailsPage = () => {
                             <Link to="/rooms">All Rooms</Link>
                         </div>
                         {fetched ? 
-                        <h1>Component here</h1>
+                        <RoomDetails/>
                         :
                         <h1>Loading</h1>
                         }
