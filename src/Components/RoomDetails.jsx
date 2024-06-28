@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
+import { EditRoomThunk } from "../Features/Rooms";
 
 const StyledRoomDetails = styled.div`
     display: flex;
@@ -91,6 +92,8 @@ const RoomDetails = () => {
 
     const [isEditing, setIsEditing] = useState(false);
     const room = useSelector(state => state.Rooms.single);
+    const [name, setName] = useState(room.name);
+    const [roomType, setRoomType] = useState(room['room type']);
     const [image, setImage] = useState(room.image);
     const [amenities, setAmenities] = useState(room.amenities);
     const [price, setPrice] = useState(room.price);
@@ -114,12 +117,15 @@ const RoomDetails = () => {
     }
 
     const handleSaveClick = async () => {
-        dispatch(EditBookingThunk({
+        
+        const modifiedAmenities = Array.from(document.getElementById('amenities').querySelectorAll('input[name="amenities"]:checked')).map(input => input.value).join(', ');
+        
+        dispatch(EditRoomThunk({
             name: room.name,
             id: room.id,
             image: 'assets/HotelRoom3.jpeg',
             'room type': room['room type'],
-            amenities: amenities,
+            amenities: modifiedAmenities.length ? modifiedAmenities : amenities,
             price: price,
             offer: offer,
             status: status,
@@ -144,7 +150,7 @@ const RoomDetails = () => {
                 />
             <Left $isEditing={isEditing}>
                 <StyledNameContainer>
-                <h2>Room {room.name}</h2>
+                <h2>Room {name}</h2>
                 {isEditing ? 
                     <button onClick={handleSaveClick} className="save">Save changes</button>
                 :
@@ -155,7 +161,11 @@ const RoomDetails = () => {
                     <div>
                         <p className="label">Name</p>
                         {isEditing ? 
-                            <input id="name" type="text" required/>
+                            <input 
+                                id="name"
+                                type="text"
+                                onChange={(event) => setName(event.target.value)}
+                            />
                         :
                             <p>{room.name}</p>
                         }
@@ -163,14 +173,14 @@ const RoomDetails = () => {
                     <div>
                         <p className="label">Room Type</p>
                         {isEditing ?
-                            <select id="room-type" required>
+                            <select id="room-type" onChange={(event) => setRoomType(event.target.value)} required>
                                 <option value="Single">Single Room</option>
                                 <option value="Double">Double Room</option>
                                 <option value="Double Superior">Double Superior</option>
                                 <option value="Suite">Suite</option>
                             </select>
                         :
-                        <p>{room['room type']}</p>
+                        <p>{roomType}</p>
                         }
                     </div>
                     <div>
@@ -181,7 +191,7 @@ const RoomDetails = () => {
                 <AmenitiesContainer>
                         <p className="label">Amenities</p>
                         {isEditing ? (
-                            <div className="checkboxes-form">
+                            <div className="checkboxes-form" id="amenities">
                                 <label><input type="checkbox" name="amenities" value="Wi-Fi"/> Wi-Fi</label>
                                 <label><input type="checkbox" name="amenities" value="Breakfast"/> Breakfast</label>
                                 <label><input type="checkbox" name="amenities" value="Parking"/> Parking</label>
@@ -196,7 +206,13 @@ const RoomDetails = () => {
                     <div>
                         <p className="label">Price</p>
                         {isEditing ? (
-                            <input id="price" type="number" required placeholder="$/night"/>
+                            <input
+                                id="price"
+                                type="number"
+                                required
+                                placeholder="$/night"
+                                onChange={(event) => setPrice(event.target.value)}
+                            />
                         ) :
                             <p>{room.price}</p>
                     }
@@ -204,7 +220,13 @@ const RoomDetails = () => {
                     <div>
                         <p className="label">Offer</p>
                         {isEditing ? (
-                            <input id="discount" type="number" required placeholder="%"/>
+                            <input
+                                id="offer"
+                                type="number"
+                                required
+                                placeholder="%"
+                                onChange={(event) => setOffer(event.target.value)}
+                            />
                         ) : 
                             <p>{room.offer}</p>
                         }
@@ -212,12 +234,12 @@ const RoomDetails = () => {
                     <div>
                         <p className="label">Status</p>
                         {isEditing ? (
-                            <select>
+                            <select onChange={(event) => setStatus(event.target.value)}>
                                 <option value="available">Available</option>
                                 <option value="booked">Booked</option>
                             </select>
                         ) :
-                        <p>{room.status}</p>
+                        <p>{status}</p>
                         }
                     </div>
                 </BottomContainer>

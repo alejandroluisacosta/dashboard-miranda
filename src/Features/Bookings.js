@@ -29,8 +29,8 @@ export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', asy
     return bookingId; 
 })
 
-export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(updatedData) => {
-    const newData = delay(updatedData);
+export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(updatedBooking) => {
+    const newData = delay(updatedBooking);
     return newData; 
 })
 

@@ -31,8 +31,8 @@ export const RemoveRoomThunk = createAsyncThunk('Rooms/RemoveRoom', async(id) =>
     return room; 
 })
 
-export const EditRoomThunk = createAsyncThunk('Rooms/EditRoom', async(id) => {
-    const room = delay(mockRooms[id]);
+export const EditRoomThunk = createAsyncThunk('Rooms/EditRoom', async(updatedRoom) => {
+    const room = delay(updatedRoom);
     return room; 
 })
 
@@ -110,7 +110,7 @@ const Rooms = createSlice({
         .addCase(EditRoomThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items.map(room => room.id === action.payload.id ? booking = action.payload : booking);
+            state.items = state.items.map(room => room.id === action.payload.id ? room = action.payload : room);
         })
     }
 })

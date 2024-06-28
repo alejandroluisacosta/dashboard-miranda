@@ -280,7 +280,7 @@ const BookingDetails = ({ booking }) => {
                         <div>
                             <p className="label">Room Info</p>
                             {isEditing ? (
-                            <select type="date" defaultValue={roomType} onChange={(event) => setRoomType(event.target.value)}>
+                            <select defaultValue={roomType} onChange={(event) => setRoomType(event.target.value)}>
                                 <option value="Single Bed">Single Bed</option>
                                 <option value="Double Bed">Double Bed</option>
                                 <option value="Double Superior">Double Superior</option>
