@@ -21,7 +21,6 @@ export const GetRoomThunk = createAsyncThunk('Rooms/GetRoom', async(id) => {
 
 export const AddRoomThunk = createAsyncThunk('Rooms/AddRoom', async(newRoom) => {
     const room = delay(newRoom);
-    console.log(room);
     return room;
 })
 

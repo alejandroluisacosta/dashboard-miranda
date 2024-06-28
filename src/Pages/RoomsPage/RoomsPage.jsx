@@ -46,7 +46,8 @@ const columns = [
     },
     {
       label: 'Amenities',
-      property: 'amenities',
+      // display: row => row.amenities.join(', '),
+      property: 'amenities'
 
     },
     {

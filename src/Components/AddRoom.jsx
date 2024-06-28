@@ -120,9 +120,9 @@ const AddRoom = () => {
         const price = form['price'].value;
         const discount = form['discount'].value;
         const description = form['description'].value;
-        const amenities = Array.from(form.querySelectorAll('input[name="amenities"]:checked')).map(input => input.value);
+        const amenities = Array.from(form.querySelectorAll('input[name="amenities"]:checked')).map(input => input.value).join(', ');
         const cancellationPolicies = form['cancellation'].value;
-    
+
         dispatch(AddRoomThunk({
             name: `${roomType} ${roomNumber}`,
             id: `${Math.floor(Math.random() * 1000)}`,
@@ -198,13 +198,13 @@ const AddRoom = () => {
                         </div>
                         <div>
                             <label htmlFor="amenities" className="amenities-label"required>* Amenities</label>
-                            <form className="checkboxes-form">
-                                <label><input type="checkbox" name="amenities" value="wifi"/> Wi-Fi</label>
-                                <label><input type="checkbox" name="amenities" value="breakfast"/> Breakfast</label>
-                                <label><input type="checkbox" name="amenities" value="parking"/> Parking</label>
-                                <label><input type="checkbox" name="amenities" value="gym"/> Gym</label>
-                                <label><input type="checkbox" name="amenities" value="pool"/> Swimming Pool</label>
-                            </form>
+                            <div className="checkboxes-form">
+                                <label><input type="checkbox" name="amenities" value="Wi-Fi"/> Wi-Fi</label>
+                                <label><input type="checkbox" name="amenities" value="Breakfast"/> Breakfast</label>
+                                <label><input type="checkbox" name="amenities" value="Parking"/> Parking</label>
+                                <label><input type="checkbox" name="amenities" value="Gym"/> Gym</label>
+                                <label><input type="checkbox" name="amenities" value="Pool"/> Swimming Pool</label>
+                            </div>
                         </div>
                         <div>
                             <label htmlFor="cancellation" required>* Cancellation Policies</label>
