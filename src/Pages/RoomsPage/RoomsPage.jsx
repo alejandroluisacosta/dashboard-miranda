@@ -86,18 +86,12 @@ const RoomsPage = () => {
 
     const [renderedRooms, setRenderedRooms] = useState([]);
     const dispatch = useDispatch();
-    const RoomsStatus = useSelector(state => state.Rooms.status);
-    const Rooms = useSelector(state => state.Rooms.items);
+    const rooms = useSelector(state => state.Rooms.items);
 
     useEffect(() => {
-      if (RoomsStatus === 'idle')
         dispatch(GetRoomsThunk());
-      else if (RoomsStatus === 'pending')
-        console.log('pending...');
-      else if (RoomsStatus === 'fulfilled') {
-        setRenderedRooms(Rooms);
-      }
-    }, [Rooms, RoomsStatus, dispatch])
+        setRenderedRooms(rooms);
+    }, [rooms])
 
     return (
         <>

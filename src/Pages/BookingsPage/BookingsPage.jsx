@@ -97,10 +97,10 @@ const BookingsPage = () => {
     const [renderedBookings, setRenderedBookigs] = useState([]);
     const dispatch = useDispatch();
     const BookingsStatus = useSelector(state => state.Bookings.status);
-    const Bookings = useSelector(state => state.Bookings.items);
+    const bookings = useSelector(state => state.Bookings.items);
 
     const sortBookingsHandler = (event, value) => {
-      const allBookings = [...Bookings];
+      const allBookings = [...bookings];
       if (value === 'inProgress') { 
         const today = new Date();
         const filteredBookings = renderedBookings.filter(booking => new Date(booking.checkInDate) < today && new Date(booking.checkOutDate) > today);
@@ -115,7 +115,7 @@ const BookingsPage = () => {
     const filterByNameHandler = (event) => {
       const allBookings = [...renderedBookings]; 
       if (!event.target.value)
-        setRenderedBookigs(Bookings);
+        setRenderedBookigs(bookings);
       else { 
         const bookingsFilteredByName = allBookings.filter(booking => booking.name.toLowerCase().includes(event.target.value.toLowerCase()));
         setRenderedBookigs(bookingsFilteredByName);
@@ -123,14 +123,9 @@ const BookingsPage = () => {
     };
 
     useEffect(() => {
-      if (BookingsStatus === 'idle')
-        dispatch(GetBookingsThunk());
-      else if (BookingsStatus === 'pending')
-        console.log('pending...');
-      else if (BookingsStatus === 'fulfilled') {
-        setRenderedBookigs(Bookings);
-      }
-    }, [Bookings, BookingsStatus, dispatch])
+      dispatch(GetBookingsThunk());
+      setRenderedBookigs(bookings);
+    }, [bookings])
 
     return (
         <>
