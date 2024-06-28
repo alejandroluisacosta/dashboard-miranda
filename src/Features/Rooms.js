@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import mockRooms from "../data/mockRooms";
+import { useSelector } from "react-redux";
 
 const delay = (data) => {
     return new Promise((resolve) => {
@@ -15,7 +16,8 @@ export const GetRoomsThunk = createAsyncThunk('Rooms/GetRooms', async() => {
 })
 
 export const GetRoomThunk = createAsyncThunk('Rooms/GetRoom', async(id) => {
-    const room = delay(mockRooms[id]);
+    const roomId = delay(id);
+    const room = mockRooms.find(room => room.id === id);
     return room;
 })
 

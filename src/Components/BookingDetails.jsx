@@ -18,7 +18,7 @@ const StyledBookingDetails = styled.div`
 const Left = styled.div`
     width: 50%;
     padding: 40px 40px 50px;
-    background-color: ${props => props.isEditing ? 'var(--lighter-green)' : 'unset'};
+    background-color: ${props => props.$isEditing ? 'var(--lighter-green)' : 'unset'};
     textarea {
         padding: 10px;
         border-radius: 8px;
@@ -227,7 +227,7 @@ const BookingDetails = ({ booking }) => {
                     pauseOnHover={false}
                     theme="light"
                 />
-            <Left>
+            <Left $isEditing={isEditing}>
                 <ClientContainer>
                     {isEditing ? 
                         <button onClick={handleSaveClick} className="save">Save changes</button>

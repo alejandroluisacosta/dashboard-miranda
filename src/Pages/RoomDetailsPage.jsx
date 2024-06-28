@@ -2,10 +2,10 @@ import styled from "styled-components";
 import SideBarComponent from "../Components/SideBarComponent";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Header from "../Components/Header";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { GetRoomThunk } from "../Features/Rooms";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RoomDetails from "../Components/RoomDetails";
 
 const StyledRoomDetailsPage = styled.div`
@@ -26,6 +26,7 @@ const StyledRoomDetailsPage = styled.div`
 const RoomDetailsPage = () => {
 
     const [fetched, setFetched] = useState(false);
+    const roomFromSlice = useSelector(state => state.Rooms.single);
     const dispatch = useDispatch();
     const { roomId } = useParams();
 

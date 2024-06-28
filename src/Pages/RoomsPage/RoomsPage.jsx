@@ -46,7 +46,6 @@ const columns = [
     },
     {
       label: 'Amenities',
-      // display: row => row.amenities.join(', '),
       property: 'amenities'
 
     },
@@ -68,6 +67,19 @@ const columns = [
   
 const StyledRooms = styled.div`
   background-color: var(--light-gray);
+    .add-button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin: 30px 50px;
+      .add-button {
+        padding: 15px 50px;
+        background-color: var(--dark-green);
+        border-radius: 12px;
+        color: white;
+        font-size: 20px;
+        cursor: pointer
+      }
+    }
 `;
 
 const RoomsPage = () => {
@@ -76,19 +88,6 @@ const RoomsPage = () => {
     const dispatch = useDispatch();
     const RoomsStatus = useSelector(state => state.Rooms.status);
     const Rooms = useSelector(state => state.Rooms.items);
-
-    const addRoomHandler = () => {
-      dispatch(AddRoomThunk({
-        name: 'Triple Pleasure',
-        id: '#7123',
-        image: '/assets/HotelRoom3.jpeg',
-        'room type': 'Single Bed',
-        amenities: 'Ocean view, King bed',
-        price: '$325',
-        offer: '18% off',
-        status: 'Available',
-      }))
-    }
 
     useEffect(() => {
       if (RoomsStatus === 'idle')
@@ -107,7 +106,9 @@ const RoomsPage = () => {
                   <SideBarComponent/>
                   <div className="main-content">
                     <Header/>
-                    <Link to="add"><h1 style={{ marginLeft: '50px' }}>Add Room</h1></Link>
+                    <div className="add-button-container">
+                      <Link to="add"><button className="add-button">+ Add Room</button></Link>
+                    </div>
                     <TableComponent data={renderedRooms} columns={columns}/>
                   </div>
               </div>

@@ -4,7 +4,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { TfiKey } from "react-icons/tfi";
 import { LuCalendarCheck2 } from "react-icons/lu";
 import { HiOutlinePuzzle } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SideBar = styled.div`
     
@@ -48,12 +48,15 @@ const Navigation = styled.div`
 `;
 
 const NavigationLink = styled.div`
-
-    display: flex;
-    align-items: center;
     cursor: pointer;
     margin-bottom: 55px;
     color: ${props => props.selected ? 'var(--red)' : 'inherit'};
+    a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+    }
     .icon {
         width: 28px;
         height: 28px;
@@ -134,21 +137,29 @@ const SideBarComponent = () => {
                 </div>
             </LogoContainer>
             <Navigation>
-                <NavigationLink selected={true} onClick={navigateHandler}>
-                    <MdOutlineDashboard className="icon"/>
-                    <p>Dashboard</p>
+                <NavigationLink selected={true}>
+                    <Link to="/">
+                        <MdOutlineDashboard className="icon"/>
+                        <p>Dashboard</p>
+                    </Link>
                 </NavigationLink>
-                <NavigationLink selected={false} onClick={navigateHandler}>
-                    <TfiKey className="icon"/>
-                    <p>Room</p>
+                <NavigationLink selected={false}>
+                    <Link to="/rooms">
+                        <TfiKey className="icon"/>
+                        <p>Rooms</p>
+                    </Link>
                 </NavigationLink>
-                <NavigationLink selected={false} onClick={navigateHandler}>
-                    <LuCalendarCheck2 className="icon"/>
-                    <p>Bookings</p>
+                <NavigationLink selected={false}>
+                    <Link to="/bookings">
+                        <LuCalendarCheck2 className="icon"/>
+                        <p>Bookings</p>
+                    </Link>
                 </NavigationLink>
-                <NavigationLink selected={false} onClick={navigateHandler}>
-                    <HiOutlinePuzzle className="icon"/>
-                    <p>Users</p>
+                <NavigationLink selected={false}>
+                    <Link to="/users">
+                        <HiOutlinePuzzle className="icon"/>
+                        <p>Users</p>
+                    </Link>
                 </NavigationLink>
             </Navigation>
             <User>
