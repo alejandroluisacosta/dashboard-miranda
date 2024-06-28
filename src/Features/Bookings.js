@@ -16,7 +16,8 @@ export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async()
 
 export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id) => {
     const bookingId = delay(id);
-    return bookingId;
+    const booking = mockBookings.find(booking => booking.id === id);
+    return booking;
 })
 
 export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(newBooking) => {
@@ -69,7 +70,7 @@ const Bookings = createSlice({
         .addCase(GetBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.single = state.items.find(booking => booking.id === action.payload);
+            state.single = action.payload;
         })
         .addCase(AddBookingThunk.pending, state => {
             state.status = 'pending';
@@ -83,6 +84,7 @@ const Bookings = createSlice({
             state.status = 'fulfilled',
             state. error = 'false',
             state.items.push(action.payload);
+            state.single = action.payload;
         })
         .addCase(RemoveBookingThunk.pending, state => {
             state.status = 'pending';
@@ -96,6 +98,7 @@ const Bookings = createSlice({
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = state.items.filter(booking => booking.id !== action.payload);
+            state.single = action.payload;
         })
         .addCase(EditBookingThunk.pending, state => {
             state.status = 'pending';
@@ -109,6 +112,7 @@ const Bookings = createSlice({
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = state.items.map(booking => booking.id === action.payload.id ? action.payload : booking);
+            state.single = action.payload;
         })
     }
 })

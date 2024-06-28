@@ -85,6 +85,7 @@ const Rooms = createSlice({
             state.status = 'fulfilled',
             state. error = 'false',
             state.items.push(action.payload);
+            state.single = action.payload;
         })
         .addCase(RemoveRoomThunk.pending, state => {
             state.status = 'pending';
@@ -98,6 +99,7 @@ const Rooms = createSlice({
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = state.items.filter(room => room.id !== action.payload);
+            state.single = action.payload;
         })
         .addCase(EditRoomThunk.pending, state => {
             state.status = 'pending';
@@ -111,6 +113,7 @@ const Rooms = createSlice({
             state.status = 'fulfilled',
             state. error = 'false',
             state.items = state.items.map(room => room.id === action.payload.id ? room = action.payload : room);
+            state.single = action.payload;
         })
     }
 })

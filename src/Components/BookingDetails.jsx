@@ -173,14 +173,18 @@ const Right = styled.div`
     }
 `;
 
-const BookingDetails = ({ booking }) => {
+const BookingDetails = () => {
 
     const [isEditing, setIsEditing] = useState(false);
-    const Booking = useSelector(state => state.Bookings.single);
-    const [checkInDate, setCheckInDate] = useState(Booking.checkInDate);
-    const [checkOutDate, setCheckOutDate] = useState(Booking.checkOutDate);
-    const [roomType, setRoomType] = useState(Booking.roomType);
-    const [specialRequest, setSpecialRequest] = useState(Booking.specialRequest);
+    const booking = useSelector(state => state.Bookings.single);
+    const name = booking.name;
+    const id = booking.id;
+    const orderDate = booking.orderDate;
+    const status = booking.status;
+    const [checkInDate, setCheckInDate] = useState(booking.checkInDate);
+    const [checkOutDate, setCheckOutDate] = useState(booking.checkOutDate);
+    const [roomType, setRoomType] = useState(booking.roomType);
+    const [specialRequest, setSpecialRequest] = useState(booking.specialRequest);
     const dispatch = useDispatch();
 
     const notify = () => toast.success('Booking successfully modified', {
@@ -200,14 +204,14 @@ const BookingDetails = ({ booking }) => {
 
     const handleSaveClick = async () => {
         dispatch(EditBookingThunk({
-            name: booking.name,
-            id: booking.id,
-            orderDate: booking.orderDate,
+            name: name,
+            id: id,
+            orderDate: orderDate,
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
             roomType: roomType,
             specialRequest: specialRequest,
-            status: booking.status,
+            status: status,
         }))
         setIsEditing(false);
         notify();
@@ -224,8 +228,8 @@ const BookingDetails = ({ booking }) => {
                     }
                     <img src="/assets/user.jpeg" alt="User image"/>
                     <div>
-                        <p>{booking.name}</p>
-                        <p>Booking {booking.id}</p>
+                        <p>{name}</p>
+                        <p>Booking {id}</p>
                         <ContactContainer>
                             <div className="call-container">
                                 <FaPhoneAlt className="icon"/>
@@ -287,7 +291,7 @@ const BookingDetails = ({ booking }) => {
                         </div>
                     </RoomTopContainer>
                     {isEditing ? (
-                            <textarea type="text" placeholder={specialRequest} onChange={(event) => setSpecialRequest(event.target.value)}/>
+                            <textarea type="text" placeholder={specialRequest ? specialRequest : ""} onChange={(event) => setSpecialRequest(event.target.value)}/>
                             ) : 
                             <p className="special-request">{specialRequest}</p>
                             }

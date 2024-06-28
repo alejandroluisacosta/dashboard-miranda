@@ -21,8 +21,8 @@ const types = {
     UPDATE_USER: 'UPDATE_USER',
 }
 
-let newState = {};
 const authReducer = (state, action) => {
+    let newState = {};
     switch (action.type) {
         case types.LOGIN:
             newState = {
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
     const [authState, authDispatch] = useReducer(authReducer, getInitialAuthState());
 
     useEffect(() => {
-        localStorage.setItem('auth', JSON.stringify(newState))
+        localStorage.setItem('auth', JSON.stringify(authState))
     }, [authState]);
 
     return (
