@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
@@ -136,18 +136,6 @@ const RoomDetails = () => {
 
     return (
         <StyledRoomDetails>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={1000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover={false}
-                    theme="light"
-                />
             <Left $isEditing={isEditing}>
                 <StyledNameContainer>
                 <h2>Room {name}</h2>

@@ -5,7 +5,7 @@ import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { EditBookingThunk } from "../Features/Bookings";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const StyledBookingDetails = styled.div`
@@ -215,18 +215,6 @@ const BookingDetails = ({ booking }) => {
 
     return (
         <StyledBookingDetails>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={1000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover={false}
-                    theme="light"
-                />
             <Left $isEditing={isEditing}>
                 <ClientContainer>
                     {isEditing ? 

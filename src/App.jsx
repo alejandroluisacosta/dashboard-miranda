@@ -17,6 +17,7 @@ import { Provider } from 'react-redux'
 import Store from './app/Store'
 import AddBookingPage from './Pages/AddBookingPage'
 import RoomDetailsPage from './Pages/RoomDetailsPage'
+import { ToastContainer } from 'react-toastify'
 
 
 const App = () => {
@@ -42,6 +43,18 @@ const App = () => {
                 </Routes>
               </BrowserRouter>
             </Provider>
+            <ToastContainer
+                    position="top-center"
+                    autoClose={1000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                    theme="light"
+                />
           </AuthProvider>
         </React.StrictMode>
       </>
