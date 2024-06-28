@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { FaHotel } from "react-icons/fa";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TfiKey } from "react-icons/tfi";
 import { LuCalendarCheck2 } from "react-icons/lu";
 import { HiOutlinePuzzle } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 
-const SideBar = styled.div`
+const StyledSideBar = styled.div`
     
     padding: 32px 56px 0;
     max-width: 345px;
@@ -119,16 +118,10 @@ const Footer = styled.div`
     }
 `;
 
-const SideBarComponent = () => {
-
-    const navigate = useNavigate();
-
-    const navigateHandler = (route) => {
-        navigate("rooms");
-    }
+const SideBar = () => {
 
     return (
-        <SideBar>
+        <StyledSideBar>
             <LogoContainer>
                 <img src="/assets/HotelLogo.svg" className="icon"/>
                 <div>
@@ -173,8 +166,8 @@ const SideBarComponent = () => {
                 <p>© 2020 All Rights Reserved</p>
                 <p>Made by Alejandro Luis Acosta</p>
             </Footer>
-        </SideBar>
+        </StyledSideBar>
     )
 }
 
-export default SideBarComponent;
+export default SideBar;

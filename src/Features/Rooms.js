@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import mockRooms from "../data/mockRooms";
-import { useSelector } from "react-redux";
 
 const delay = (data) => {
     return new Promise((resolve) => {

@@ -1,11 +1,11 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import SideBarComponent from "../Components/SideBarComponent";
-import TableComponent from "../Components/TableComponent";
+import Table from "../Components/Table";
 import Header from "../Components/Header";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddRoomThunk, GetRoomsThunk } from "../Features/Rooms";
+import { GetRoomsThunk } from "../Features/Rooms";
+import SideBar from "../Components/SideBar";
 
 const StyledNameColumn = styled.div`
     border-bottom: 0 !important;
@@ -97,13 +97,13 @@ const RoomsPage = () => {
         <>
           <StyledRooms>
               <div className="page-container">
-                  <SideBarComponent/>
+                  <SideBar/>
                   <div className="main-content">
                     <Header/>
                     <div className="add-button-container">
                       <Link to="add"><button className="add-button">+ Add Room</button></Link>
                     </div>
-                    <TableComponent data={renderedRooms} columns={columns}/>
+                    <Table data={renderedRooms} columns={columns}/>
                   </div>
               </div>
           </StyledRooms>

@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import SideBarComponent from "../Components/SideBarComponent";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Header from "../Components/Header";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GetRoomThunk } from "../Features/Rooms";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RoomDetails from "../Components/RoomDetails";
+import SideBar from "../Components/SideBar";
 
 const StyledRoomDetailsPage = styled.div`
     background-color: var(--light-gray);
@@ -43,7 +43,7 @@ const RoomDetailsPage = () => {
         <>
             <StyledRoomDetailsPage>
                 <div className="page-container">
-                    <SideBarComponent/>
+                    <SideBar/>
                     <div className="main-content">
                         <Header />
                         <div className="back-link-container">

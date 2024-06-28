@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import SideBarComponent from "../Components/SideBarComponent";
 import Header from "../Components/Header";
 import AddBooking from "../Components/AddBooking";
+import SideBar from "../Components/SideBar";
 
 const StyledAddBookingPage = styled.div`
     background-color: var(--light-gray);
@@ -12,7 +12,7 @@ const AddBookingPage = () => {
         <>
             <StyledAddBookingPage>
                 <div className="page-container">
-                    <SideBarComponent/>
+                    <SideBar/>
                     <div className="main-content">
                         <Header />
                         <AddBooking />

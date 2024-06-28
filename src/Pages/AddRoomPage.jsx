@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import SideBarComponent from "../Components/SideBarComponent";
 import Header from "../Components/Header";
 import AddRoom from "../Components/AddRoom";
+import SideBar from "../Components/SideBar";
 ;
 
 const StyledAddRoomPage = styled.div`
@@ -13,7 +13,7 @@ const AddRoomPage = () => {
         <>
             <StyledAddRoomPage>
                 <div className="page-container">
-                    <SideBarComponent/>
+                    <SideBar/>
                     <div className="main-content">
                         <Header />
                         <AddRoom />

@@ -1,6 +1,4 @@
-import SideBarComponent from "../Components/SideBarComponent";
 import styled from "styled-components";
-import TableComponent from "../Components/TableComponent";
 import Header from "../Components/Header";
 import FilterTabs from "../Components/FilterTabs";
 import { useEffect, useState } from "react";
@@ -8,6 +6,8 @@ import FilterInput from "../Components/FilterInput";
 import { useDispatch, useSelector } from "react-redux";
 import { GetBookingsThunk, RemoveBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
+import Table from "../Components/Table";
+import SideBar from "../Components/SideBar";
 
 const StyledBookings = styled.div`
     background-color: var(--light-gray);
@@ -131,7 +131,7 @@ const BookingsPage = () => {
         <>
           <StyledBookings>
               <div className="page-container">
-                  <SideBarComponent/>
+                  <SideBar/>
                   <div className="main-content">
                     <Header/>
                     <div className="filter-container">
@@ -147,7 +147,7 @@ const BookingsPage = () => {
                       <FilterInput filterByName={filterByNameHandler}/>
                       <Link to='add'><button className="add-button">Add booking</button></Link>
                     </div>
-                    <TableComponent data={renderedBookings} columns={columns}/>
+                    <Table data={renderedBookings} columns={columns}/>
                   </div>
               </div>
           </StyledBookings>

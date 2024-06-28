@@ -1,10 +1,10 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import SideBarComponent from "../Components/SideBarComponent";
 import styled from "styled-components";
-import TableComponent from "../Components/TableComponent";
 import Header from "../Components/Header";
 import { useEffect, useState } from "react";
 import FilterTabs from "../Components/FilterTabs";
+import SideBar from "../Components/SideBar";
+import Table from "../Components/Table";
 
 
 const Users = styled.div`
@@ -172,7 +172,7 @@ const UsersPage = () => {
             <>
                 <Users>
                     <div className="page-container">
-                        <SideBarComponent/>
+                        <SideBar/>
                         <div className="main-content">
                             <Header/>
                             <FilterTabs 
@@ -183,7 +183,7 @@ const UsersPage = () => {
                                 'Inactive employees': 'inactive',
                               }}
                             />
-                            <TableComponent data={users} columns={columns}/>
+                            <Table data={users} columns={columns}/>
                         </div>
                     </div>
                 </Users>

@@ -17,7 +17,7 @@ const Grid = styled.div`
     }
 `;
 
-const TableComponent = ({ data, columns }) => {
+const Table = ({ data, columns }) => {
     return (
         <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
             {columns.map((column, index) => 
@@ -32,4 +32,4 @@ const TableComponent = ({ data, columns }) => {
     )
 }
 
-export default TableComponent;
+export default Table;
