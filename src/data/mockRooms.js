@@ -1,6 +1,6 @@
 const mockRooms = [
     {
-      name: 'Deluxe A-91234',
+      name: 'Deluxe A-91235',
       id: '1234',
       image: '/assets/HotelRoom3.jpeg',
       'room type': 'Single Bed',

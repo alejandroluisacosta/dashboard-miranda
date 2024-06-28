@@ -101,7 +101,7 @@ const RoomDetails = () => {
     const [status, setStatus] = useState(room.status);
     const dispatch = useDispatch();
 
-    const notify = () => toast.success('Booking successfully modified', {
+    const notify = () => toast.success('Room successfully modified', {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: true,
@@ -121,7 +121,7 @@ const RoomDetails = () => {
         const modifiedAmenities = Array.from(document.getElementById('amenities').querySelectorAll('input[name="amenities"]:checked')).map(input => input.value).join(', ');
         
         dispatch(EditRoomThunk({
-            name: room.name,
+            name: name,
             id: room.id,
             image: 'assets/HotelRoom3.jpeg',
             'room type': room['room type'],

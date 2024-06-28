@@ -33,7 +33,7 @@ const columns = [
           <Link to={row.id}>
             <img src={row.image} alt="Room image"/>
             <div>
-              <p>{row.id}</p>
+              <p>#{row.id}</p>
               <p>{row.name}</p>
             </div>
           </Link>
