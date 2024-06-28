@@ -1,11 +1,11 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import SideBarComponent from "../../Components/SideBarComponent";
-import TableComponent from "../../Components/TableComponent";
-import Header from "../../Components/Header";
+import SideBarComponent from "../Components/SideBarComponent";
+import TableComponent from "../Components/TableComponent";
+import Header from "../Components/Header";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddRoomThunk, GetRoomsThunk } from "../../Features/Rooms";
+import { AddRoomThunk, GetRoomsThunk } from "../Features/Rooms";
 
 const StyledNameColumn = styled.div`
     border-bottom: 0 !important;

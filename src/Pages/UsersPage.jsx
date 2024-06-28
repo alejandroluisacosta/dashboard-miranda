@@ -1,10 +1,10 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import SideBarComponent from "../../Components/SideBarComponent";
+import SideBarComponent from "../Components/SideBarComponent";
 import styled from "styled-components";
-import TableComponent from "../../Components/TableComponent";
-import Header from "../../Components/Header";
+import TableComponent from "../Components/TableComponent";
+import Header from "../Components/Header";
 import { useEffect, useState } from "react";
-import FilterTabs from "../../Components/FilterTabs";
+import FilterTabs from "../Components/FilterTabs";
 
 
 const Users = styled.div`

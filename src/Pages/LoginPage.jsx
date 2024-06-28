@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../Components/Auth";
+import { AuthContext } from "../Components/Auth";
 import { useNavigate } from "react-router-dom"
 
 

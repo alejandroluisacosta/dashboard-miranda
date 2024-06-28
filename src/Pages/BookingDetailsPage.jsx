@@ -1,11 +1,11 @@
-import Header from "../../Components/Header";
-import SideBarComponent from "../../Components/SideBarComponent";
+import Header from "../Components/Header";
+import SideBarComponent from "../Components/SideBarComponent";
 import styled from "styled-components";
-import BookingDetails from "../../Components/BookingDetails";
+import BookingDetails from "../Components/BookingDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { GetBookingThunk } from "../../Features/Bookings";
+import { GetBookingThunk } from "../Features/Bookings";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 

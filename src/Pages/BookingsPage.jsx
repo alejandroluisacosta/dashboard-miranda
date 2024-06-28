@@ -1,12 +1,12 @@
-import SideBarComponent from "../../Components/SideBarComponent";
+import SideBarComponent from "../Components/SideBarComponent";
 import styled from "styled-components";
-import TableComponent from "../../Components/TableComponent";
-import Header from "../../Components/Header";
-import FilterTabs from "../../Components/FilterTabs";
+import TableComponent from "../Components/TableComponent";
+import Header from "../Components/Header";
+import FilterTabs from "../Components/FilterTabs";
 import { useEffect, useState } from "react";
-import FilterInput from "../../Components/FilterInput";
+import FilterInput from "../Components/FilterInput";
 import { useDispatch, useSelector } from "react-redux";
-import { GetBookingsThunk, RemoveBookingThunk } from "../../Features/Bookings";
+import { GetBookingsThunk, RemoveBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
 
 const StyledBookings = styled.div`

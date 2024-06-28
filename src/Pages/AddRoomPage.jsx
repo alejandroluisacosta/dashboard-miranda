@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import SideBarComponent from "../../Components/SideBarComponent";
-import Header from "../../Components/Header";
-import AddRoom from "../../Components/AddRoom";
+import SideBarComponent from "../Components/SideBarComponent";
+import Header from "../Components/Header";
+import AddRoom from "../Components/AddRoom";
 ;
 
 const StyledAddRoomPage = styled.div`

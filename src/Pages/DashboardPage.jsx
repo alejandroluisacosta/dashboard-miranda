@@ -1,13 +1,13 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import SideBarComponent from "../../Components/SideBarComponent";
+import SideBarComponent from "../Components/SideBarComponent";
 import styled from "styled-components";
 import { FaHotel } from "react-icons/fa";
 import { LuBedDouble, LuCalendarCheck2 } from "react-icons/lu";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
-import Header from "../../Components/Header";
-import BookingSummary from "../../Components/BookingSummary";
+import Header from "../Components/Header";
+import BookingSummary from "../Components/BookingSummary";
 import { useEffect, useState } from "react";
-import Comment from "../../Components/Comment";
+import Comment from "../Components/Comment";
 
 
 const mockData = [
