@@ -1,9 +1,11 @@
+import React from 'react';
 import styled from "styled-components";
 import { toast } from 'react-toastify';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { EditRoomThunk } from "../Features/Rooms";
+import Button from './Button';
 
 const StyledRoomDetails = styled.div`
     display: flex;
@@ -139,6 +141,7 @@ const RoomDetails = () => {
             <Left $isEditing={isEditing}>
                 <StyledNameContainer>
                 <h2>Room {name}</h2>
+                <Button $isEditing={isEditing} content='test button'></Button>
                 {isEditing ? 
                     <button onClick={handleSaveClick} className="save">Save changes</button>
                 :
