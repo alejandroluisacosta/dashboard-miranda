@@ -186,12 +186,6 @@ const DashboardPage = () => {
     let isLoggedIn = localStorage.getItem('token');
     const [sortedBookings, setSortedBookings] = useState([]);
 
-    const navigate = useNavigate();
-    const logoutHandler = () => {
-        localStorage.setItem('token', 'false');
-        navigate('login');
-    }
-
     const sortBookings = (bookings) => {
         return bookings.sort((a, b) => new Date(a.checkInDate) - new Date(b.checkInDate));
     }
@@ -210,9 +204,6 @@ const DashboardPage = () => {
     }, [])
 
     return (
-        <>
-            {
-            isLoggedIn && isLoggedIn !== 'false' ? 
             <>
                 <Dashboard>
                     <div className="page-container">
@@ -277,10 +268,6 @@ const DashboardPage = () => {
                         </div>
                     </div>
                 </Dashboard>
-            </>
-            :
-            <Navigate to="/login"/>
-            }
         </>
     )
 }
