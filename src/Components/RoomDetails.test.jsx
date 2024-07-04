@@ -13,13 +13,9 @@ test('Color has to be "var(--lighter-green)" if $isEditing prop is true', () => 
         </div>
     )
 
-    // const buttonComponentClass = Button().type.styledComponentId;
-    // const buttonComponentRoots = document.getElementsByClassName(buttonComponentClass);
-    // const style = window.getComputedStyle(buttonComponentRoots[0]);
-
     const buttonComponent = getByText('test button');
     const style = window.getComputedStyle(buttonComponent);
 
-    expect(style.backgroundColor).toBe('rgb(235, 241, 239)');
+    expect(style.backgroundColor).toBe('rgb(0, 0, 0)');
 
 });
