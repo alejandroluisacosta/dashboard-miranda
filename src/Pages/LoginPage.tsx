@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../Components/Auth";
 import { useNavigate } from "react-router-dom"
+import { AuthContextType } from "../types";
 
 
 const LoginPage = () => {
 
-    const { authDispatch } = useContext(AuthContext);
+    const { authDispatch } = useContext(AuthContext) as AuthContextType;
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ const LoginPage = () => {
         const password = event.target.elements.password.value;
 
         if (username === 'John' && password === '1234') {
-            authDispatch({type: 'LOGIN', payload: {userName: username, userEmail: 'john@oxygen.com'}});
+            authDispatch({type: 'LOGIN', payload: {userName: username, userEmail: 'john@oxygen.com', isLoggedIn: true}});
             navigate('/');
         }
         else 

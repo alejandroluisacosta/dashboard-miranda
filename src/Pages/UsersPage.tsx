@@ -26,10 +26,21 @@ const StyledNameColumn = styled.div`
     }
 `;
 
+interface User {
+  name: string;
+  id: string;
+  image: string;
+  incorporatedOn: string;
+  jobDesk: string;
+  schedule: string;
+  contact: string;
+  status: string;
+}
+
 const columns = [
   {
     label: 'Name',
-    display: row => (
+    display: (row: User) => (
       <StyledNameColumn>
         <img src={row.image} alt="User image"/>
         <div>
@@ -46,7 +57,7 @@ const columns = [
   },
   {
     label: 'Schedule',
-    display: schedule => (
+    display: (schedule: string) => (
       <>
         <p>{schedule}</p>
         <p>Check schedule</p>
@@ -59,7 +70,7 @@ const columns = [
   },
   {
     label: 'Status',
-    display: status => (
+    display: (status: 'Active' | 'Inactive') => (
       status === 'Active' ? <button>Active</button> : <button>Inactive</button>
     )
   },
@@ -67,60 +78,50 @@ const columns = [
 
 const mockUsers = [
   {
-    basicInfo: {
-      name: 'Alice Johnson',
-      id: '#001',
-      incorporatedOn: '2022-01-15',
-      image: '/assets/user.jpeg'
-    },
+    name: 'Alice Johnson',
+    id: '#001',
+    incorporatedOn: '2022-01-15',
+    image: '/assets/user.jpeg',
     jobDesk: 'Answering guest inquiries, directing phone calls, coordinating travel plans, and more.',
     schedule: 'Monday, Wednesday',
     contact: '555-1234',
     status: 'Active',
   },
   {
-    basicInfo: {
-      name: 'Bob Smith',
-      id: '#002',
-      incorporatedOn: '2022-02-20',
-      image: '/assets/user.jpeg'
-    },
+    name: 'Bob Smith',
+    id: '#002',
+    incorporatedOn: '2022-02-20',
+    image: '/assets/user.jpeg',
     jobDesk: 'Managing front desk operations, overseeing staff, and ensuring guest satisfaction.',
     schedule: 'Tuesday, Thursday',
     contact: '555-5678',
     status: 'Inactive',
   },
   {
-    basicInfo: {
-      name: 'Charlie Davis',
-      id: '#003',
-      incorporatedOn: '2022-03-25',
-      image: '/assets/user.jpeg'
-    },
+    name: 'Charlie Davis',
+    id: '#003',
+    incorporatedOn: '2022-03-25',
+    image: '/assets/user.jpeg',
     jobDesk: 'Coordinating housekeeping activities, managing laundry services, and maintaining cleanliness.',
     schedule: 'Wednesday, Friday',
     contact: '555-8765',
     status: 'Active',
   },
   {
-    basicInfo: {
-      name: 'Edward Wilson',
-      id: '#005',
-      incorporatedOn: '2022-05-05',
-      image: '/assets/user.jpeg'
-    },
+    name: 'Edward Wilson',
+    id: '#005',
+    incorporatedOn: '2022-05-05',
+    image: '/assets/user.jpeg',
     jobDesk: 'Managing restaurant operations, overseeing food and beverage services, and ensuring guest satisfaction.',
     schedule: 'Friday, Sunday',
     contact: '555-7890',
     status: 'Active',
   },
   {
-    basicInfo: {
-      name: 'Diana Evans',
-      id: '#004',
-      incorporatedOn: '2022-04-30',
-      image: '/assets/user.jpeg'
-    },
+    name: 'Diana Evans',
+    id: '#004',
+    incorporatedOn: '2022-04-30',
+    image: '/assets/user.jpeg',
     jobDesk: 'Organizing events, handling guest reservations, and providing concierge services.',
     schedule: 'Thursday, Saturday',
     contact: '555-4321',
@@ -131,7 +132,7 @@ const mockUsers = [
 const UsersPage = () => {
     
     let isLoggedIn = localStorage.getItem('token');
-    const [users, setUsers] = useState(mockUsers);
+    const [users, setUsers] = useState<User[]>(mockUsers);
 
     const navigate = useNavigate();
     const logoutHandler = () => {
@@ -139,29 +140,34 @@ const UsersPage = () => {
         navigate('login');
     }
 
-    const sortUsersInitially = (users) => {
-      return users.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn));
+    const sortUsersInitially = (users: User[]): User[] => {
+      return users.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
   }
 
   useEffect(() => {
     setUsers(sortUsersHandler('incorporatedOn'));
   }, [])
 
-    const sortUsersHandler = (event, value) => {
-      const allUsers = [...mockUsers];
-      if (value === 'incorporatedOn') {
-        allUsers.sort((a, b) => new Date(a.basicInfo.incorporatedOn) - new Date(b.basicInfo.incorporatedOn));
-        setUsers(allUsers);
-      } else if (value === 'active') {
-        const filteredUsers = allUsers.filter(user => user.status === 'Active')
-        setUsers(filteredUsers);
-      } else if (value === 'inactive') {
-        const filteredUsers = allUsers.filter(user => user.status === 'Inactive')
-        setUsers(filteredUsers);
-      } else if (value === 'name') {
-        setUsers(allUsers.sort((a, b) => a.basicInfo.name.localeCompare(b.basicInfo.name)));
-      }
+  // THIS FUNCTION NEEDS TO RETURN AN ARRAY OF USER-INTERFACE INSTANCES, NOT MERE OBJECTS
+  const sortUsersHandler = (value: string) => {
+    const allUsers = [...mockUsers];
+    if (value === 'incorporatedOn') {
+      allUsers.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
+      setUsers(allUsers);
+      return allUsers;
+    } else if (value === 'active') {
+      const filteredUsers = allUsers.filter(user => user.status === 'Active')
+      setUsers(filteredUsers);
+      return filteredUsers;
+    } else if (value === 'inactive') {
+      const filteredUsers = allUsers.filter(user => user.status === 'Inactive')
+      setUsers(filteredUsers);
+      return filteredUsers;
+    } else if (value === 'name') {
+      setUsers(allUsers.sort((a, b) => a.name.localeCompare(b.name)));
+      return allUsers;
     }
+  }
 
     return (
         <>

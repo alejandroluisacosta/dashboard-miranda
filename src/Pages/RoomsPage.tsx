@@ -24,11 +24,21 @@ const StyledNameColumn = styled.div`
     }
 `;
 
+interface Room {
+  id: string;
+  image: string;
+  name: string;
+  'room type': string;
+  amenities: string;
+  price: string;
+  offer: string;
+  status: string;
+}
 
 const columns = [
     {
       label: 'Room Name',
-      display: row => (
+      display: (row: Room) => (
         <StyledNameColumn>
           <Link to={row.id}>
             <img src={row.image} alt="Room image"/>
@@ -59,7 +69,7 @@ const columns = [
     },
     {
       label: 'Status',
-      display: status => (
+      display: (status: string) => (
         status === 'Available' ? <button>Available</button> : <button>Booked</button>
       )
     },
@@ -84,7 +94,7 @@ const StyledRooms = styled.div`
 
 const RoomsPage = () => {
 
-    const [renderedRooms, setRenderedRooms] = useState([]);
+    const [renderedRooms, setRenderedRooms] = useState<Room[]>([]);
     const dispatch = useDispatch();
     const rooms = useSelector(state => state.Rooms.items);
 
