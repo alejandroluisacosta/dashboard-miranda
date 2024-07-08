@@ -128,8 +128,6 @@ const mockUsers = [
   },
 ];
 
-
-
 const UsersPage = () => {
     
     let isLoggedIn = localStorage.getItem('token');

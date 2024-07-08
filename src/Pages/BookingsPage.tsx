@@ -48,11 +48,22 @@ const StyledGuestColumn = styled.div`
 `;
 
 const BookingsPage = () => {
+
+  interface Booking {
+    name: string;
+    id: string;
+    orderDate: string;
+    checkInDate: string;
+    checkOutDate: string;
+    specialRequest: string;
+    roomType: string;
+    status: string;
+  }
   
     const columns = [
       {
       label: 'Guest',
-      display: row => (
+      display: (row: Booking) => (
         <StyledGuestColumn>
             <Link to={row.id}>
               <p>{row.name}</p>
@@ -75,7 +86,7 @@ const BookingsPage = () => {
       },
       {
         label: 'Special Request',
-        display: specialRequest => (
+        display: (specialRequest: string) => (
           specialRequest ? <button>View Notes</button> : <button disabled>View Notes</button>
         )
       },
@@ -85,34 +96,33 @@ const BookingsPage = () => {
       },
       {
         label: 'Status',
-        display: row => (
+        display: (row: Booking) => (
           <StyledStatus>
             <p>{row.status}</p>
             <span className="material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row.id))}>delete</span>
           </StyledStatus>
         )
       },
-    ];  
+    ];
 
-    const [renderedBookings, setRenderedBookigs] = useState([]);
+    const [renderedBookings, setRenderedBookigs] = useState<Booking[]>([]);
     const dispatch = useDispatch();
-    const BookingsStatus = useSelector(state => state.Bookings.status);
     const bookings = useSelector(state => state.Bookings.items);
 
-    const sortBookingsHandler = (event, value) => {
+    const sortBookingsHandler = (event, value: string): void => {
       const allBookings = [...bookings];
       if (value === 'inProgress') { 
         const today = new Date();
-        const filteredBookings = renderedBookings.filter(booking => new Date(booking.checkInDate) < today && new Date(booking.checkOutDate) > today);
+        const filteredBookings: Booking[] = renderedBookings.filter(booking => new Date(booking.checkInDate) < today && new Date(booking.checkOutDate) > today);
         setRenderedBookigs(filteredBookings);
       } else {
-        const sortedBookings = allBookings.sort((a, b) => new Date(a[value]) - new Date(b[value]));
+        const sortedBookings: Booking[] = allBookings.sort((a, b) => (new Date(a[value]).getTime() as number) - (new Date(b[value]).getTime() as number));
         setRenderedBookigs(sortedBookings);
       }
       event.target.selected = true; // NOT WORKING
     }
 
-    const filterByNameHandler = (event) => {
+    const filterByNameHandler = (event): void => {
       const allBookings = [...renderedBookings]; 
       if (!event.target.value)
         setRenderedBookigs(bookings);
@@ -122,7 +132,7 @@ const BookingsPage = () => {
       }
     };
 
-    useEffect(() => {
+    useEffect((): void => {
       dispatch(GetBookingsThunk());
       setRenderedBookigs(bookings);
     }, [bookings])

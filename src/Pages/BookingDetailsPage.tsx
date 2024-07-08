@@ -29,7 +29,7 @@ const BookingDetailsPage = () => {
     const Booking = useSelector(state => state.Bookings.single);
     const { bookingId } = useParams();
     const dispatch = useDispatch();
-    const [fetched, setFetched] = useState(false);
+    const [fetched, setFetched] = useState<Boolean>(false);
 
     const initialFetch = async () => {
         await dispatch(GetBookingThunk(bookingId)).unwrap();
