@@ -46,7 +46,11 @@ const Navigation = styled.div`
 
 `;
 
-const NavigationLink = styled.div`
+interface NavigationLinkProps {
+    selected: boolean;
+}
+
+const NavigationLink = styled.div<NavigationLinkProps>`
     cursor: pointer;
     margin-bottom: 55px;
     color: ${props => props.selected ? 'var(--red)' : 'inherit'};
