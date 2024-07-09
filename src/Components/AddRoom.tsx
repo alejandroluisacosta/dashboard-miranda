@@ -96,7 +96,7 @@ const Right = styled.div`
     }
 `;
 
-const AddRoom = () => {
+const AddRoom: React.FC = () => {
 
     const dispatch = useDispatch();
     const notify = () => toast.success('Room created successfully', {
@@ -110,18 +110,18 @@ const AddRoom = () => {
         theme: "light",
     });
 
-    const addRoomHandler = (event) => {
+    const addRoomHandler = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        const form = event.target;
+        const form = event.target as HTMLInputElement;
     
-        const roomType: string = form['room-type'].value;
-        const roomNumber: string = form['room-number'].value;
-        const offer: string = form['offer'].value;
-        const price: number = form['price'].value;
-        const discount: number = form['discount'].value;
-        const description: string = form['description'].value;
-        const amenities: string = Array.from(form.querySelectorAll('input[name="amenities"]:checked') as HTMLInputElement[]).map(input => input.value).join(', ');
-        const cancellationPolicies: string = form['cancellation'].value;
+        const roomType: string = (form.querySelector('#room-type') as HTMLInputElement).value;
+        const roomNumber: string = (form.querySelector('#room-number') as HTMLInputElement).value;
+        const offer: string = (form.querySelector('#offer') as HTMLInputElement).value;
+        const price: number = parseInt((form.querySelector('#price') as HTMLInputElement).value, 10);
+        const discount: number = parseInt((form.querySelector('#discount') as HTMLInputElement).value, 10);
+        const description: string = (form.querySelector('#description') as HTMLInputElement).value;
+        const amenities: string = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="amenities"]:checked')).map(input => input.value).join(', ');
+        const cancellationPolicies: string = (form.querySelector('#cancellation') as HTMLInputElement).value;
 
         dispatch(AddRoomThunk({
             name: `${roomType} ${roomNumber}`,
@@ -182,8 +182,8 @@ const AddRoom = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="price">* Price</label>
-                                <input id="price" type="number" required placeholder="$/night"/>
+                                <label htmlFor="rate">* Rate</label>
+                                <input id="rate" type="number" required placeholder="$/night"/>
                             </div>
                             <div>
                                 <label htmlFor="discount">* Discount</label>
