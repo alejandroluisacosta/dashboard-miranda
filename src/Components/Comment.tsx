@@ -1,6 +1,8 @@
 import { FaRegCheckCircle } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import styled from "styled-components";
+import { CommentInterface } from "../types";
+import React from "react";
 
 const CommentContainer = styled.div`
     position: relative;
@@ -59,7 +61,12 @@ const IconsContainer = styled.div`
     }
 `;
 
-const Comment = ({ comment, timeAgo }) => {
+interface CommentProps {
+    comment: CommentInterface;
+    timeAgo: number;
+}
+
+const Comment: React.FC<CommentProps> = ({ comment, timeAgo }) => {
     return (
         <CommentContainer>
             <p>{comment.text}</p>

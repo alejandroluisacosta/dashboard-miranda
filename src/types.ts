@@ -36,3 +36,9 @@ export interface Booking {
     status: string;
     room: Room;
   }
+
+  export interface CommentInterface {
+    text: string;
+    userName: string;
+    timestamp: string;
+  }
