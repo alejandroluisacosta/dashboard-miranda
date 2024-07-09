@@ -2,7 +2,7 @@ import { ReactNode, createContext, useEffect, useReducer } from "react";
 import { AuthAction, AuthContextType } from "../types";
 
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined); // WHY THIS?
 
 const getInitialAuthState = () => {
     const initialState = localStorage.getItem('auth');
