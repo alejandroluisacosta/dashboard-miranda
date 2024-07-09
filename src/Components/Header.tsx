@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { AuthContext } from "./Auth";
 import { AuthContextType } from "../types";
@@ -46,7 +46,7 @@ const Right = styled.div`
     }
 `;
 
-const Header = () => {
+const Header: React.FC = () => {
 
     const { authDispatch } = useContext(AuthContext) as AuthContextType;
 

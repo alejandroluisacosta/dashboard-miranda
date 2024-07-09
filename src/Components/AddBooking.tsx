@@ -4,6 +4,7 @@ import { AddBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
 
 const StyledAddBooking = styled.div`
     display: flex;
@@ -74,7 +75,7 @@ const Right = styled.div`
     }
 `;
 
-const AddBooking = () => {
+const AddBooking: React.FC = () => {
 
     const dispatch = useDispatch();
     const notify = () => toast.success('Booking created successfully', {
@@ -88,17 +89,17 @@ const AddBooking = () => {
         theme: "light",
     });
 
-    const addBookingHandler = (event): void => {
+    const addBookingHandler = (event: React.FormEvent<HTMLFormElement>): void => {
 
         event.preventDefault();
-        const form = event.target;
-        const name: string = form.name.value;
+        const form = event.target as HTMLFormElement;
+        const name: string = (form.querySelector('#name') as HTMLInputElement).value;
         const orderDate: string = new Date().toISOString().split('T')[0];
-        const checkInDate: string = form.checkIn.value;
-        const checkOutDate: string = form.checkOut.value;
-        const specialRequest: string = form['special-request'].value;
-        const roomType: string = form['room-type'].value;
-        const status: string = form.status.value;
+        const checkInDate: string = (form.querySelector('#checkIn') as HTMLInputElement).value;
+        const checkOutDate: string = (form.querySelector('#checkOut') as HTMLInputElement).value;
+        const specialRequest: string = (form.querySelector('#special-request') as HTMLInputElement).value;
+        const roomType: string = (form.querySelector('#room-type') as HTMLInputElement).value;
+        const status: string = (form.querySelector('#status') as HTMLInputElement).value;
 
         dispatch(AddBookingThunk({
             name: name,

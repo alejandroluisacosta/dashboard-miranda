@@ -122,7 +122,7 @@ const Footer = styled.div`
     }
 `;
 
-const SideBar = () => {
+const SideBar: React.FC = () => {
 
     return (
         <StyledSideBar>
