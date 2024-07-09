@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { EditRoomThunk } from "../Features/Rooms";
 import Button from './Button';
+import { Room } from '../types';
 
 const StyledRoomDetails = styled.div`
     display: flex;
@@ -17,7 +18,11 @@ const StyledRoomDetails = styled.div`
     }
 `;
 
-const Left = styled.div`
+interface LeftProps {
+    $isEditing: boolean;
+}
+
+const Left = styled.div<LeftProps>`
     width: 50%;
     padding: 40px 40px 50px;
     background-color: ${props => props.$isEditing ? 'var(--lighter-green)' : 'unset'};
@@ -52,8 +57,10 @@ const StyledNameContainer = styled.div`
         border-radius: 12px;
     }
 `;
-            
-const TopContainer = styled.div`
+
+interface TopContainerProps extends LeftProps {}
+
+const TopContainer = styled.div<TopContainerProps>`
     position: relative;
     display: flex;
     gap: 15%;
@@ -92,15 +99,15 @@ const Right = styled.div`
 
 const RoomDetails = () => {
 
-    const [isEditing, setIsEditing] = useState(false);
-    const room = useSelector(state => state.Rooms.single);
-    const [name, setName] = useState(room.name);
-    const [roomType, setRoomType] = useState(room['room type']);
-    const [image, setImage] = useState(room.image);
-    const [amenities, setAmenities] = useState(room.amenities);
-    const [price, setPrice] = useState(room.price);
-    const [offer, setOffer] = useState(room.offer);
-    const [status, setStatus] = useState(room.status);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
+    const room: Room = useSelector(state => state.Rooms.single);
+    const [name, setName] = useState<string>(room.name);
+    const [roomType, setRoomType] = useState<string>(room.roomType);
+    const [image, setImage] = useState<string>(room.image);
+    const [amenities, setAmenities] = useState<string>(room.amenities);
+    const [rate, setRate] = useState<number>(room.rate);
+    const [offer, setOffer] = useState<string>(room.offer);
+    const [status, setStatus] = useState<'Available' | 'Booked'>(room.status);
     const dispatch = useDispatch();
 
     const notify = () => toast.success('Room successfully modified', {
@@ -114,21 +121,21 @@ const RoomDetails = () => {
         theme: "light",
     });
 
-    const handleEditClick = () => {
+    const handleEditClick = (): void => {
         setIsEditing(true);
     }
 
-    const handleSaveClick = async () => {
+    const handleSaveClick = async (): Promise<void> => {
         
-        const modifiedAmenities = Array.from(document.getElementById('amenities').querySelectorAll('input[name="amenities"]:checked')).map(input => input.value).join(', ');
+        const modifiedAmenities: string = Array.from(document.getElementById('amenities')?.querySelectorAll('input[name="amenities"]:checked') as NodeListOf<HTMLInputElement>).map(input => input.value).join(', ');
         
         dispatch(EditRoomThunk({
             name: name,
             id: room.id,
             image: 'assets/HotelRoom3.jpeg',
-            'room type': room['room type'],
+            roomType: room.roomType,
             amenities: modifiedAmenities.length ? modifiedAmenities : amenities,
-            price: price,
+            price: rate,
             offer: offer,
             status: status,
         }))
@@ -202,10 +209,10 @@ const RoomDetails = () => {
                                 type="number"
                                 required
                                 placeholder="$/night"
-                                onChange={(event) => setPrice(event.target.value)}
+                                onChange={(event) => setRate(Number(event.target.value))}
                             />
                         ) :
-                            <p>{room.price}</p>
+                            <p>{room.rate}</p>
                     }
                     </div>
                     <div>
@@ -225,9 +232,9 @@ const RoomDetails = () => {
                     <div>
                         <p className="label">Status</p>
                         {isEditing ? (
-                            <select onChange={(event) => setStatus(event.target.value)}>
-                                <option value="available">Available</option>
-                                <option value="booked">Booked</option>
+                            <select onChange={(event) => setStatus(event.target.value as 'Available' | 'Booked')}>
+                                <option value="Available">Available</option>
+                                <option value="Booked">Booked</option>
                             </select>
                         ) :
                         <p>{status}</p>

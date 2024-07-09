@@ -1,6 +1,8 @@
-import { createContext, useEffect, useReducer } from "react";
+import { ReactNode, createContext, useEffect, useReducer } from "react";
+import { AuthAction, AuthContextType } from "../types";
 
-export const AuthContext = createContext();
+
+export const AuthContext = createContext<AuthContextType | undefined>(undefined); // WHY THIS?
 
 const getInitialAuthState = () => {
     const initialState = localStorage.getItem('auth');
@@ -21,7 +23,7 @@ const types = {
     UPDATE_USER: 'UPDATE_USER',
 }
 
-const authReducer = (state, action) => {
+const authReducer = (state, action: AuthAction) => {
     let newState = {};
     switch (action.type) {
         case types.LOGIN:
@@ -52,7 +54,7 @@ const authReducer = (state, action) => {
     }
 }
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     
     const [authState, authDispatch] = useReducer(authReducer, getInitialAuthState());
 

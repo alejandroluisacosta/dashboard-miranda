@@ -96,7 +96,7 @@ const Right = styled.div`
     }
 `;
 
-const AddRoom = () => {
+const AddRoom: React.FC = () => {
 
     const dispatch = useDispatch();
     const notify = () => toast.success('Room created successfully', {
@@ -110,18 +110,18 @@ const AddRoom = () => {
         theme: "light",
     });
 
-    const addRoomHandler = (event) => {
+    const addRoomHandler = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        const form = event.target;
+        const form = event.target as HTMLInputElement;
     
-        const roomType = form['room-type'].value;
-        const roomNumber = form['room-number'].value;
-        const offer = form['offer'].value;
-        const price = form['price'].value;
-        const discount = form['discount'].value;
-        const description = form['description'].value;
-        const amenities = Array.from(form.querySelectorAll('input[name="amenities"]:checked')).map(input => input.value).join(', ');
-        const cancellationPolicies = form['cancellation'].value;
+        const roomType: string = (form.querySelector('#room-type') as HTMLInputElement).value;
+        const roomNumber: string = (form.querySelector('#room-number') as HTMLInputElement).value;
+        const offer: string = (form.querySelector('#offer') as HTMLInputElement).value;
+        const price: number = parseInt((form.querySelector('#price') as HTMLInputElement).value, 10);
+        const discount: number = parseInt((form.querySelector('#discount') as HTMLInputElement).value, 10);
+        const description: string = (form.querySelector('#description') as HTMLInputElement).value;
+        const amenities: string = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="amenities"]:checked')).map(input => input.value).join(', ');
+        const cancellationPolicies: string = (form.querySelector('#cancellation') as HTMLInputElement).value;
 
         dispatch(AddRoomThunk({
             name: `${roomType} ${roomNumber}`,
@@ -182,8 +182,8 @@ const AddRoom = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="price">* Price</label>
-                                <input id="price" type="number" required placeholder="$/night"/>
+                                <label htmlFor="rate">* Rate</label>
+                                <input id="rate" type="number" required placeholder="$/night"/>
                             </div>
                             <div>
                                 <label htmlFor="discount">* Discount</label>
@@ -193,11 +193,11 @@ const AddRoom = () => {
                         <StyledRow>
                         </StyledRow>
                         <div>
-                            <label htmlFor="description" required>* Description</label>
-                            <textarea id="description" />
+                            <label htmlFor="description">* Description</label>
+                            <textarea id="description" required/>
                         </div>
                         <div>
-                            <label htmlFor="amenities" className="amenities-label"required>* Amenities</label>
+                            <label htmlFor="amenities" className="amenities-label">Amenities</label>
                             <div className="checkboxes-form">
                                 <label><input type="checkbox" name="amenities" value="Wi-Fi"/> Wi-Fi</label>
                                 <label><input type="checkbox" name="amenities" value="Breakfast"/> Breakfast</label>
@@ -207,8 +207,8 @@ const AddRoom = () => {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="cancellation" required>* Cancellation Policies</label>
-                            <textarea id="cancellation" />
+                            <label htmlFor="cancellation">* Cancellation Policies</label>
+                            <textarea id="cancellation" required/>
                         </div>
                         <div className="button-container">
                             <button type="submit">Create Room</button>

@@ -1,4 +1,6 @@
+import React, { ReactNode } from "react";
 import styled from "styled-components";
+import { Booking, Room } from "../types";
 
 const Grid = styled.div`
     display: grid;
@@ -17,7 +19,16 @@ const Grid = styled.div`
     }
 `;
 
-const Table = ({ data, columns }) => {
+interface TableProps {
+    data: Room[] | Booking[];
+    columns: {
+        label: string;
+        display?: (arg: Booking | Room) => ReactNode;
+        property?: string;
+    }[];
+}
+
+const Table: React.FC<TableProps> = ({ data, columns }) => {
     return (
         <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
             {columns.map((column, index) => 
@@ -25,7 +36,7 @@ const Table = ({ data, columns }) => {
             )}
             {data.map(row => 
                 columns.map((column, index) => 
-                    <div className="grid-cell" key={index}>{column.display ? column.display(row) : row[column.property]}</div>
+                    <div className="grid-cell" key={index}>{column.display ? column.display(row) : row[column.property as keyof typeof row]}</div>
                 )
             )}
         </Grid>

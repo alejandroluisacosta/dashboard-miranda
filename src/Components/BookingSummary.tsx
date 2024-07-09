@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Booking } from '../types';
 
 const MainContainer = styled.div`
     position: relative;
@@ -62,18 +63,21 @@ const NumberContainer = styled.div`
     justify-content: center;
 `;
 
-  
+interface BookingSummaryProps {
+    booking: Booking;
+    timeAgo: number;
+}
 
-const BookingSummary = ({ booking, timeAgo }) => {
+const BookingSummary: React.FC<BookingSummaryProps> = ({ booking, timeAgo }) => {
 
     return (
         <MainContainer>
                 <img src="/assets/HotelRoom3.jpeg" alt="Room"/>
                 <InfoContainer>
-                    <p>{booking.roomType} {booking.roomNumber}</p>
+                    <p>{booking.roomType} {booking.room.id}</p>
                     <div>
                         <img src="/assets/user.jpeg" alt="Client"/>
-                        <p>{booking.clientName}</p>
+                        <p>{booking.name}</p>
                         <p>{timeAgo > 30 ? '+30' : timeAgo} minutes ago</p>
                     </div>
                 </InfoContainer>

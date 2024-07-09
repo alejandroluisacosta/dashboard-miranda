@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRoomsThunk } from "../Features/Rooms";
 import SideBar from "../Components/SideBar";
+import { Room } from "../types";
 
 const StyledNameColumn = styled.div`
     border-bottom: 0 !important;
@@ -24,11 +25,10 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-
 const columns = [
     {
       label: 'Room Name',
-      display: row => (
+      display: (row: Room) => (
         <StyledNameColumn>
           <Link to={row.id}>
             <img src={row.image} alt="Room image"/>
@@ -59,7 +59,7 @@ const columns = [
     },
     {
       label: 'Status',
-      display: status => (
+      display: (status: string) => (
         status === 'Available' ? <button>Available</button> : <button>Booked</button>
       )
     },
@@ -84,7 +84,7 @@ const StyledRooms = styled.div`
 
 const RoomsPage = () => {
 
-    const [renderedRooms, setRenderedRooms] = useState([]);
+    const [renderedRooms, setRenderedRooms] = useState<Room[]>([]);
     const dispatch = useDispatch();
     const rooms = useSelector(state => state.Rooms.items);
 

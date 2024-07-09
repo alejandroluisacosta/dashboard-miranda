@@ -7,6 +7,10 @@ import BookingSummary from "../Components/BookingSummary";
 import { useEffect, useState } from "react";
 import Comment from "../Components/Comment";
 import SideBar from "../Components/SideBar";
+import { useDispatch, useSelector } from "react-redux";
+import { GetBookingsThunk } from "../Features/Bookings";
+import { Booking } from "../types";
+
 
 
 const mockData = [
@@ -28,7 +32,7 @@ const mockBookings = [
       "clientName": "John Doe",
       "checkInDate": "2025-01-05",
       "checkOutDate": "2025-01-10",
-      "timestamp": "2024-06-19T10:00:00Z"
+      "orderDate": "2024-06-19T10:00:00Z"
     },
     {
       "images": {
@@ -41,7 +45,7 @@ const mockBookings = [
       "clientName": "Jane Smith",
       "checkInDate": "2025-01-12",
       "checkOutDate": "2025-01-15",
-      "timestamp": "2024-06-19T12:00:00Z"
+      "orderDate": "2024-06-19T12:00:00Z"
     },
     {
       "images": {
@@ -54,7 +58,7 @@ const mockBookings = [
       "clientName": "Alice Johnson",
       "checkInDate": "2025-01-20",
       "checkOutDate": "2025-01-25",
-      "timestamp": "2024-06-19T14:00:00Z"
+      "orderDate": "2024-06-19T14:00:00Z"
     },
     {
       "images": {
@@ -67,7 +71,7 @@ const mockBookings = [
       "clientName": "Bob Brown",
       "checkInDate": "2025-01-07",
       "checkOutDate": "2025-01-09",
-      "timestamp": "2024-06-19T11:00:00Z"
+      "orderDate": "2024-06-19T11:00:00Z"
     },
     {
       "images": {
@@ -80,7 +84,7 @@ const mockBookings = [
       "clientName": "Carol White",
       "checkInDate": "2025-01-15",
       "checkOutDate": "2025-01-18",
-      "timestamp": "2024-06-19T12:00:00Z"
+      "orderDate": "2024-06-19T12:00:00Z"
     }
   ]
 
@@ -144,7 +148,11 @@ const Kpi = styled.div`
     width: 22.5%;
 `;
 
-const IconContainer = styled.div`
+interface IconContainerProps {
+    selected: boolean;
+}
+
+const IconContainer = styled.div<IconContainerProps>`
     width: 65px;
     height: 65px;
     background-color: ${props => props.selected ? 'var(--red)' : 'var(--pink)'};
@@ -183,24 +191,33 @@ const CommentList = styled.div`
 
 const DashboardPage = () => {
 
-    let isLoggedIn = localStorage.getItem('token');
-    const [sortedBookings, setSortedBookings] = useState([]);
+    const [sortedBookings, setSortedBookings] = useState<Booking[]>([]);
+    const [fetched, setFetched] = useState<Boolean>(false);
 
-    const sortBookings = (bookings) => {
-        return bookings.sort((a, b) => new Date(a.checkInDate) - new Date(b.checkInDate));
+    const bookings = useSelector(state => state.Bookings.items);
+    const dispatch = useDispatch();
+
+    const sortBookings = (bookings: Booking[]): Booking[] => {
+        return bookings.sort((a, b) => (new Date(a.checkInDate).getTime() as number) - (new Date(b.checkInDate).getTime() as number));
     }
 
-    const getTimeDifference = (timestamp) => {
-        const now = new Date();
-        const then = new Date(timestamp);
+    const getTimeDifference = (timestamp: number): string => {
+        const now = new Date().getTime() as number;
+        const then = new Date(timestamp).getTime() as number;
         const differenceInMs = now - then;
         const differenceInMinutes = Math.floor(differenceInMs / 60000);
         return `${differenceInMinutes}`;
       };
       
 
+    // INITIAL FETCH NOT WORKING
     useEffect(() => {
-        setSortedBookings(sortBookings(mockBookings));
+        const initialFetch = async () => {
+            await dispatch(GetBookingsThunk()).unwrap();
+            setFetched(true)
+        }
+        initialFetch();
+        setSortedBookings(sortBookings(bookings));
     }, [])
 
     return (
@@ -254,14 +271,14 @@ const DashboardPage = () => {
                             </div>
                             <BookingSummaryList>
                                 {sortedBookings.slice(0, 4).map((booking, index) => (
-                                    <BookingSummary booking={booking} timeAgo={getTimeDifference(booking.timestamp)} key={index}/>
+                                    <BookingSummary booking={booking} timeAgo={getTimeDifference(new Date(booking.orderDate).getTime())} key={index}/>
                                 ))}
                             </BookingSummaryList>
                             <CommentList>
                                 <h3>Latest Reviews by Customers</h3>
                                 <div>
                                     {mockComments.map((comment, index) => (
-                                        <Comment comment={comment} timeAgo={getTimeDifference(comment.timestamp)} key={index}/>
+                                        <Comment comment={comment} timeAgo={getTimeDifference(new Date(comment.timestamp).getTime())} key={index}/>
                                     ))}
                                 </div>    
                             </CommentList>
