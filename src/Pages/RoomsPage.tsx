@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRoomsThunk } from "../Features/Rooms";
 import SideBar from "../Components/SideBar";
+import { Room } from "../types";
 
 const StyledNameColumn = styled.div`
     border-bottom: 0 !important;
@@ -23,17 +24,6 @@ const StyledNameColumn = styled.div`
       border-bottom: 0;
     }
 `;
-
-interface Room {
-  id: string;
-  image: string;
-  name: string;
-  'room type': string;
-  amenities: string;
-  price: string;
-  offer: string;
-  status: string;
-}
 
 const columns = [
     {

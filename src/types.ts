@@ -13,3 +13,26 @@ export type AuthContextType = {
     authState: AuthState;
     authDispatch: React.Dispatch<AuthAction>;
 }
+
+export interface Room {
+    id: string;
+    image: string;
+    name: string;
+    roomType: string;
+    amenities: string;
+    price: string;
+    offer: string;
+    status: string;
+  }
+
+export interface Booking {
+    name: string;
+    id: string;
+    orderDate: string;
+    checkInDate: string;
+    checkOutDate: string;
+    specialRequest: string;
+    roomType: string;
+    status: string;
+    room: Room;
+  }

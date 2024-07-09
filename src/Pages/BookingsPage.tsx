@@ -8,6 +8,7 @@ import { GetBookingsThunk, RemoveBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
 import Table from "../Components/Table";
 import SideBar from "../Components/SideBar";
+import { Booking } from "../types";
 
 const StyledBookings = styled.div`
     background-color: var(--light-gray);
@@ -48,17 +49,6 @@ const StyledGuestColumn = styled.div`
 `;
 
 const BookingsPage = () => {
-
-  interface Booking {
-    name: string;
-    id: string;
-    orderDate: string;
-    checkInDate: string;
-    checkOutDate: string;
-    specialRequest: string;
-    roomType: string;
-    status: string;
-  }
   
     const columns = [
       {

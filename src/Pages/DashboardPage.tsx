@@ -9,6 +9,7 @@ import Comment from "../Components/Comment";
 import SideBar from "../Components/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { GetBookingsThunk } from "../Features/Bookings";
+import { Booking } from "../types";
 
 
 
@@ -189,17 +190,6 @@ const CommentList = styled.div`
     `;
 
 const DashboardPage = () => {
-
-    interface Booking {
-        name: string;
-        id: string;
-        orderDate: string;
-        checkInDate: string;
-        checkOutDate: string;
-        specialRequest: string;
-        roomType: string;
-        status: string;
-    }
 
     const [sortedBookings, setSortedBookings] = useState<Booking[]>([]);
     const [fetched, setFetched] = useState<Boolean>(false);
