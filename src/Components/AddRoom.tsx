@@ -114,14 +114,14 @@ const AddRoom = () => {
         event.preventDefault();
         const form = event.target;
     
-        const roomType = form['room-type'].value;
-        const roomNumber = form['room-number'].value;
-        const offer = form['offer'].value;
-        const price = form['price'].value;
-        const discount = form['discount'].value;
-        const description = form['description'].value;
-        const amenities = Array.from(form.querySelectorAll('input[name="amenities"]:checked')).map(input => input.value).join(', ');
-        const cancellationPolicies = form['cancellation'].value;
+        const roomType: string = form['room-type'].value;
+        const roomNumber: string = form['room-number'].value;
+        const offer: string = form['offer'].value;
+        const price: number = form['price'].value;
+        const discount: number = form['discount'].value;
+        const description: string = form['description'].value;
+        const amenities: string = Array.from(form.querySelectorAll('input[name="amenities"]:checked') as HTMLInputElement[]).map(input => input.value).join(', ');
+        const cancellationPolicies: string = form['cancellation'].value;
 
         dispatch(AddRoomThunk({
             name: `${roomType} ${roomNumber}`,
@@ -193,11 +193,11 @@ const AddRoom = () => {
                         <StyledRow>
                         </StyledRow>
                         <div>
-                            <label htmlFor="description" required>* Description</label>
-                            <textarea id="description" />
+                            <label htmlFor="description">* Description</label>
+                            <textarea id="description" required/>
                         </div>
                         <div>
-                            <label htmlFor="amenities" className="amenities-label"required>* Amenities</label>
+                            <label htmlFor="amenities" className="amenities-label">Amenities</label>
                             <div className="checkboxes-form">
                                 <label><input type="checkbox" name="amenities" value="Wi-Fi"/> Wi-Fi</label>
                                 <label><input type="checkbox" name="amenities" value="Breakfast"/> Breakfast</label>
@@ -207,8 +207,8 @@ const AddRoom = () => {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="cancellation" required>* Cancellation Policies</label>
-                            <textarea id="cancellation" />
+                            <label htmlFor="cancellation">* Cancellation Policies</label>
+                            <textarea id="cancellation" required/>
                         </div>
                         <div className="button-container">
                             <button type="submit">Create Room</button>
