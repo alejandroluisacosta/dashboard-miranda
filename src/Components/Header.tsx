@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { AuthContext } from "./Auth";
+import { AuthContextType } from "../types";
 
 const HeaderContainer = styled.div`
     padding: 30px 5%;
@@ -47,14 +48,14 @@ const Right = styled.div`
 
 const Header = () => {
 
-    const { authDispatch } = useContext(AuthContext);
+    const { authDispatch } = useContext(AuthContext) as AuthContextType;
 
     const logOutHandler = () => {
-        authDispatch({type: 'LOGOUT'});
+        authDispatch({type: 'LOGOUT', payload: {userName: null, userEmail: null, isLoggedIn: false}});
     }
 
     const modifyUserHandler = () => {
-        authDispatch({type: 'UPDATE_USER', payload: {userName: 'Joe', userEmail: 'joe@oxygen.com'}});
+        authDispatch({type: 'UPDATE_USER', payload: {userName: 'Joe', userEmail: 'joe@oxygen.com', isLoggedIn: true}});
     }
 
     return (
