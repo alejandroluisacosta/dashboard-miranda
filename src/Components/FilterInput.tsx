@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 const StyledInput = styled.input`
@@ -5,7 +6,11 @@ const StyledInput = styled.input`
     padding-left: 5px;
 `;
 
-const FilterInput = ({ filterByName }) => {
+interface FilterInputProps {
+    filterByName: () => void;
+}
+
+const FilterInput: React.FC<FilterInputProps> = ({ filterByName }) => {
     return (
         <StyledInput placeholder="Filter by name" onChange={filterByName} type="text"/>
     )
