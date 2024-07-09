@@ -15,7 +15,11 @@ const StyledBookingDetails = styled.div`
     border-radius: 12px;
 `;
 
-const Left = styled.div`
+interface LeftProps {
+    $isEditing: boolean;
+}
+
+const Left = styled.div<LeftProps>`
     width: 50%;
     padding: 40px 40px 50px;
     background-color: ${props => props.$isEditing ? 'var(--lighter-green)' : 'unset'};
@@ -291,7 +295,7 @@ const BookingDetails = () => {
                         </div>
                     </RoomTopContainer>
                     {isEditing ? (
-                            <textarea type="text" placeholder={specialRequest ? specialRequest : ""} onChange={(event) => setSpecialRequest(event.target.value)}/>
+                            <textarea placeholder={specialRequest ? specialRequest : ""} onChange={(event) => setSpecialRequest(event.target.value)}/>
                             ) : 
                             <p className="special-request">{specialRequest}</p>
                             }
