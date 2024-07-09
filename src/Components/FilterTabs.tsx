@@ -1,17 +1,27 @@
-import styled from "styled-components"
+import styled, { Styled } from "styled-components"
 
 const StyledFilterTabs = styled.div`
     display: flex;
 `;
 
-const StyledButton = styled.p`
+interface StyledButtonProps {
+    selected: boolean;
+    value: string;
+}
+
+const StyledButton = styled.p<StyledButtonProps>`
     padding: 12px 25px;
     text-decoration: none;
     color: ${props => props.selected ? 'var(--ocher-green)' : '#6E6E6E'};
     border-bottom: ${props => props.selected ? '1px solid var(--ocher-green)' : 'none' }
 `;
 
-const FilterTabs = ({ sortHandler, fields }) => {
+interface FilterTabsProps {
+    sortHandler: (arg: string) => void;
+    fields: string[];
+}
+
+const FilterTabs: React.FC<FilterTabsProps> = ({ sortHandler, fields }) => {
     return (
         <StyledFilterTabs>
             {Object.entries(fields).map(([key, value], index) => (
