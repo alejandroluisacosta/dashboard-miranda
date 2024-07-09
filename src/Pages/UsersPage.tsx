@@ -131,18 +131,11 @@ const mockUsers = [
 
 const UsersPage = () => {
     
-    let isLoggedIn = localStorage.getItem('token');
     const [users, setUsers] = useState<User[]>(mockUsers);
 
-    const navigate = useNavigate();
-    const logoutHandler = () => {
-        localStorage.setItem('token', 'false');
-        navigate('login');
-    }
-
-    const sortUsersInitially = (users: User[]): User[] => {
-      return users.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
-  }
+  //   const sortUsersInitially = (users: User[]): User[] => {
+  //     return users.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
+  // } REMOVE AFTER CONFIRMING USELESSNESSS
 
   useEffect(() => {
     setUsers(sortUsersHandler('incorporatedOn'));
@@ -171,31 +164,24 @@ const UsersPage = () => {
 
     return (
         <>
-            {
-            isLoggedIn && isLoggedIn !== 'false' ? 
-            <>
-                <Users>
-                    <div className="page-container">
-                        <SideBar/>
-                        <div className="main-content">
-                            <Header/>
-                            <FilterTabs 
-                              sortHandler={sortUsersHandler}
-                              fields={{
-                                'All employees': 'incorporatedOn',
-                                'Active employees': 'Active',
-                                'Inactive employees': 'inactive',
-                              }}
-                            />
-                            <Table data={users} columns={columns}/>
-                        </div>
-                    </div>
-                </Users>
-            </>
-            :
-            <Navigate to="/login"/>
-            }
-        </>
+          <Users>
+              <div className="page-container">
+                  <SideBar/>
+                  <div className="main-content">
+                      <Header/>
+                      <FilterTabs 
+                        sortHandler={sortUsersHandler}
+                        fields={{
+                          'All employees': 'incorporatedOn',
+                          'Active employees': 'Active',
+                          'Inactive employees': 'inactive',
+                        }}
+                      />
+                      <Table data={users} columns={columns}/>
+                  </div>
+              </div>
+          </Users>
+      </>
     )
 }
 

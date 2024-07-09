@@ -88,17 +88,17 @@ const AddBooking = () => {
         theme: "light",
     });
 
-    const addBookingHandler = (event) => {
+    const addBookingHandler = (event): void => {
 
         event.preventDefault();
         const form = event.target;
-        const name = form.name.value;
-        const orderDate = new Date().toISOString().split('T')[0];
-        const checkInDate = form.checkIn.value;
-        const checkOutDate = form.checkOut.value;
-        const specialRequest = form['special-request'].value;
-        const roomType = form['room-type'].value;
-        const status = form.status.value;
+        const name: string = form.name.value;
+        const orderDate: string = new Date().toISOString().split('T')[0];
+        const checkInDate: string = form.checkIn.value;
+        const checkOutDate: string = form.checkOut.value;
+        const specialRequest: string = form['special-request'].value;
+        const roomType: string = form['room-type'].value;
+        const status: string = form.status.value;
 
         dispatch(AddBookingThunk({
             name: name,
