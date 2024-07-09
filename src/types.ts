@@ -20,9 +20,9 @@ export interface Room {
     name: string;
     roomType: string;
     amenities: string;
-    price: string;
+    rate: number;
     offer: string;
-    status: string;
+    status: 'Available' | 'Booked';
   }
 
 export interface Booking {
