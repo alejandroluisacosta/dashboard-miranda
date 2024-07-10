@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { Booking, Columns, Room } from "../types";
+import { Booking, Columns, Room, User } from "../types";
 
 const Grid = styled.div`
     display: grid;
@@ -20,7 +20,7 @@ const Grid = styled.div`
 `;
 
 interface TableProps {
-    data: Room[] | Booking[] | User;
+    data: Room[] | Booking[] | User[];
     columns: Columns[];
 }
 

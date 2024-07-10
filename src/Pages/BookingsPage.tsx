@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Table from "../Components/Table";
 import SideBar from "../Components/SideBar";
 import { Booking, Columns, Room } from "../types";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 const StyledBookings = styled.div`
     background-color: var(--light-gray);
@@ -96,8 +97,8 @@ const BookingsPage = () => {
     ];
 
     const [renderedBookings, setRenderedBookigs] = useState<Booking[]>([]);
-    const dispatch = useDispatch();
-    const bookings: Booking[] = useSelector(state => state.Bookings.items);
+    const dispatch = useAppDispatch();
+    const bookings: Booking[] = useAppSelector(state => state.Bookings.items);
 
     const sortBookingsHandler = (value: string): void => {
       const allBookings = [...bookings];

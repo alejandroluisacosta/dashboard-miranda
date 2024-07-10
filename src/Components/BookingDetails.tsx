@@ -3,10 +3,11 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { EditBookingThunk } from "../Features/Bookings";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppSelector } from "../app/hooks";
 
 const StyledBookingDetails = styled.div`
     display: flex;
@@ -180,7 +181,7 @@ const Right = styled.div`
 const BookingDetails = () => {
 
     const [isEditing, setIsEditing] = useState(false);
-    const booking = useSelector(state => state.Bookings.single);
+    const booking = useAppSelector(state => state.Bookings.single);
     const name = booking.name;
     const id = booking.id;
     const orderDate = booking.orderDate;
@@ -216,7 +217,7 @@ const BookingDetails = () => {
             roomType: roomType,
             specialRequest: specialRequest,
             status: status,
-        }))
+        }));
         setIsEditing(false);
         notify();
     }

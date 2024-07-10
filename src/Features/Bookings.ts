@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import mockBookings from "../data/mockBookings";
+import { Booking } from "../types";
 
-const delay = (data: Object): Object => {
+const delay = (data: Booking | Booking[] | string): Promise<Booking | Booking[] | string> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(data);
@@ -9,40 +10,53 @@ const delay = (data: Object): Object => {
     })
 }
 
-export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async() => {
-    const bookings: Object[] = delay(mockBookings);
+export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async(): Promise<Booking[]> => {
+    const bookings: Booking[] = await delay(mockBookings) as Booking[];
     return bookings;
 })
 
-export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id: string) => {
-    const bookingId = delay(id);
-    const booking = mockBookings.find(booking => booking.id === id);
+export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id: string): Promise<Booking> => {
+    const bookingId = await delay(id) as string;
+    const booking: Booking | undefined = mockBookings.find(booking => booking.id === bookingId);
+    if (!booking) 
+        throw('Booking not found');
     return booking;
 })
 
-export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(newBooking) => {
-    const booking = delay(newBooking);
+export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(newBooking: Booking): Promise<Booking> => {
+    const booking: Booking = await delay(newBooking) as Booking;
     return booking;
 })
 
-export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', async(id) => {
-    const bookingId = delay(id);
+export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', async(id: string): Promise<string> => {
+    const bookingId: string = await delay(id) as string;
+    if (!bookingId) 
+        throw('Booking not found');
     return bookingId; 
 })
 
-export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(updatedBooking) => {
-    const newData = delay(updatedBooking);
+export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(updatedBooking: Booking): Promise<Booking> => {
+    const newData: Booking = await delay(updatedBooking) as Booking;
     return newData; 
 })
 
+interface BookingsState {
+    status: string;
+    items: Booking[];
+    single: Booking;
+    error: string | null;
+}
+
+const initialState: BookingsState = {
+    status: 'idle',
+    items: [] as Booking[],
+    single: {} as Booking,
+    error: null,
+}
+
 const Bookings = createSlice({
     name: 'Bookings',
-    initialState: {
-        status: 'idle',
-        items: [],
-        single: null,
-        error: null,
-    },
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -54,7 +68,7 @@ const Bookings = createSlice({
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(GetBookingsThunk.fulfilled, (state, action) => {
+        .addCase(GetBookingsThunk.fulfilled, (state, action: PayloadAction<Booking[]>) => {
             state.status = 'fulfilled',
             state.error = 'false',
             state.items = action.payload;
@@ -67,7 +81,7 @@ const Bookings = createSlice({
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(GetBookingThunk.fulfilled, (state, action) => {
+        .addCase(GetBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
             state.status = 'fulfilled',
             state.error = 'false',
             state.single = action.payload;
@@ -80,7 +94,7 @@ const Bookings = createSlice({
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(AddBookingThunk.fulfilled, (state, action) => {
+        .addCase(AddBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
             state.status = 'fulfilled',
             state.error = 'false',
             state.items.push(action.payload);
@@ -94,11 +108,13 @@ const Bookings = createSlice({
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(RemoveBookingThunk.fulfilled, (state, action) => {
-            state.status = 'fulfilled',
-            state.error = 'false',
+        .addCase(RemoveBookingThunk.fulfilled, (state, action: PayloadAction<string>) => {
+            state.status = 'fulfilled';
+            state.error = 'false';
+            const removedBooking = state.items.find(booking => booking.id === action.payload);
+            if (removedBooking)
+                state.single = removedBooking;
             state.items = state.items.filter(booking => booking.id !== action.payload);
-            state.single = action.payload;
         })
         .addCase(EditBookingThunk.pending, state => {
             state.status = 'pending';
@@ -108,7 +124,7 @@ const Bookings = createSlice({
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(EditBookingThunk.fulfilled, (state, action) => {
+        .addCase(EditBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
             state.status = 'fulfilled',
             state.error = 'false',
             state.items = state.items.map(booking => booking.id === action.payload.id ? action.payload : booking);
