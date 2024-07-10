@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import FilterTabs from "../Components/FilterTabs";
 import SideBar from "../Components/SideBar";
 import Table from "../Components/Table";
+import { Columns, User } from "../types";
 
 
 const Users = styled.div`
@@ -26,18 +27,7 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-interface User {
-  name: string;
-  id: string;
-  image: string;
-  incorporatedOn: string;
-  jobDesk: string;
-  schedule: string;
-  contact: string;
-  status: string;
-}
-
-const columns = [
+const columns: Columns[] = [
   {
     label: 'Name',
     display: (row: User) => (
@@ -70,7 +60,7 @@ const columns = [
   },
   {
     label: 'Status',
-    display: (status: 'Active' | 'Inactive') => (
+    display: (status: string) => (
       status === 'Active' ? <button>Active</button> : <button>Inactive</button>
     )
   },

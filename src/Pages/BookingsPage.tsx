@@ -99,7 +99,7 @@ const BookingsPage = () => {
     const dispatch = useDispatch();
     const bookings: Booking[] = useSelector(state => state.Bookings.items);
 
-    const sortBookingsHandler = (value: 'orderDate' | 'checkInDate'| 'checkOutDate' | 'inProgress'): void => {
+    const sortBookingsHandler = (value: string): void => {
       const allBookings = [...bookings];
       if (value === 'inProgress') { 
         const today = new Date();

@@ -37,9 +37,20 @@ export interface Booking {
     room: Room;
   }
 
+export interface User {
+    name: string;
+    id: string;
+    image: string;
+    incorporatedOn: string;
+    jobDesk: string;
+    schedule: string;
+    contact: string;
+    status: string;
+}
+
 export interface Columns {
     label: string;
-    display?: ((arg: Booking) => JSX.Element) | ((arg: Room) => JSX.Element) | ((arg: string) => JSX.Element);
+    display?: ((arg: Booking) => JSX.Element) | ((arg: Room) => JSX.Element) | ((arg: User) => JSX.Element) | ((arg: string) => JSX.Element);
     property?: string;
 }
 

@@ -20,7 +20,7 @@ const Grid = styled.div`
 `;
 
 interface TableProps {
-    data: Room[] | Booking[];
+    data: Room[] | Booking[] | User;
     columns: Columns[];
 }
 
