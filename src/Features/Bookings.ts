@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import mockBookings from "../data/mockBookings";
 
-const delay = (data) => {
+const delay = (data: Object): Object => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(data);
@@ -10,11 +10,11 @@ const delay = (data) => {
 }
 
 export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async() => {
-    const bookings = delay(mockBookings);
+    const bookings: Object[] = delay(mockBookings);
     return bookings;
 })
 
-export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id) => {
+export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id: string) => {
     const bookingId = delay(id);
     const booking = mockBookings.find(booking => booking.id === id);
     return booking;
@@ -56,7 +56,7 @@ const Bookings = createSlice({
         })
         .addCase(GetBookingsThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
-            state. error = 'false',
+            state.error = 'false',
             state.items = action.payload;
         })
         .addCase(GetBookingThunk.pending, state => {
@@ -69,7 +69,7 @@ const Bookings = createSlice({
         })
         .addCase(GetBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
-            state. error = 'false',
+            state.error = 'false',
             state.single = action.payload;
         })
         .addCase(AddBookingThunk.pending, state => {
@@ -82,7 +82,7 @@ const Bookings = createSlice({
         })
         .addCase(AddBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
-            state. error = 'false',
+            state.error = 'false',
             state.items.push(action.payload);
             state.single = action.payload;
         })
@@ -96,7 +96,7 @@ const Bookings = createSlice({
         })
         .addCase(RemoveBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
-            state. error = 'false',
+            state.error = 'false',
             state.items = state.items.filter(booking => booking.id !== action.payload);
             state.single = action.payload;
         })
@@ -110,7 +110,7 @@ const Bookings = createSlice({
         })
         .addCase(EditBookingThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled',
-            state. error = 'false',
+            state.error = 'false',
             state.items = state.items.map(booking => booking.id === action.payload.id ? action.payload : booking);
             state.single = action.payload;
         })
