@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRoomsThunk } from "../Features/Rooms";
 import SideBar from "../Components/SideBar";
-import { Room } from "../types";
+import { Columns, Room } from "../types";
 
 const StyledNameColumn = styled.div`
     border-bottom: 0 !important;
@@ -25,7 +25,7 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-const columns = [
+const columns: Columns[] = [
     {
       label: 'Room Name',
       display: (row: Room) => (

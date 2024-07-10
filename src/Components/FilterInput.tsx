@@ -7,7 +7,7 @@ const StyledInput = styled.input`
 `;
 
 interface FilterInputProps {
-    filterByName: () => void;
+    filterByName: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FilterInput: React.FC<FilterInputProps> = ({ filterByName }) => {

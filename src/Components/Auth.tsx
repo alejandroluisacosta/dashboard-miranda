@@ -1,18 +1,19 @@
 import { ReactNode, createContext, useEffect, useReducer } from "react";
 import { AuthAction, AuthContextType } from "../types";
 
+const emptyState = {
+    userName: null,
+    userEmail: null,
+    isLoggedIn: false
+}
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined); // WHY THIS?
+export const AuthContext = createContext<AuthContextType>({authState: emptyState, authDispatch: () => null});
 
 const getInitialAuthState = () => {
     const initialState = localStorage.getItem('auth');
 
     if (!initialState)
-        return {
-            userName: null,
-            userEmail: null,
-            isLoggedIn: false
-        };
+        return emptyState;
 
     return JSON.parse(initialState);
 };

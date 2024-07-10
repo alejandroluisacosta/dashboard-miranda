@@ -37,6 +37,12 @@ export interface Booking {
     room: Room;
   }
 
+export interface Columns {
+    label: string;
+    display?: ((arg: Booking) => JSX.Element) | ((arg: Room) => JSX.Element) | ((arg: string) => JSX.Element);
+    property?: string;
+}
+
   export interface CommentInterface {
     text: string;
     userName: string;

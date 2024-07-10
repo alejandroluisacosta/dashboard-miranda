@@ -26,7 +26,6 @@ const StyledBookingDetailsPage = styled.div`
 
 const BookingDetailsPage = () => {
 
-    const Booking = useSelector(state => state.Bookings.single);
     const { bookingId } = useParams();
     const dispatch = useDispatch();
     const [fetched, setFetched] = useState<Boolean>(false);
@@ -52,7 +51,7 @@ const BookingDetailsPage = () => {
                             <Link to="/bookings">All Bookings</Link>
                         </div>
                         {fetched ? 
-                        <BookingDetails booking={Booking}/>
+                        <BookingDetails />
                         :
                         <h1>Loading</h1>
                         }
