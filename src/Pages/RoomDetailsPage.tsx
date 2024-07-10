@@ -4,9 +4,9 @@ import Header from "../Components/Header";
 import { Link, useParams } from "react-router-dom";
 import { GetRoomThunk } from "../Features/Rooms";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import RoomDetails from "../Components/RoomDetails";
 import SideBar from "../Components/SideBar";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 const StyledRoomDetailsPage = styled.div`
     background-color: var(--light-gray);
@@ -26,8 +26,8 @@ const StyledRoomDetailsPage = styled.div`
 const RoomDetailsPage = () => {
 
     const [fetched, setFetched] = useState(false);
-    const roomFromSlice = useSelector(state => state.Rooms.single);
-    const dispatch = useDispatch();
+    const roomFromSlice = useAppSelector(state => state.Rooms.single);
+    const dispatch = useAppDispatch();
     const { roomId } = useParams();
 
     const initialFetch = async () => {

@@ -1,12 +1,12 @@
 import Header from "../Components/Header";
 import styled from "styled-components";
 import BookingDetails from "../Components/BookingDetails";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { GetBookingThunk } from "../Features/Bookings";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import SideBar from "../Components/SideBar";
+import { useAppDispatch } from "../app/hooks";
 
 
 const StyledBookingDetailsPage = styled.div`
@@ -26,9 +26,12 @@ const StyledBookingDetailsPage = styled.div`
 
 const BookingDetailsPage = () => {
 
-    const Booking = useSelector(state => state.Bookings.single);
-    const { bookingId } = useParams();
-    const dispatch = useDispatch();
+    interface RouteParams {
+        bookingId: string;
+    }
+
+    const { bookingId = '' } = useParams<{bookingId: string}>();
+    const dispatch = useAppDispatch();
     const [fetched, setFetched] = useState<Boolean>(false);
 
     const initialFetch = async () => {
@@ -52,7 +55,7 @@ const BookingDetailsPage = () => {
                             <Link to="/bookings">All Bookings</Link>
                         </div>
                         {fetched ? 
-                        <BookingDetails booking={Booking}/>
+                        <BookingDetails />
                         :
                         <h1>Loading</h1>
                         }

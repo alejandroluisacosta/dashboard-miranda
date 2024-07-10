@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { Booking, Room } from "../types";
+import { Booking, Columns, Room, User } from "../types";
 
 const Grid = styled.div`
     display: grid;
@@ -20,12 +20,8 @@ const Grid = styled.div`
 `;
 
 interface TableProps {
-    data: Room[] | Booking[];
-    columns: {
-        label: string;
-        display?: (arg: Booking | Room) => ReactNode;
-        property?: string;
-    }[];
+    data: Room[] | Booking[] | User[];
+    columns: Columns[];
 }
 
 const Table: React.FC<TableProps> = ({ data, columns }) => {

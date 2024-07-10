@@ -11,12 +11,20 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
     
-    const submitHandler = (event) => {
+    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 
         event.preventDefault()
 
-        const username = event.target.elements.username.value;
-        const password = event.target.elements.password.value;
+
+        const target = event.target as typeof event.target & {
+            elements: {
+                username: { value: string },
+                password: { value: string }
+            }
+        };
+
+        const username = target.elements.username.value;
+        const password = target.elements.password.value;
 
         if (username === 'John' && password === '1234') {
             authDispatch({type: 'LOGIN', payload: {userName: username, userEmail: 'john@oxygen.com', isLoggedIn: true}});

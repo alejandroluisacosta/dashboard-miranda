@@ -1,18 +1,20 @@
 import { ReactNode, createContext, useEffect, useReducer } from "react";
-import { AuthAction, AuthContextType } from "../types";
+import { AuthAction, AuthContextType, AuthState } from "../types";
+import { RootState } from "../app/Store";
 
+const emptyState = {
+    userName: null,
+    userEmail: null,
+    isLoggedIn: false
+}
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined); // WHY THIS?
+export const AuthContext = createContext<AuthContextType>({authState: emptyState, authDispatch: () => null});
 
-const getInitialAuthState = () => {
+const getInitialAuthState = (): AuthState => {
     const initialState = localStorage.getItem('auth');
 
     if (!initialState)
-        return {
-            userName: null,
-            userEmail: null,
-            isLoggedIn: false
-        };
+        return emptyState;
 
     return JSON.parse(initialState);
 };
@@ -23,8 +25,8 @@ const types = {
     UPDATE_USER: 'UPDATE_USER',
 }
 
-const authReducer = (state, action: AuthAction) => {
-    let newState = {};
+const authReducer: AuthAction = (state: RootState, action: AuthAction): AuthState => {
+    let newState = {} as AuthState;
     switch (action.type) {
         case types.LOGIN:
             newState = {
@@ -47,16 +49,17 @@ const authReducer = (state, action: AuthAction) => {
                     ...state,
                     userName: action.payload.userName,
                     userEmail: action.payload.userEmail,
+                    isLoggedIn: true
             };
             return newState;
         default:
-            return {...state};
+            return {...newState};
     }
 }
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     
-    const [authState, authDispatch] = useReducer(authReducer, getInitialAuthState());
+    const [authState, authDispatch] = useReducer<React.Reducer<AuthAction, AuthState>>(authReducer, getInitialAuthState());
 
     useEffect(() => {
         localStorage.setItem('auth', JSON.stringify(authState))

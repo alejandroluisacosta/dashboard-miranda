@@ -18,7 +18,7 @@ const StyledButton = styled.p<StyledButtonProps>`
 
 interface FilterTabsProps {
     sortHandler: (arg: string) => void;
-    fields: string[];
+    fields: { [key: string]: string };
 }
 
 const FilterTabs: React.FC<FilterTabsProps> = ({ sortHandler, fields }) => {

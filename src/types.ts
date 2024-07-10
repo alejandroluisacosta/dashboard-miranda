@@ -21,8 +21,11 @@ export interface Room {
     roomType: string;
     amenities: string;
     rate: number;
-    offer: string;
+    offer: string
+    discount: number;
+    description?: string;
     status: 'Available' | 'Booked';
+    cancellationPolicies?: string;
   }
 
 export interface Booking {
@@ -36,6 +39,23 @@ export interface Booking {
     status: string;
     room: Room;
   }
+
+export interface User {
+    name: string;
+    id: string;
+    image: string;
+    incorporatedOn: string;
+    jobDesk: string;
+    schedule: string;
+    contact: string;
+    status: string;
+}
+
+export interface Columns {
+    label: string;
+    display?: ((arg: Booking) => JSX.Element) | ((arg: Room) => JSX.Element) | ((arg: User) => JSX.Element) | ((arg: string) => JSX.Element);
+    property?: string;
+}
 
   export interface CommentInterface {
     text: string;

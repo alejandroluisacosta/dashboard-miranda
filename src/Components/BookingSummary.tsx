@@ -65,7 +65,7 @@ const NumberContainer = styled.div`
 
 interface BookingSummaryProps {
     booking: Booking;
-    timeAgo: number;
+    timeAgo: string;
 }
 
 const BookingSummary: React.FC<BookingSummaryProps> = ({ booking, timeAgo }) => {
@@ -78,7 +78,7 @@ const BookingSummary: React.FC<BookingSummaryProps> = ({ booking, timeAgo }) => 
                     <div>
                         <img src="/assets/user.jpeg" alt="Client"/>
                         <p>{booking.name}</p>
-                        <p>{timeAgo > 30 ? '+30' : timeAgo} minutes ago</p>
+                        <p>{Number(timeAgo) > 30 ? '+30' : timeAgo} minutes ago</p>
                     </div>
                 </InfoContainer>
                 <NumberContainer>

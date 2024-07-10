@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import FilterTabs from "../Components/FilterTabs";
 import SideBar from "../Components/SideBar";
 import Table from "../Components/Table";
+import { Columns, User } from "../types";
 
 
 const Users = styled.div`
@@ -26,18 +27,7 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-interface User {
-  name: string;
-  id: string;
-  image: string;
-  incorporatedOn: string;
-  jobDesk: string;
-  schedule: string;
-  contact: string;
-  status: string;
-}
-
-const columns = [
+const columns: Columns[] = [
   {
     label: 'Name',
     display: (row: User) => (
@@ -70,13 +60,13 @@ const columns = [
   },
   {
     label: 'Status',
-    display: (status: 'Active' | 'Inactive') => (
+    display: (status: string) => (
       status === 'Active' ? <button>Active</button> : <button>Inactive</button>
     )
   },
 ];
 
-const mockUsers = [
+const mockUsers: User[] = [
   {
     name: 'Alice Johnson',
     id: '#001',
@@ -142,24 +132,17 @@ const UsersPage = () => {
   }, [])
 
   // THIS FUNCTION NEEDS TO RETURN AN ARRAY OF USER-INTERFACE INSTANCES, NOT MERE OBJECTS
-  const sortUsersHandler = (value: string) => {
-    const allUsers = [...mockUsers];
+  const sortUsersHandler = (value: string): User[] => {
     if (value === 'incorporatedOn') {
+      const allUsers = [...mockUsers];
       allUsers.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
-      setUsers(allUsers);
       return allUsers;
     } else if (value === 'active') {
-      const filteredUsers = allUsers.filter(user => user.status === 'Active')
-      setUsers(filteredUsers);
-      return filteredUsers;
+      return mockUsers.filter(user => user.status === 'Active')
     } else if (value === 'inactive') {
-      const filteredUsers = allUsers.filter(user => user.status === 'Inactive')
-      setUsers(filteredUsers);
-      return filteredUsers;
-    } else if (value === 'name') {
-      setUsers(allUsers.sort((a, b) => a.name.localeCompare(b.name)));
-      return allUsers;
+      return mockUsers.filter(user => user.status === 'Inactive')
     }
+    return mockUsers;
   }
 
     return (

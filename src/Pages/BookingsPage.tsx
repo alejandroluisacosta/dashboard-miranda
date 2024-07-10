@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import Header from "../Components/Header";
 import FilterTabs from "../Components/FilterTabs";
-import { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import FilterInput from "../Components/FilterInput";
-import { useDispatch, useSelector } from "react-redux";
 import { GetBookingsThunk, RemoveBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
 import Table from "../Components/Table";
 import SideBar from "../Components/SideBar";
-import { Booking } from "../types";
+import { Booking, Columns, Room } from "../types";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 const StyledBookings = styled.div`
     background-color: var(--light-gray);
@@ -49,8 +49,8 @@ const StyledGuestColumn = styled.div`
 `;
 
 const BookingsPage = () => {
-  
-    const columns = [
+
+    const columns: Columns[] = [
       {
       label: 'Guest',
       display: (row: Booking) => (
@@ -96,10 +96,10 @@ const BookingsPage = () => {
     ];
 
     const [renderedBookings, setRenderedBookigs] = useState<Booking[]>([]);
-    const dispatch = useDispatch();
-    const bookings = useSelector(state => state.Bookings.items);
+    const dispatch = useAppDispatch();
+    const bookings: Booking[] = useAppSelector(state => state.Bookings.items);
 
-    const sortBookingsHandler = (event, value: string): void => {
+    const sortBookingsHandler = (value: string): void => {
       const allBookings = [...bookings];
       if (value === 'inProgress') { 
         const today = new Date();
@@ -109,10 +109,9 @@ const BookingsPage = () => {
         const sortedBookings: Booking[] = allBookings.sort((a, b) => (new Date(a[value]).getTime() as number) - (new Date(b[value]).getTime() as number));
         setRenderedBookigs(sortedBookings);
       }
-      event.target.selected = true; // NOT WORKING
     }
 
-    const filterByNameHandler = (event): void => {
+    const filterByNameHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
       const allBookings = [...renderedBookings]; 
       if (!event.target.value)
         setRenderedBookigs(bookings);

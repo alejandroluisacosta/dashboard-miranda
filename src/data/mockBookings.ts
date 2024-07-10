@@ -1,4 +1,6 @@
-const mockBookings = [
+import { Booking, Room } from '../types';
+
+const mockBookings: Booking[] = [
     {
       name: 'John Doe',
       id: '1234',
@@ -8,6 +10,7 @@ const mockBookings = [
       specialRequest: "Could you please arrange for a quiet room overlooking the garden? We prefer a non-smoking room and would appreciate extra towels. Additionally, if possible, could we have a room on a higher floor? Thank you so much for your assistance and attention to these details!",
       roomType: 'Double Room',
       status: 'booked',
+      room: {} as Room,
     },
     {
       name: 'Jane Smith',
@@ -15,9 +18,11 @@ const mockBookings = [
       orderDate: '2024-06-02',
       checkInDate: '2024-06-18',
       checkOutDate: '2024-06-25',
-      specialRequest: false,
+      specialRequest: "",
       roomType: 'Single Room',
       status: 'pending',
+      room: {} as Room,
+
     },
     {
       name: 'Michael Johnson',
@@ -25,9 +30,11 @@ const mockBookings = [
       orderDate: '2024-06-05',
       checkInDate: '2024-06-20',
       checkOutDate: '2024-06-23',
-      specialRequest: true,
+      specialRequest: "Hello",
       roomType: 'Suite',
-      status: 'cancelled'
+      status: 'cancelled',
+      room: {} as Room,
+
     },
     {
       name: 'Emily Davis',
@@ -35,9 +42,11 @@ const mockBookings = [
       orderDate: '2024-06-08',
       checkInDate: '2024-06-25',
       checkOutDate: '2024-06-28',
-      specialRequest: false,
+      specialRequest: "",
       roomType: 'Double Room',
-      status: 'booked'
+      status: 'booked',
+      room: {} as Room,
+
     },
     {
       name: 'Daniel Wilson',
@@ -45,9 +54,11 @@ const mockBookings = [
       orderDate: '2024-06-10',
       checkInDate: '2024-06-22',
       checkOutDate: '2024-06-27',
-      specialRequest: true,
+      specialRequest: "Hello again",
       roomType: 'Single Room',
-      status: 'pending'
+      status: 'pending',
+      room: {} as Room,
+
     }
   ];
 
