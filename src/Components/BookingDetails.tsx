@@ -3,11 +3,11 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { EditBookingThunk } from "../Features/Bookings";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { Room } from "../types";
 
 const StyledBookingDetails = styled.div`
     display: flex;
@@ -190,7 +190,7 @@ const BookingDetails = () => {
     const [checkOutDate, setCheckOutDate] = useState(booking.checkOutDate);
     const [roomType, setRoomType] = useState(booking.roomType);
     const [specialRequest, setSpecialRequest] = useState(booking.specialRequest);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const notify = () => toast.success('Booking successfully modified', {
         position: "top-center",
@@ -217,6 +217,7 @@ const BookingDetails = () => {
             roomType: roomType,
             specialRequest: specialRequest,
             status: status,
+            room: {} as Room,
         }));
         setIsEditing(false);
         notify();
