@@ -63,7 +63,7 @@ const IconsContainer = styled.div`
 
 interface CommentProps {
     comment: CommentInterface;
-    timeAgo: number;
+    timeAgo: string;
 }
 
 const Comment: React.FC<CommentProps> = ({ comment, timeAgo }) => {
@@ -75,7 +75,7 @@ const Comment: React.FC<CommentProps> = ({ comment, timeAgo }) => {
                     <img src="/assets/user.jpeg" alt="User image"/>
                     <div>
                         <p>{comment.userName}</p>
-                        <p>{timeAgo > 30 ? '+30' : timeAgo} minutes ago</p>
+                        <p>{Number(timeAgo) > 30 ? '+30' : timeAgo} minutes ago</p>
                     </div>
                 </UserContainer>
                 <IconsContainer>
