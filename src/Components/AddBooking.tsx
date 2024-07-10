@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { AddBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
+import { useAppDispatch } from "../app/hooks";
+import { Booking, Room } from "../types";
 
 const StyledAddBooking = styled.div`
     display: flex;
@@ -77,7 +78,7 @@ const Right = styled.div`
 
 const AddBooking: React.FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const notify = () => toast.success('Booking created successfully', {
         position: "top-center",
         autoClose: 1000,
@@ -110,7 +111,8 @@ const AddBooking: React.FC = () => {
             specialRequest: specialRequest,
             roomType: roomType,
             status: status,
-        }))
+            room: {} as Room,
+        })) 
 
         notify();
 

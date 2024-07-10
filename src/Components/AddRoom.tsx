@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AddRoomThunk } from "../Features/Rooms";
+import { useAppDispatch } from "../app/hooks";
 
 const StyledAddRoom = styled.div`
     display: flex;
@@ -98,7 +99,7 @@ const Right = styled.div`
 
 const AddRoom: React.FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const notify = () => toast.success('Room created successfully', {
         position: "top-center",
         autoClose: 1000,
@@ -127,10 +128,11 @@ const AddRoom: React.FC = () => {
             name: `${roomType} ${roomNumber}`,
             id: `${Math.floor(Math.random() * 1000)}`,
             image: '/assets/HotelInside.jpeg',
-            'room type': roomType,
+            roomType: roomType,
             amenities: amenities,
-            price: price,
-            offer: offer === 'Yes' ? discount : false,
+            rate: price,
+            offer: offer,
+            discount: offer === 'Yes' ? discount : 0,
             status: 'Available',
             description: description,
             cancellationPolicies: cancellationPolicies,

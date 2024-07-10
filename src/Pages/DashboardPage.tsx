@@ -7,9 +7,9 @@ import BookingSummary from "../Components/BookingSummary";
 import { useEffect, useState } from "react";
 import Comment from "../Components/Comment";
 import SideBar from "../Components/SideBar";
-import { useDispatch, useSelector } from "react-redux";
 import { GetBookingsThunk } from "../Features/Bookings";
 import { Booking } from "../types";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 
 
@@ -194,8 +194,8 @@ const DashboardPage = () => {
     const [sortedBookings, setSortedBookings] = useState<Booking[]>([]);
     const [fetched, setFetched] = useState<Boolean>(false);
 
-    const bookings = useSelector(state => state.Bookings.items);
-    const dispatch = useDispatch();
+    const bookings = useAppSelector(state => state.Bookings.items);
+    const dispatch = useAppDispatch();
 
     const sortBookings = (bookings: Booking[]): Booking[] => {
         return bookings.sort((a, b) => (new Date(a.checkInDate).getTime() as number) - (new Date(b.checkInDate).getTime() as number));

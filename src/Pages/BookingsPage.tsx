@@ -3,7 +3,6 @@ import Header from "../Components/Header";
 import FilterTabs from "../Components/FilterTabs";
 import React, { ReactNode, useEffect, useState } from "react";
 import FilterInput from "../Components/FilterInput";
-import { useDispatch, useSelector } from "react-redux";
 import { GetBookingsThunk, RemoveBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
 import Table from "../Components/Table";

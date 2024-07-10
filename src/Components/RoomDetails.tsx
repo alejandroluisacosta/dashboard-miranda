@@ -7,6 +7,7 @@ import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { EditRoomThunk } from "../Features/Rooms";
 import Button from './Button';
 import { Room } from '../types';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 
 const StyledRoomDetails = styled.div`
     display: flex;
@@ -100,7 +101,7 @@ const Right = styled.div`
 const RoomDetails = () => {
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const room: Room = useSelector(state => state.Rooms.single);
+    const room: Room = useAppSelector(state => state.Rooms.single);
     const [name, setName] = useState<string>(room.name);
     const [roomType, setRoomType] = useState<string>(room.roomType);
     const [image, setImage] = useState<string>(room.image);
@@ -108,7 +109,7 @@ const RoomDetails = () => {
     const [rate, setRate] = useState<number>(room.rate);
     const [offer, setOffer] = useState<string>(room.offer);
     const [status, setStatus] = useState<'Available' | 'Booked'>(room.status);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const notify = () => toast.success('Room successfully modified', {
         position: "top-center",
@@ -135,7 +136,7 @@ const RoomDetails = () => {
             image: 'assets/HotelRoom3.jpeg',
             roomType: room.roomType,
             amenities: modifiedAmenities.length ? modifiedAmenities : amenities,
-            price: rate,
+            rate: rate,
             offer: offer,
             status: status,
         }))

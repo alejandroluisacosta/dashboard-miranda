@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Table from "../Components/Table";
 import Header from "../Components/Header";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { GetRoomsThunk } from "../Features/Rooms";
 import SideBar from "../Components/SideBar";
 import { Columns, Room } from "../types";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 const StyledNameColumn = styled.div`
     border-bottom: 0 !important;
@@ -85,8 +85,8 @@ const StyledRooms = styled.div`
 const RoomsPage = () => {
 
     const [renderedRooms, setRenderedRooms] = useState<Room[]>([]);
-    const dispatch = useDispatch();
-    const rooms = useSelector(state => state.Rooms.items);
+    const dispatch = useAppDispatch();
+    const rooms = useAppSelector(state => state.Rooms.items);
 
     useEffect(() => {
         dispatch(GetRoomsThunk());

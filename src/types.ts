@@ -21,8 +21,11 @@ export interface Room {
     roomType: string;
     amenities: string;
     rate: number;
-    offer: string;
+    offer: string
+    discount: number;
+    description?: string;
     status: 'Available' | 'Booked';
+    cancellationPolicies?: string;
   }
 
 export interface Booking {
