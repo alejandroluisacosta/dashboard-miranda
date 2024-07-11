@@ -122,7 +122,8 @@ const BookingsPage = () => {
     };
 
     useEffect((): void => {
-      dispatch(GetBookingsThunk());
+      if (!bookings.length)
+        dispatch(GetBookingsThunk());
       setRenderedBookigs(bookings);
     }, [bookings])
 

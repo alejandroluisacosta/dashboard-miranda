@@ -10,6 +10,7 @@ const mockRooms: Room[] = [
       rate: 300,
       offer: '20% off',
       status: 'Available',
+      discount: 0,
     },
     {
       name: 'Deluxe A-91234',
@@ -20,6 +21,7 @@ const mockRooms: Room[] = [
       rate: 150,
       offer: '10% off',
       status: 'Available',
+      discount: 0,
     },
     {
       name: 'Deluxe A-91234',
@@ -30,6 +32,7 @@ const mockRooms: Room[] = [
       rate: 400,
       offer: '30% off',
       status: 'Booked',
+      discount: 0,
     },
     {
       name: 'Deluxe A-91234',
@@ -40,6 +43,7 @@ const mockRooms: Room[] = [
       rate: 250,
       offer: '15% off',
       status: 'Available',
+      discount: 0,
     },
     {
       name: 'Deluxe A-91234',
@@ -50,6 +54,7 @@ const mockRooms: Room[] = [
       rate: 350,
       offer: '25% off',
       status: 'Booked',
+      discount: 0,
     }
   ];
 

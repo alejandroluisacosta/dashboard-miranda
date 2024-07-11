@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useEffect, useReducer } from "react";
-import { AuthAction, AuthContextType, AuthState } from "../types";
+import { ReactNode, ReducerWithoutAction, createContext, useEffect, useReducer } from "react";
+import { AuthAction, AuthContextType, AuthState } from '../types';
 import { RootState } from "../app/Store";
 
 const emptyState = {
@@ -25,7 +25,7 @@ const types = {
     UPDATE_USER: 'UPDATE_USER',
 }
 
-const authReducer: AuthAction = (state: RootState, action: AuthAction): AuthState => {
+const authReducer = (state: AuthState, action: AuthAction): AuthState => {
     let newState = {} as AuthState;
     switch (action.type) {
         case types.LOGIN:
@@ -59,7 +59,7 @@ const authReducer: AuthAction = (state: RootState, action: AuthAction): AuthStat
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     
-    const [authState, authDispatch] = useReducer<React.Reducer<AuthAction, AuthState>>(authReducer, getInitialAuthState());
+    const [authState, authDispatch] = useReducer<React.Reducer<AuthState, AuthAction>>(authReducer, getInitialAuthState());
 
     useEffect(() => {
         localStorage.setItem('auth', JSON.stringify(authState))

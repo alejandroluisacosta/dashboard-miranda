@@ -50,8 +50,8 @@ const columns: Columns[] = [
 
     },
     {
-      label: 'Price',
-      property: 'price',
+      label: 'Rate',
+      property: 'rate',
     },
     {
       label: 'Offer',
@@ -89,8 +89,9 @@ const RoomsPage = () => {
     const rooms = useAppSelector(state => state.Rooms.items);
 
     useEffect(() => {
+      if (!rooms.length)
         dispatch(GetRoomsThunk());
-        setRenderedRooms(rooms);
+      setRenderedRooms(rooms);
     }, [rooms])
 
     return (
