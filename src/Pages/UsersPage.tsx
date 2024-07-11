@@ -43,13 +43,13 @@ const columns: Columns[] = [
   },
   {
     label: 'Job Desk',
-    property: 'job desk',
+    property: 'jobDesk',
   },
   {
     label: 'Schedule',
-    display: (schedule: string) => (
+    display: (row: User) => (
       <>
-        <p>{schedule}</p>
+        <p>{row.schedule}</p>
         <p>Check schedule</p>
       </>
     )
@@ -57,12 +57,6 @@ const columns: Columns[] = [
   {
     label: 'Contact',
     property: 'contact',
-  },
-  {
-    label: 'Status',
-    display: (status: string) => (
-      status === 'Active' ? <button>Active</button> : <button>Inactive</button>
-    )
   },
 ];
 
@@ -131,7 +125,6 @@ const UsersPage = () => {
     setUsers(sortUsersHandler('incorporatedOn'));
   }, [])
 
-  // THIS FUNCTION NEEDS TO RETURN AN ARRAY OF USER-INTERFACE INSTANCES, NOT MERE OBJECTS
   const sortUsersHandler = (value: string): User[] => {
     if (value === 'incorporatedOn') {
       const allUsers = [...mockUsers];
@@ -144,6 +137,11 @@ const UsersPage = () => {
     }
     return mockUsers;
   }
+
+  // Qué es este error?
+  //react-dom.development.js:13123 Uncaught Error: Objects are not valid as a React child (found: object with keys 
+  // {name, id, incorporatedOn, image, jobDesk, schedule, contact, status}). 
+  // If you meant to render a collection of children, use an array instead.
 
     return (
         <>
