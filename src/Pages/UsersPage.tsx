@@ -122,26 +122,21 @@ const UsersPage = () => {
   // } REMOVE AFTER CONFIRMING USELESSNESSS
 
   useEffect(() => {
-    setUsers(sortUsersHandler('incorporatedOn'));
+    sortUsersHandler('incorporatedOn');
   }, [])
 
   const sortUsersHandler = (value: string): User[] => {
     if (value === 'incorporatedOn') {
       const allUsers = [...mockUsers];
       allUsers.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
-      return allUsers;
+      setUsers(allUsers);
     } else if (value === 'active') {
-      return mockUsers.filter(user => user.status === 'Active')
+      setUsers(mockUsers.filter(user => user.status === 'Active'));
     } else if (value === 'inactive') {
-      return mockUsers.filter(user => user.status === 'Inactive')
+      setUsers(mockUsers.filter(user => user.status === 'Inactive'));
     }
     return mockUsers;
   }
-
-  // Qué es este error?
-  //react-dom.development.js:13123 Uncaught Error: Objects are not valid as a React child (found: object with keys 
-  // {name, id, incorporatedOn, image, jobDesk, schedule, contact, status}). 
-  // If you meant to render a collection of children, use an array instead.
 
     return (
         <>
@@ -154,7 +149,7 @@ const UsersPage = () => {
                         sortHandler={sortUsersHandler}
                         fields={{
                           'All employees': 'incorporatedOn',
-                          'Active employees': 'Active',
+                          'Active employees': 'active',
                           'Inactive employees': 'inactive',
                         }}
                       />
