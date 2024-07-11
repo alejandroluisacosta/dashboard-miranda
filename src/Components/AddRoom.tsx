@@ -118,7 +118,7 @@ const AddRoom: React.FC = () => {
         const roomType: string = (form.querySelector('#room-type') as HTMLInputElement).value;
         const roomNumber: string = (form.querySelector('#room-number') as HTMLInputElement).value;
         const offer: string = (form.querySelector('#offer') as HTMLInputElement).value;
-        const price: number = parseInt((form.querySelector('#price') as HTMLInputElement).value, 10);
+        const price: number = parseInt((form.querySelector('#rate') as HTMLInputElement).value, 10);
         const discount: number = parseInt((form.querySelector('#discount') as HTMLInputElement).value, 10);
         const description: string = (form.querySelector('#description') as HTMLInputElement).value;
         const amenities: string = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="amenities"]:checked')).map(input => input.value).join(', ');
