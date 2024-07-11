@@ -28,9 +28,13 @@ const RoomDetailsPage = () => {
     const [fetched, setFetched] = useState(false);
     const roomFromSlice = useAppSelector(state => state.Rooms.single);
     const dispatch = useAppDispatch();
-    const { roomId } = useParams();
+    const { roomId }= useParams<{ roomId: string }>();
 
-    const initialFetch = async () => {
+    if (!roomId) {
+        throw new Error('No room selected - Room\'s ID misising')
+    }
+
+    const initialFetch = async (): Promise<void> => {
         await dispatch(GetRoomThunk(roomId)).unwrap();
         setFetched(true)
     }

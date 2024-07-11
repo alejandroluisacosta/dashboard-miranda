@@ -139,6 +139,7 @@ const RoomDetails = () => {
             rate: rate,
             offer: offer,
             status: status,
+            discount: 0,
         }))
         setIsEditing(false);
         notify();
