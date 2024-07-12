@@ -107,7 +107,7 @@ const AddUser: React.FC = () => {
         const name: string = (form.querySelector('#name') as HTMLInputElement).value;
         const incorporatedOn: string = (form.querySelector('#date') as HTMLInputElement).value;
         const jobDesk: string = (form.querySelector('#description') as HTMLInputElement).value;
-        const contact: string = (form.querySelector('#phone') as HTMLInputElement).value;
+        const phone: string = (form.querySelector('#phone') as HTMLInputElement).value;
         const status: string = (form.querySelector('#status') as HTMLInputElement).value;
         const role: string = (form.querySelector('#role') as HTMLInputElement).value;
 
@@ -117,7 +117,7 @@ const AddUser: React.FC = () => {
             image: `/assets/user.jpeg`,
             incorporatedOn: incorporatedOn,
             jobDesk: jobDesk,
-            contact: contact,
+            phone: phone,
             status: status,
             role: role,
         }));

@@ -47,9 +47,10 @@ export interface User {
     incorporatedOn: string;
     jobDesk: string;
     schedule?: string;
-    contact: string;
+    phone: string;
     status: string;
     role?: string;
+    email?: string;
 }
 
 export interface Columns {

@@ -18,6 +18,7 @@ import Store from './app/Store'
 import AddBookingPage from './Pages/AddBookingPage'
 import RoomDetailsPage from './Pages/RoomDetailsPage'
 import { ToastContainer } from 'react-toastify'
+import UserDetailsPage from './Pages/UserDetailsPage'
 
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
                   <Route path="rooms/add" element={<ProtectedRoute><AddRoomPage /></ProtectedRoute>} />
                   <Route path="users" element={<ProtectedRoute><UsersPage /></ProtectedRoute>} />
                   <Route path="users/add" element={<ProtectedRoute><AddUserPage /></ProtectedRoute>} />
+                  <Route path="users/:usersId" element={<ProtectedRoute><UserDetailsPage /></ProtectedRoute>} />
                   <Route path="contact" element={<ProtectedRoute><ContactPage /></ProtectedRoute>} />
                 </Routes>
               </BrowserRouter>
