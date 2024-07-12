@@ -71,7 +71,7 @@ const StyledRooms = styled.div`
     display: flex;
     justify-content: flex-start;
     margin: 30px 50px;
-      .add-button {
+    .add-button {
         padding: 15px 50px;
         background-color: var(--dark-green);
         border-radius: 12px;

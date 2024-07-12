@@ -46,9 +46,10 @@ export interface User {
     image: string;
     incorporatedOn: string;
     jobDesk: string;
-    schedule: string;
+    schedule?: string;
     contact: string;
     status: string;
+    role?: string;
 }
 
 export interface Columns {

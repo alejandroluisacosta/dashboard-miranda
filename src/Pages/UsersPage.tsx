@@ -7,12 +7,25 @@ import Table from "../Components/Table";
 import { Columns, User } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import Users, { GetUsersThunk } from "../Features/Users";
+import { Link } from "react-router-dom";
 
 
 const StyledUsers = styled.div`
 
     background-color: var(--light-gray);
-
+      .filter-container {
+      display: flex;
+      align-items: center;
+      margin: 50px 50px 30px;
+    }
+    .add-button {
+        padding: 10px 18px;
+        background-color: var(--dark-green);
+        border-radius: 12px;
+        color: white;
+        font-size: 14px;
+        margin-left: 50px;
+    }
 `;
 
 const StyledNameColumn = styled.div`
@@ -68,8 +81,9 @@ const UsersPage = () => {
     const users = useAppSelector(state => state.Users.items);
 
   useEffect(() => {
-    if (!renderedUsers.length)
+    if (!users.length) {
       dispatch(GetUsersThunk());
+    }
     sortUsersHandler('incorporatedOn');
   }, [users])
 
@@ -92,14 +106,17 @@ const UsersPage = () => {
                   <SideBar/>
                   <div className="main-content">
                       <Header/>
-                      <FilterTabs 
-                        sortHandler={sortUsersHandler}
-                        fields={{
-                          'All employees': 'incorporatedOn',
-                          'Active employees': 'active',
-                          'Inactive employees': 'inactive',
-                        }}
-                      />
+                      <div className="filter-container">
+                        <FilterTabs 
+                          sortHandler={sortUsersHandler}
+                          fields={{
+                            'All employees': 'incorporatedOn',
+                            'Active employees': 'active',
+                            'Inactive employees': 'inactive',
+                          }}
+                        />
+                        <Link to='add'><button className="add-button">Add User</button></Link>
+                      </div>
                       <Table data={renderedUsers} columns={columns}/>
                   </div>
               </div>

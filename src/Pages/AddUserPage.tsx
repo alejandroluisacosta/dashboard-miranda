@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "../Components/Header";
 import AddRoom from "../Components/AddRoom";
 import SideBar from "../Components/SideBar";
+import AddUser from "../Components/AddUser";
 ;
 
 const StyledAddUserPage = styled.div`
@@ -16,7 +17,7 @@ const AddUserPage = () => {
                     <SideBar/>
                     <div className="main-content">
                         <Header />
-                        <AddRoom />
+                        <AddUser />
                     </div>
                 </div>
             </StyledAddUserPage>
