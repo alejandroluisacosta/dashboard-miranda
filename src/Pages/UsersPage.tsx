@@ -29,8 +29,12 @@ const StyledUsers = styled.div`
 `;
 
 const StyledNameColumn = styled.div`
-    display: flex;
     border-bottom: 0 !important;
+      a {
+      display: flex;
+      text-decoration: none;
+      color: inherit; 
+    }
     img {
         width: 80px;
         height: 80px;
@@ -46,12 +50,14 @@ const columns: Columns[] = [
     label: 'Name',
     display: (row: User) => (
       <StyledNameColumn>
-        <img src={row.image} alt="User image"/>
-        <div>
-          <p>{row.name}</p>
-          <p>{row.id}</p>
-          <p>{row.incorporatedOn}</p>
-        </div>
+        <Link to={row.id}>
+          <img src={row.image} alt="User image"/>
+          <div>
+            <p>{row.name}</p>
+            <p>{row.id}</p>
+            <p>{row.incorporatedOn}</p>
+          </div>
+        </Link>
       </StyledNameColumn>
     )
   },

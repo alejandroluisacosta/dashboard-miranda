@@ -6,7 +6,7 @@ import { GetRoomThunk } from "../Features/Rooms";
 import { useEffect, useState } from "react";
 import RoomDetails from "../Components/RoomDetails";
 import SideBar from "../Components/SideBar";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
 
 const StyledRoomDetailsPage = styled.div`
     background-color: var(--light-gray);
@@ -25,10 +25,10 @@ const StyledRoomDetailsPage = styled.div`
 
 const RoomDetailsPage = () => {
 
-    const [fetched, setFetched] = useState(false);
-    const roomFromSlice = useAppSelector(state => state.Rooms.single);
+    const [fetched, setFetched] = useState<boolean>(false);
     const dispatch = useAppDispatch();
-    const { roomId }= useParams<{ roomId: string }>();
+    const { roomId } = useParams<{ roomId: string }>();
+
 
     if (!roomId) {
         throw new Error('No room selected - Room\'s ID misising')
@@ -55,9 +55,9 @@ const RoomDetailsPage = () => {
                             <Link to="/rooms">All Rooms</Link>
                         </div>
                         {fetched ? 
-                        <RoomDetails/>
+                            <RoomDetails/>
                         :
-                        <h1>Loading</h1>
+                            <h1>Loading</h1>
                         }
                     </div>
                 </div>
