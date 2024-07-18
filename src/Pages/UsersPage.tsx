@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import FilterTabs from "../Components/FilterTabs";
 import SideBar from "../Components/SideBar";
 import Table from "../Components/Table";
-import { Columns, User } from "../types";
+import { Column, User } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import Users, { GetUsersThunk } from "../Features/Users";
+import { GetUsersThunk } from "../Features/Users";
 import { Link } from "react-router-dom";
 
 
@@ -45,7 +45,7 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-const columns: Columns[] = [
+const columns: Column<User>[] = [
   {
     label: 'Name',
     display: (row: User) => (

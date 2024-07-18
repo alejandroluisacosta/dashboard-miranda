@@ -53,9 +53,9 @@ export interface User {
     email?: string;
 }
 
-export interface Columns {
+export interface Column<T> {
     label: string;
-    display?: ((arg: Booking) => JSX.Element) | ((arg: Room) => JSX.Element) | ((arg: User) => JSX.Element) | ((arg: string) => JSX.Element);
+    display?: (row: T) => JSX.Element;
     property?: string;
 }
 
