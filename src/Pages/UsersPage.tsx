@@ -1,22 +1,40 @@
-import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import { useEffect, useState } from "react";
 import FilterTabs from "../Components/FilterTabs";
 import SideBar from "../Components/SideBar";
 import Table from "../Components/Table";
-import { Columns, User } from "../types";
+import { Column, User } from "../types";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { GetUsersThunk } from "../Features/Users";
+import { Link } from "react-router-dom";
 
 
-const Users = styled.div`
+const StyledUsers = styled.div`
 
     background-color: var(--light-gray);
-
+      .filter-container {
+      display: flex;
+      align-items: center;
+      margin: 50px 50px 30px;
+    }
+    .add-button {
+        padding: 10px 18px;
+        background-color: var(--dark-green);
+        border-radius: 12px;
+        color: white;
+        font-size: 14px;
+        margin-left: 50px;
+    }
 `;
 
 const StyledNameColumn = styled.div`
-    display: flex;
     border-bottom: 0 !important;
+      a {
+      display: flex;
+      text-decoration: none;
+      color: inherit; 
+    }
     img {
         width: 80px;
         height: 80px;
@@ -27,29 +45,31 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-const columns: Columns[] = [
+const columns: Column<User>[] = [
   {
     label: 'Name',
     display: (row: User) => (
       <StyledNameColumn>
-        <img src={row.image} alt="User image"/>
-        <div>
-          <p>{row.name}</p>
-          <p>{row.id}</p>
-          <p>{row.incorporatedOn}</p>
-        </div>
+        <Link to={row.id}>
+          <img src={row.image} alt="User image"/>
+          <div>
+            <p>{row.name}</p>
+            <p>{row.id}</p>
+            <p>{row.incorporatedOn}</p>
+          </div>
+        </Link>
       </StyledNameColumn>
     )
   },
   {
     label: 'Job Desk',
-    property: 'job desk',
+    property: 'jobDesk',
   },
   {
     label: 'Schedule',
-    display: (schedule: string) => (
+    display: (row: User) => (
       <>
-        <p>{schedule}</p>
+        <p>{row.schedule}</p>
         <p>Check schedule</p>
       </>
     )
@@ -58,112 +78,55 @@ const columns: Columns[] = [
     label: 'Contact',
     property: 'contact',
   },
-  {
-    label: 'Status',
-    display: (status: string) => (
-      status === 'Active' ? <button>Active</button> : <button>Inactive</button>
-    )
-  },
-];
-
-const mockUsers: User[] = [
-  {
-    name: 'Alice Johnson',
-    id: '#001',
-    incorporatedOn: '2022-01-15',
-    image: '/assets/user.jpeg',
-    jobDesk: 'Answering guest inquiries, directing phone calls, coordinating travel plans, and more.',
-    schedule: 'Monday, Wednesday',
-    contact: '555-1234',
-    status: 'Active',
-  },
-  {
-    name: 'Bob Smith',
-    id: '#002',
-    incorporatedOn: '2022-02-20',
-    image: '/assets/user.jpeg',
-    jobDesk: 'Managing front desk operations, overseeing staff, and ensuring guest satisfaction.',
-    schedule: 'Tuesday, Thursday',
-    contact: '555-5678',
-    status: 'Inactive',
-  },
-  {
-    name: 'Charlie Davis',
-    id: '#003',
-    incorporatedOn: '2022-03-25',
-    image: '/assets/user.jpeg',
-    jobDesk: 'Coordinating housekeeping activities, managing laundry services, and maintaining cleanliness.',
-    schedule: 'Wednesday, Friday',
-    contact: '555-8765',
-    status: 'Active',
-  },
-  {
-    name: 'Edward Wilson',
-    id: '#005',
-    incorporatedOn: '2022-05-05',
-    image: '/assets/user.jpeg',
-    jobDesk: 'Managing restaurant operations, overseeing food and beverage services, and ensuring guest satisfaction.',
-    schedule: 'Friday, Sunday',
-    contact: '555-7890',
-    status: 'Active',
-  },
-  {
-    name: 'Diana Evans',
-    id: '#004',
-    incorporatedOn: '2022-04-30',
-    image: '/assets/user.jpeg',
-    jobDesk: 'Organizing events, handling guest reservations, and providing concierge services.',
-    schedule: 'Thursday, Saturday',
-    contact: '555-4321',
-    status: 'Inactive',
-  },
 ];
 
 const UsersPage = () => {
     
-    const [users, setUsers] = useState<User[]>(mockUsers);
-
-  //   const sortUsersInitially = (users: User[]): User[] => {
-  //     return users.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
-  // } REMOVE AFTER CONFIRMING USELESSNESSS
+    const [renderedUsers, setRenderedUsers] = useState<User[]>([]);
+    const dispatch = useAppDispatch();
+    const users = useAppSelector(state => state.Users.items);
 
   useEffect(() => {
-    setUsers(sortUsersHandler('incorporatedOn'));
-  }, [])
-
-  // THIS FUNCTION NEEDS TO RETURN AN ARRAY OF USER-INTERFACE INSTANCES, NOT MERE OBJECTS
-  const sortUsersHandler = (value: string): User[] => {
-    if (value === 'incorporatedOn') {
-      const allUsers = [...mockUsers];
-      allUsers.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
-      return allUsers;
-    } else if (value === 'active') {
-      return mockUsers.filter(user => user.status === 'Active')
-    } else if (value === 'inactive') {
-      return mockUsers.filter(user => user.status === 'Inactive')
+    if (!users.length) {
+      dispatch(GetUsersThunk());
     }
-    return mockUsers;
+    sortUsersHandler('incorporatedOn');
+  }, [users])
+
+  const sortUsersHandler = (value: string) => {
+  if (value === 'incorporatedOn') {
+    const allUsers = [...users];
+    allUsers.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
+      setRenderedUsers(allUsers);
+    } else if (value === 'active') {
+      setRenderedUsers(users.filter(user => user.status === 'Active'));
+    } else if (value === 'inactive') {
+      setRenderedUsers(users.filter(user => user.status === 'Inactive'));
+    }
   }
 
     return (
         <>
-          <Users>
+          <StyledUsers>
               <div className="page-container">
                   <SideBar/>
                   <div className="main-content">
                       <Header/>
-                      <FilterTabs 
-                        sortHandler={sortUsersHandler}
-                        fields={{
-                          'All employees': 'incorporatedOn',
-                          'Active employees': 'Active',
-                          'Inactive employees': 'inactive',
-                        }}
-                      />
-                      <Table data={users} columns={columns}/>
+                      <div className="filter-container">
+                        <FilterTabs 
+                          sortHandler={sortUsersHandler}
+                          fields={{
+                            'All employees': 'incorporatedOn',
+                            'Active employees': 'active',
+                            'Inactive employees': 'inactive',
+                          }}
+                        />
+                        <Link to='add'><button className="add-button">Add User</button></Link>
+                      </div>
+                      <Table data={renderedUsers} columns={columns}/>
                   </div>
               </div>
-          </Users>
+          </StyledUsers>
       </>
     )
 }

@@ -46,14 +46,16 @@ export interface User {
     image: string;
     incorporatedOn: string;
     jobDesk: string;
-    schedule: string;
-    contact: string;
+    schedule?: string;
+    phone: string;
     status: string;
+    role?: string;
+    email?: string;
 }
 
-export interface Columns {
+export interface Column<T> {
     label: string;
-    display?: ((arg: Booking) => JSX.Element) | ((arg: Room) => JSX.Element) | ((arg: User) => JSX.Element) | ((arg: string) => JSX.Element);
+    display?: (row: T) => JSX.Element;
     property?: string;
 }
 

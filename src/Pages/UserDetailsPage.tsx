@@ -1,14 +1,14 @@
-import styled from "styled-components";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Header from "../Components/Header";
-import { Link, useParams } from "react-router-dom";
-import { GetRoomThunk } from "../Features/Rooms";
-import { useEffect, useState } from "react";
-import RoomDetails from "../Components/RoomDetails";
 import SideBar from "../Components/SideBar";
+import UserDetails from "../Components/UserDetails"
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../app/hooks";
+import { GetUserThunk } from "../Features/Users";
+import styled from "styled-components";
 
-const StyledRoomDetailsPage = styled.div`
+const StyledUserDetails = styled.div`
     background-color: var(--light-gray);
     .back-link-container {
         display: flex;
@@ -23,47 +23,49 @@ const StyledRoomDetailsPage = styled.div`
     }
 `;
 
-const RoomDetailsPage = () => {
 
-    const [fetched, setFetched] = useState<boolean>(false);
+const UserDetailsPage = () => {
+
+    const [ fetched, setFecthed ] = useState<boolean>(false);
     const dispatch = useAppDispatch();
-    const { roomId } = useParams<{ roomId: string }>();
-
-
-    if (!roomId) {
-        throw new Error('No room selected - Room\'s ID misising')
+    const { userId } = useParams<{ userId: string }>();
+    
+    if (!userId) {
+        console.log(userId);
+        throw new Error('No user selected - User\'s ID missing');
     }
 
     const initialFetch = async (): Promise<void> => {
-        await dispatch(GetRoomThunk(roomId)).unwrap();
-        setFetched(true)
+        await dispatch(GetUserThunk(userId)).unwrap;
+        setFecthed(true);
     }
 
     useEffect(() => {
         initialFetch();
     }, [])
 
+
     return (
         <>
-            <StyledRoomDetailsPage>
+            <StyledUserDetails>
                 <div className="page-container">
-                    <SideBar/>
+                    <SideBar />
                     <div className="main-content">
                         <Header />
                         <div className="back-link-container">
                             <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
-                            <Link to="/rooms">All Rooms</Link>
+                            <Link to="/users">All Users</Link>
                         </div>
-                        {fetched ? 
-                            <RoomDetails/>
+                        {fetched ?
+                            <UserDetails />
                         :
                             <h1>Loading</h1>
                         }
                     </div>
                 </div>
-            </StyledRoomDetailsPage>
+            </StyledUserDetails>
         </>
     )
 }
 
-export default RoomDetailsPage;
+export default UserDetailsPage;

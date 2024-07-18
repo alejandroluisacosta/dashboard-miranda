@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Booking, Columns, Room, User } from "../types";
+import { Booking, Column, CommentInterface, Room, User } from "../types";
 
 const Grid = styled.div`
     display: grid;
@@ -19,12 +19,12 @@ const Grid = styled.div`
     }
 `;
 
-interface TableProps {
-    data: Room[] | Booking[] | User[];
-    columns: Columns[];
+interface TableProps<T> {
+    data: T[];
+    columns: Column<T>[];
 }
 
-const Table: React.FC<TableProps> = ({ data, columns }) => {
+const Table: React.FC<TableProps<any>> = ({ data, columns }) => {
     return (
         <Grid style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
             {columns.map((column, index) => 

@@ -1,8 +1,6 @@
-import React from 'react';
 import styled from "styled-components";
 import { toast } from 'react-toastify';
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { EditRoomThunk } from "../Features/Rooms";
 import Button from './Button';
@@ -100,15 +98,15 @@ const Right = styled.div`
 
 const RoomDetails = () => {
 
-    const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [ isEditing, setIsEditing ] = useState<boolean>(false);
     const room: Room = useAppSelector(state => state.Rooms.single);
-    const [name, setName] = useState<string>(room.name);
-    const [roomType, setRoomType] = useState<string>(room.roomType);
-    const [image, setImage] = useState<string>(room.image);
-    const [amenities, setAmenities] = useState<string>(room.amenities);
-    const [rate, setRate] = useState<number>(room.rate);
-    const [offer, setOffer] = useState<string>(room.offer);
-    const [status, setStatus] = useState<'Available' | 'Booked'>(room.status);
+    const [ name, setName ] = useState<string>(room.name);
+    const [ roomType, setRoomType ] = useState<string>(room.roomType);
+    const [ image, setImage ] = useState<string>(room.image);
+    const [ amenities, setAmenities ] = useState<string>(room.amenities);
+    const [ rate, setRate ] = useState<number>(room.rate);
+    const [ offer, setOffer ] = useState<string>(room.offer);
+    const [ status, setStatus ] = useState<'Available' | 'Booked'>(room.status);
     const dispatch = useAppDispatch();
 
     const notify = () => toast.success('Room successfully modified', {
@@ -152,7 +150,7 @@ const RoomDetails = () => {
                 <h2>Room {name}</h2>
                 <Button $isEditing={isEditing} content='test button'></Button>
                 {isEditing ? 
-                    <button onClick={handleSaveClick} className="save">Save changes</button>
+                    <button onClick={handleSaveClick} className="save">Save Changes</button>
                 :
                     <PiDotsThreeOutlineVerticalFill className="edit" onClick={handleEditClick}/>
                 }

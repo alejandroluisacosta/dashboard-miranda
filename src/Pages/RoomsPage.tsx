@@ -5,7 +5,7 @@ import Header from "../Components/Header";
 import { useEffect, useState } from "react";
 import { GetRoomsThunk } from "../Features/Rooms";
 import SideBar from "../Components/SideBar";
-import { Columns, Room } from "../types";
+import { Column, Room } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 const StyledNameColumn = styled.div`
@@ -25,7 +25,7 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-const columns: Columns[] = [
+const columns: Column<Room>[] = [
     {
       label: 'Room Name',
       display: (row: Room) => (
@@ -59,9 +59,9 @@ const columns: Columns[] = [
     },
     {
       label: 'Status',
-      display: (status: string) => (
-        status === 'Available' ? <button>Available</button> : <button>Booked</button>
-      )
+      display: (row: Room) => (
+      status === 'Available' ? <button>Available</button> : <button>Booked</button>
+    )
     },
   ];
   
@@ -71,7 +71,7 @@ const StyledRooms = styled.div`
     display: flex;
     justify-content: flex-start;
     margin: 30px 50px;
-      .add-button {
+    .add-button {
         padding: 15px 50px;
         background-color: var(--dark-green);
         border-radius: 12px;
