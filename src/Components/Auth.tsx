@@ -1,6 +1,5 @@
 import { ReactNode, ReducerWithoutAction, createContext, useEffect, useReducer } from "react";
 import { AuthAction, AuthContextType, AuthState } from '../types';
-import { RootState } from "../app/Store";
 
 const emptyState = {
     userName: null,
