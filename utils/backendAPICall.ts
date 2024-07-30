@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 
 const backendAPICall = async (path: string, method: string = 'GET', data = null) => {
     const url = `${process.env.VITE_API_URL}/${path}`;
-    const token = localStorage.getItem("AUTH_TOKEN"); // Get this on auth
+    const token = localStorage.getItem("AUTH_TOKEN") ?? "abcd123"; // Get this on auth
     const response = await (fetch(url, {
         method,
         headers: {
@@ -20,3 +20,5 @@ const backendAPICall = async (path: string, method: string = 'GET', data = null)
     const json = await response.json();
     return json();
 }
+
+export default backendAPICall;
