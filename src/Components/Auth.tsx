@@ -1,9 +1,11 @@
-import { ReactNode, ReducerWithoutAction, createContext, useEffect, useReducer } from "react";
+import { ReactNode, createContext, useEffect, useReducer } from "react";
 import { AuthAction, AuthContextType, AuthState } from '../types';
 
 const emptyState = {
     userName: null,
-    userEmail: null,
+    email: null,
+    image: null,
+    token: null,
     isLoggedIn: false
 }
 
@@ -31,7 +33,9 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
             newState = {
                 ...state,
                 userName: action.payload.userName,
-                userEmail: action.payload.userEmail,
+                email: action.payload.email,
+                image: action.payload.image,
+                token: action.payload.token,
                 isLoggedIn: true
             };
             return newState;
@@ -39,7 +43,8 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
             newState = {
                 ...state,
                 userName: null,
-                userEmail: null,
+                email: null,
+                image: action.payload.image,
                 isLoggedIn: false,
             }
             return newState;
@@ -47,7 +52,8 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
                 newState = {
                     ...state,
                     userName: action.payload.userName,
-                    userEmail: action.payload.userEmail,
+                    email: action.payload.email,
+                    image: action.payload.image,
                     isLoggedIn: true
             };
             return newState;

@@ -3,15 +3,34 @@ import { AuthContext } from "../Components/Auth";
 import { useNavigate } from "react-router-dom"
 import { AuthContextType } from "../types";
 
-
 const LoginPage = () => {
 
     const { authDispatch } = useContext(AuthContext) as AuthContextType;
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
+
+    const authTokenRequest = async (username: string, password: string) => {
+        const response = await fetch(`${import.meta.env.VITE_API_DOMAIN}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "userName": username,
+                "password": password
+            })
+        });
+
+        if (!response.ok) {
+            return;
+        }
+
+        const json = await response.json();
+        return json;
+    }
     
-    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
 
         event.preventDefault()
 
@@ -26,8 +45,10 @@ const LoginPage = () => {
         const username = target.elements.username.value;
         const password = target.elements.password.value;
 
-        if (username === 'John' && password === '1234') {
-            authDispatch({type: 'LOGIN', payload: {userName: username, userEmail: 'john@oxygen.com', isLoggedIn: true}});
+        const authData = await authTokenRequest(username, password);
+        
+        if (authData) {
+            authDispatch({type: 'LOGIN', payload: {userName: authData.userData[0].userName, email: authData.userData[0].email, image: authData.userData[0].image, token: authData.token, isLoggedIn: true}});
             navigate('/');
         }
         else 

@@ -1,13 +1,15 @@
 export type AuthState = {
     userName: string | null;
-    userEmail: string | null;
+    email: string | null;
+    image: string | null;
+    token: string | null,
     isLoggedIn: boolean;
 }
 
 export type AuthAction =
-    { type: 'LOGIN'; payload: { userName: string; userEmail: string; isLoggedIn: true; } }
-    | { type: 'LOGOUT'; payload: { userName: null; userEmail: null; isLoggedIn: false; } }
-    | { type: 'UPDATE_USER'; payload: { userName: string; userEmail: string; isLoggedIn: true; } }
+    { type: 'LOGIN'; payload: { userName: string; email: string; image: string; token: string, isLoggedIn: true; } }
+    | { type: 'LOGOUT'; payload: { userName: null; email: null; image: null; token: null, isLoggedIn: false; } }
+    | { type: 'UPDATE_USER'; payload: { userName: string; email: string; image: string; token: string, isLoggedIn: true; } }
 
 export type AuthContextType = {
     authState: AuthState;
