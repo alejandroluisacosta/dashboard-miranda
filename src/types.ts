@@ -42,7 +42,7 @@ export interface Booking {
 
 export interface User {
     name: string;
-    id: string;
+    _id: string;
     image: string;
     incorporatedOn: string;
     jobDesk: string;

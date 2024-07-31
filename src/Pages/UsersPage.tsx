@@ -50,11 +50,11 @@ const columns: Column<User>[] = [
     label: 'Name',
     display: (row: User) => (
       <StyledNameColumn>
-        <Link to={row.id}>
+        <Link to={row._id}>
           <img src={row.image} alt="User image"/>
           <div>
             <p>{row.name}</p>
-            <p>{row.id}</p>
+            <p>{row._id}</p>
             <p>{row.incorporatedOn}</p>
           </div>
         </Link>

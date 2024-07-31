@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import mockBookings from "../data/mockBookings";
 import { Booking } from "../types";
+import backendAPICall from '../../utils/backendAPICall';
 
 const delay = (data: Booking | Booking[] | string): Promise<Booking | Booking[] | string> => {
     return new Promise((resolve) => {
@@ -11,7 +12,7 @@ const delay = (data: Booking | Booking[] | string): Promise<Booking | Booking[] 
 }
 
 export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async(): Promise<Booking[]> => {
-    const bookings: Booking[] = await delay(mockBookings) as Booking[];
+    const bookings: Booking[] = await backendAPICall('bookings') as Booking[];
     return bookings;
 })
 

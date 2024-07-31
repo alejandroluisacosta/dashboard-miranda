@@ -1,12 +1,13 @@
 import { toast } from "react-toastify";
 
-const backendAPICall = async (path: string, method: string = 'GET', data = null) => {
-    const url = `${process.env.VITE_API_URL}/${path}`;
-    const token = localStorage.getItem("AUTH_TOKEN") ?? "abcd123"; // Get this on auth
+const backendAPICall = async (path: string, method: string = 'GET', data: string | null = null) => {
+    // const url = `${process.env.VITE_API_URL}/${path}`;
+    const url = "http://localhost:3001/users"
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYV9hIiwiaWF0IjoxNzIyNDEwMTA3LCJleHAiOjE3MjI0MTMxMDd9.pakDdIDPp-YjzHK5FzXFhefYtET7DS7cAOlQ3Eg_jco"; // Get this on auth
     const response = await (fetch(url, {
         method,
         headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Token ${token}`,
         },
         body: data ?? undefined,
     }));
@@ -18,7 +19,7 @@ const backendAPICall = async (path: string, method: string = 'GET', data = null)
     }
 
     const json = await response.json();
-    return json();
+    return json;
 }
 
 export default backendAPICall;

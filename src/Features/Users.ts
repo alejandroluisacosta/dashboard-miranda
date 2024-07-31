@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import mockUsers from "../data/mockUsers";
 import { User } from '../types';
+import backendAPICall from "../../utils/backendAPICall";
 
 const delay = (data: User | User[] | string): Promise<User | User[] | string> => {
     return new Promise((resolve) => {
@@ -11,13 +12,12 @@ const delay = (data: User | User[] | string): Promise<User | User[] | string> =>
 }
 
 export const GetUsersThunk = createAsyncThunk('Users/GetUsers', async(): Promise<User[]> => {
-    const users: User[] = await delay(mockUsers) as User[];
+    const {users}: User[] = await backendAPICall('users') as User[];
     return users;
 })
 
 export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: string): Promise<User> => {
-    const userId = await delay(id);
-    const user: User | undefined = mockUsers.find(user => user.id === userId);
+    const {user}: User | undefined = await backendAPICall('users', 'GET', id);
     if (!user)
         throw('Room not found');
     return user;
