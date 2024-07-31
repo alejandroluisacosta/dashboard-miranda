@@ -87,7 +87,7 @@ const UserDetails = () => {
         <StyledUserDetails>
             <Left $isEditing={isEditing}>
                 <StyledNameContainer>
-                    <h2>{user.name} - ID: {user.id}</h2>
+                    <h2>{user.name} - ID: {user._id}</h2>
                     {isEditing ?
                         <button>Save Changes</button>
                     :

@@ -32,24 +32,26 @@ export interface Room {
 
 export interface Booking {
     name: string;
-    id: string;
+    _id?: string;
     orderDate: string;
     checkInDate: string;
     checkOutDate: string;
-    specialRequest: string;
+    specialRequest?: string;
     roomType: string;
     status: string;
-    room: Room;
+    roomId: string;
   }
 
 export interface User {
     name: string;
-    _id: string;
+    userName: string;
+    _id?: string;
     image: string;
     incorporatedOn: string;
     jobDesk: string;
     schedule?: string;
     phone: string;
+    password?: string;
     status: string;
     role?: string;
     email?: string;

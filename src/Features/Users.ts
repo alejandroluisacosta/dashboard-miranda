@@ -23,18 +23,17 @@ export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: string):
 })
 
 export const AddUserThunk = createAsyncThunk('Users/AddUser', async(newUser: User): Promise<User> => {
-    const user: User = await delay(newUser) as User;
+    const {user}: User = await backendAPICall('users', 'POST', newUser) as User;
     return user;
 })
 
-export const RemoveUserThunk = createAsyncThunk('Users/RemoveUser', async(id: string): Promise<string> => {
-    const userId: string = await delay(id) as string;
-    return userId; 
+export const RemoveUserThunk = createAsyncThunk('Users/RemoveUser', async(id: string): Promise<void> => {
+    await backendAPICall('users', 'DELETE', id);
 })
 
 export const EditUserThunk = createAsyncThunk('Users/EditUser', async(updatedUser: User): Promise<User> => {
-    const room: User = await delay(updatedUser) as User;
-    return room; 
+    const {user}: User = await backendAPICall('users', 'PUT', updatedUser) as User;
+    return user; 
 })
 
 interface UserState {

@@ -55,9 +55,9 @@ const BookingsPage = () => {
       label: 'Guest',
       display: (row: Booking) => (
         <StyledGuestColumn>
-            <Link to={row.id}>
+            <Link to={row._id}>
               <p>{row.name}</p>
-              <p>{`#${row.id}`}</p>
+              <p>{`#${row._id}`}</p>
             </Link>
           </StyledGuestColumn>
         )

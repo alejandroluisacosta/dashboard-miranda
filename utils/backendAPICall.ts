@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
+import { Booking, CommentInterface, Room, User } from "../src/types";
 
-const backendAPICall = async (path: string, method: string = 'GET', data: string | null = null) => {
-    const url: string = data ? `${import.meta.env.VITE_API_URL}/${path}/${data}` : `${import.meta.env.VITE_API_URL}/${path}`;
+const backendAPICall = async (path: string, method: string = 'GET', data: string | Booking | CommentInterface | Room | User | null = null) => {
+    const url: string = data && method !== 'POST' ? `${import.meta.env.VITE_API_URL}/${path}/${data}` : `${import.meta.env.VITE_API_URL}/${path}`;
     const authString: string | null = localStorage.getItem('auth');
     let token: string = "";
     if (authString) {

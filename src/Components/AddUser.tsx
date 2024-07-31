@@ -105,19 +105,22 @@ const AddUser: React.FC = () => {
         const form = event.target as HTMLInputElement;
 
         const name: string = (form.querySelector('#name') as HTMLInputElement).value;
+        const username: string = (form.querySelector('#username') as HTMLInputElement).value;
         const incorporatedOn: string = (form.querySelector('#date') as HTMLInputElement).value;
         const jobDesk: string = (form.querySelector('#description') as HTMLInputElement).value;
         const phone: string = (form.querySelector('#phone') as HTMLInputElement).value;
+        const password: string = (form.querySelector('#password') as HTMLInputElement).value;
         const status: string = (form.querySelector('#status') as HTMLInputElement).value;
         const role: string = (form.querySelector('#role') as HTMLInputElement).value;
 
         dispatch(AddUserThunk({
             name: name,
-            id: `${Math.floor(Math.random() * 1000)}`,
+            userName: username,
             image: `/assets/user.jpeg`,
             incorporatedOn: incorporatedOn,
             jobDesk: jobDesk,
             phone: phone,
+            password: password,
             status: status,
             role: role,
         }));
@@ -135,18 +138,22 @@ const AddUser: React.FC = () => {
                             <input id='name' type="text" required />
                         </div>
                         <div>
+                            <label htmlFor="email">* Email</label>
+                            <input id="email" type="text" required />
+                        </div>
+                    </StyledRow>
+                    <StyledRow className="row-of-three">
+                        <div>
+                            <label htmlFor='username'>* Username</label>
+                            <input id='username' type="text" required />
+                        </div>
+                        <div>
                             <label htmlFor="role">* Role</label>
                             <select id="role" required>
                                 <option value="Manager">Manager</option>
                                 <option value="Reception">Reception</option>
                                 <option value="Room Service">Room service</option>
                             </select>
-                        </div>
-                    </StyledRow>
-                    <StyledRow>
-                        <div>
-                            <label htmlFor="email">* Email</label>
-                            <input id="email" type="text" required />
                         </div>
                         <div>
                             <label htmlFor="phone">* Phone</label>
@@ -172,7 +179,7 @@ const AddUser: React.FC = () => {
                     </StyledRow>
                     <div>
                         <label htmlFor="description">Role Description</label>
-                        <textarea id="description" />
+                        <textarea id="description" required/>
                     </div>
                     <div className="button-container">
                         <button type="submit">Create User</button>
