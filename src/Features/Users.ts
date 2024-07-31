@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import mockUsers from "../data/mockUsers";
 import { User } from '../types';
 import backendAPICall from "../../utils/backendAPICall";
 

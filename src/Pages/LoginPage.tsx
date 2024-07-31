@@ -11,7 +11,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const authTokenRequest = async (username: string, password: string) => {
-        const response = await fetch(`${import.meta.env.VITE_API_DOMAIN}/login`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URLcon}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
