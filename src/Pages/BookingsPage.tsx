@@ -9,6 +9,7 @@ import Table from "../Components/Table";
 import SideBar from "../Components/SideBar";
 import { Booking, Column } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { toast } from "react-toastify";
 
 const StyledBookings = styled.div`
     background-color: var(--light-gray);
@@ -89,13 +90,14 @@ const BookingsPage = () => {
         display: (row: Booking) => (
           <StyledStatus>
             <p>{row.status}</p>
-            <span className="material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row.id))}>delete</span>
+            <span className="material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row._id))}>delete</span>
           </StyledStatus>
         )
       },
     ];
 
     const [renderedBookings, setRenderedBookigs] = useState<Booking[]>([]);
+    const [fetched, setFetched] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const bookings: Booking[] = useAppSelector(state => state.Bookings.items);
 
@@ -121,11 +123,21 @@ const BookingsPage = () => {
       }
     };
 
+    const initialFetch = async () => {
+      try {
+        await dispatch(GetBookingsThunk()).unwrap();
+        setFetched(true);
+      } catch (error) {
+        toast.error('Failed to fetch bookings');
+      }
+  }
+
     useEffect((): void => {
-      if (!bookings.length)
-        dispatch(GetBookingsThunk());
-      setRenderedBookigs(bookings);
-    }, [bookings])
+      if (!fetched)
+        initialFetch();
+      else 
+        setRenderedBookigs(bookings);
+    }, [fetched, bookings])
 
     return (
         <>

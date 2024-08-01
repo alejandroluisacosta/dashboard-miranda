@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import mockBookings from "../data/mockBookings";
-import { Booking } from "../types";
+import { Booking, BookingInput } from "../types";
 import backendAPICall from '../../utils/backendAPICall';
 
 const delay = (data: Booking | Booking[] | string): Promise<Booking | Booking[] | string> => {
@@ -12,28 +11,25 @@ const delay = (data: Booking | Booking[] | string): Promise<Booking | Booking[] 
 }
 
 export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async(): Promise<Booking[]> => {
-    const {bookings}: Booking[] = await backendAPICall('bookings') as Booking[];
+    const { bookings } = await backendAPICall<{bookings: Booking[]}>('bookings');
     return bookings;
 })
 
 export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id: string): Promise<Booking> => {
-    const bookingId = await delay(id) as string;
-    const booking: Booking | undefined = mockBookings.find(booking => booking.id === bookingId);
+    const { booking } = await backendAPICall<{booking: Booking}>('bookings', 'GET', id);
     if (!booking) 
         throw('Booking not found');
     return booking;
 })
 
-export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(newBooking: Booking): Promise<Booking> => {
-    const booking: Booking = await delay(newBooking) as Booking;
+export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(newBooking: BookingInput): Promise<Booking> => {
+    const { booking } = await backendAPICall<{booking: Booking}>('bookings', 'POST', newBooking);
     return booking;
 })
 
 export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', async(id: string): Promise<string> => {
-    const bookingId: string = await delay(id) as string;
-    if (!bookingId) 
-        throw('Booking not found');
-    return bookingId; 
+    await backendAPICall(`bookings/${id}`, 'DELETE');
+    return id;
 })
 
 export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(updatedBooking: Booking): Promise<Booking> => {
@@ -112,10 +108,7 @@ const Bookings = createSlice({
         .addCase(RemoveBookingThunk.fulfilled, (state, action: PayloadAction<string>) => {
             state.status = 'fulfilled';
             state.error = 'false';
-            const removedBooking = state.items.find(booking => booking.id === action.payload);
-            if (removedBooking)
-                state.single = removedBooking;
-            state.items = state.items.filter(booking => booking.id !== action.payload);
+            state.items = state.items.filter(booking => booking._id !== action.payload);
         })
         .addCase(EditBookingThunk.pending, state => {
             state.status = 'pending';
@@ -128,7 +121,7 @@ const Bookings = createSlice({
         .addCase(EditBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
             state.status = 'fulfilled',
             state.error = 'false',
-            state.items = state.items.map(booking => booking.id === action.payload.id ? action.payload : booking);
+            state.items = state.items.map(booking => booking._id === action.payload._id ? action.payload : booking);
             state.single = action.payload;
         })
     }

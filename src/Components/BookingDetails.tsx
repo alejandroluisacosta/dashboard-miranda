@@ -183,7 +183,7 @@ const BookingDetails = () => {
     const [isEditing, setIsEditing] = useState(false);
     const booking = useAppSelector(state => state.Bookings.single);
     const name = booking.name;
-    const id = booking.id;
+    const id = booking._id;
     const orderDate = booking.orderDate;
     const status = booking.status;
     const [checkInDate, setCheckInDate] = useState(booking.checkInDate);
@@ -210,14 +210,14 @@ const BookingDetails = () => {
     const handleSaveClick = async () => {
         dispatch(EditBookingThunk({
             name: name,
-            id: id,
+            _id: id,
             orderDate: orderDate,
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
             roomType: roomType,
             specialRequest: specialRequest,
             status: status,
-            room: {} as Room,
+            // roomId: '123'
         }));
         setIsEditing(false);
         notify();

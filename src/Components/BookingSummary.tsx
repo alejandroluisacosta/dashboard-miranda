@@ -74,7 +74,7 @@ const BookingSummary: React.FC<BookingSummaryProps> = ({ booking, timeAgo }) => 
         <MainContainer>
                 <img src="/assets/HotelRoom3.jpeg" alt="Room"/>
                 <InfoContainer>
-                    <p>{booking.roomType} {booking.room.id}</p>
+                    <p>{booking.roomType} {booking.roomId}</p>
                     <div>
                         <img src="/assets/user.jpeg" alt="Client"/>
                         <p>{booking.name}</p>

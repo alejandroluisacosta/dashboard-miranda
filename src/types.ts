@@ -30,17 +30,20 @@ export interface Room {
     cancellationPolicies?: string;
   }
 
-export interface Booking {
+export interface BookingInput {
     name: string;
-    _id?: string;
     orderDate: string;
     checkInDate: string;
     checkOutDate: string;
     specialRequest?: string;
     roomType: string;
     status: string;
+}
+
+export interface Booking extends BookingInput {
+    _id: string;
     roomId: string;
-  }
+}
 
 export interface User {
     name: string;

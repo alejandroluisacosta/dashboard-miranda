@@ -11,19 +11,19 @@ const delay = (data: User | User[] | string): Promise<User | User[] | string> =>
 }
 
 export const GetUsersThunk = createAsyncThunk('Users/GetUsers', async(): Promise<User[]> => {
-    const {users}: User[] = await backendAPICall('users') as User[];
+    const { users }: User[] = await backendAPICall('users') as User[];
     return users;
 })
 
 export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: string): Promise<User> => {
-    const {user}: User | undefined = await backendAPICall('users', 'GET', id);
+    const { user }: User | undefined = await backendAPICall('users', 'GET', id);
     if (!user)
         throw('Room not found');
     return user;
 })
 
 export const AddUserThunk = createAsyncThunk('Users/AddUser', async(newUser: User): Promise<User> => {
-    const {user}: User = await backendAPICall('users', 'POST', newUser) as User;
+    const { user }: User = await backendAPICall('users', 'POST', newUser) as User;
     return user;
 })
 
@@ -32,7 +32,7 @@ export const RemoveUserThunk = createAsyncThunk('Users/RemoveUser', async(id: st
 })
 
 export const EditUserThunk = createAsyncThunk('Users/EditUser', async(updatedUser: User): Promise<User> => {
-    const {user}: User = await backendAPICall('users', 'PUT', updatedUser) as User;
+    const { user }: User = await backendAPICall('users', 'PUT', updatedUser) as User;
     return user; 
 })
 
@@ -107,10 +107,10 @@ const Users = createSlice({
         .addCase(RemoveUserThunk.fulfilled, (state, action: PayloadAction<string>) => {
             state.status = 'fulfilled';
             state. error = 'false';
-            const removedUser = state.items.find(user => user.id === action.payload);
+            const removedUser = state.items.find(user => user._id === action.payload);
             if (removedUser)
                 state.single = removedUser;
-            state.items = state.items.filter(user => user.id !== action.payload);
+            state.items = state.items.filter(user => user._id !== action.payload);
         })
         .addCase(EditUserThunk.pending, state => {
             state.status = 'pending';
@@ -123,7 +123,7 @@ const Users = createSlice({
         .addCase(EditUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items = state.items.map(user => user.id === action.payload.id ? user = action.payload : user);
+            state.items = state.items.map(user => user._id === action.payload._id ? user = action.payload : user);
             state.single = action.payload;
         })
     }

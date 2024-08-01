@@ -104,14 +104,12 @@ const AddBooking: React.FC = () => {
 
         dispatch(AddBookingThunk({
             name: name,
-            id: `${Math.floor(Math.random() * 1000)}`,
             orderDate: orderDate,
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
             specialRequest: specialRequest,
             roomType: roomType,
             status: status,
-            room: {} as Room,
         })) 
 
         notify();
