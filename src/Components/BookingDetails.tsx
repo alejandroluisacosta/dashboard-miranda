@@ -209,15 +209,15 @@ const BookingDetails = () => {
 
     const handleSaveClick = async () => {
         dispatch(EditBookingThunk({
-            name: name,
             _id: id,
+            name: name,
             orderDate: orderDate,
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
             roomType: roomType,
             specialRequest: specialRequest,
             status: status,
-            // roomId: '123'
+            roomId: '123'
         }));
         setIsEditing(false);
         notify();

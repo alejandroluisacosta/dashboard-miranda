@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { Booking, BookingInput, CommentInterface, Room, User } from "../src/types";
 
 async function backendAPICall<T>(path: string, method: string = 'GET', data: string | BookingInput | CommentInterface | Room | User | null = null): Promise<T> {
-    const url: string = data && method !== 'POST' ? `${import.meta.env.VITE_API_URL}/${path}/${data}` : `${import.meta.env.VITE_API_URL}/${path}`;
+    const url: string = `${import.meta.env.VITE_API_URL}/${path}`;
     const authString: string | null = localStorage.getItem('auth');
     let token: string = "";
     if (authString) {
@@ -15,7 +15,7 @@ async function backendAPICall<T>(path: string, method: string = 'GET', data: str
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-        body: method === 'GET' || 'DELETE' ? undefined : JSON.stringify(data),
+        body: (method === 'GET') || (method === 'DELETE') ? undefined : JSON.stringify(data),
     });
 
     if (!response.ok) {

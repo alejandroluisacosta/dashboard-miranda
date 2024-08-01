@@ -16,7 +16,7 @@ export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async()
 })
 
 export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id: string): Promise<Booking> => {
-    const { booking } = await backendAPICall<{booking: Booking}>('bookings', 'GET', id);
+    const { booking } = await backendAPICall<{booking: Booking}>(`bookings/${id}`, 'GET');
     if (!booking) 
         throw('Booking not found');
     return booking;
@@ -33,8 +33,8 @@ export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', asy
 })
 
 export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(updatedBooking: Booking): Promise<Booking> => {
-    const newData: Booking = await delay(updatedBooking) as Booking;
-    return newData; 
+    const { booking } = await backendAPICall<{booking: Booking}>(`bookings/${updatedBooking._id}`, 'PUT', updatedBooking);
+    return booking; 
 })
 
 interface BookingsState {
