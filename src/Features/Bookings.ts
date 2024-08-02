@@ -2,14 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Booking, BookingInput } from "../types";
 import backendAPICall from '../../utils/backendAPICall';
 
-const delay = (data: Booking | Booking[] | string): Promise<Booking | Booking[] | string> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(data);
-        }, 200)
-    })
-}
-
 export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async(): Promise<Booking[]> => {
     const { bookings } = await backendAPICall<{bookings: Booking[]}>('bookings');
     return bookings;

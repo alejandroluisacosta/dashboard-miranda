@@ -2,21 +2,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from '../types';
 import backendAPICall from "../../utils/backendAPICall";
 
-const delay = (data: User | User[] | string): Promise<User | User[] | string> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(data);
-        }, 200)
-    })
-}
-
 export const GetUsersThunk = createAsyncThunk('Users/GetUsers', async(): Promise<User[]> => {
-    const { users }: User[] = await backendAPICall('users') as User[];
+    const { users } = await backendAPICall<{users: User[]}>('users');
     return users;
 })
 
 export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: string): Promise<User> => {
-    const { user }: User | undefined = await backendAPICall('users', 'GET', id);
+    const { user } = await backendAPICall<{user: User}>(`users/${id}`, 'GET', id);
     if (!user)
         throw('Room not found');
     return user;
