@@ -45,10 +45,9 @@ export interface Booking extends BookingInput {
     roomId: string;
 }
 
-export interface User {
+export interface UserInput {
     name: string;
     userName: string;
-    _id?: string;
     image: string;
     incorporatedOn: string;
     jobDesk: string;
@@ -58,6 +57,10 @@ export interface User {
     status: string;
     role?: string;
     email?: string;
+}
+
+export interface User extends UserInput {
+    _id: string;
 }
 
 export interface Column<T> {

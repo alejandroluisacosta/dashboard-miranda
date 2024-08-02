@@ -6,7 +6,7 @@ import SideBar from "../Components/SideBar";
 import Table from "../Components/Table";
 import { Column, User } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { GetUsersThunk } from "../Features/Users";
+import { GetUsersThunk, RemoveUserThunk } from "../Features/Users";
 import { Link } from "react-router-dom";
 
 
@@ -45,42 +45,58 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-const columns: Column<User>[] = [
-  {
-    label: 'Name',
-    display: (row: User) => (
-      <StyledNameColumn>
-        <Link to={row._id}>
-          <img src={row.image} alt="User image"/>
-          <div>
-            <p>{row.name}</p>
-            <p>{row._id}</p>
-            <p>{row.incorporatedOn}</p>
-          </div>
-        </Link>
-      </StyledNameColumn>
-    )
-  },
-  {
-    label: 'Job Desk',
-    property: 'jobDesk',
-  },
-  {
-    label: 'Schedule',
-    display: (row: User) => (
-      <>
-        <p>{row.schedule}</p>
-        <p>Check schedule</p>
-      </>
-    )
-  },
-  {
-    label: 'Contact',
-    property: 'contact',
-  },
-];
+const StyledContact = styled.div`
+    position: relative;
+    border-bottom: 0 !important;
+    span {
+      position: absolute;
+      right: 0;
+      top: 50%;
+    }
+`;
+
 
 const UsersPage = () => {
+
+    const columns: Column<User>[] = [
+        {
+          label: 'Name',
+          display: (row: User) => (
+            <StyledNameColumn>
+              <Link to={row._id}>
+                <img src={row.image} alt="User image"/>
+                <div>
+                  <p>{row.name}</p>
+                  <p>{row._id}</p>
+                  <p>{row.incorporatedOn}</p>
+                </div>
+              </Link>
+            </StyledNameColumn>
+          )
+        },
+        {
+          label: 'Job Desk',
+          property: 'jobDesk',
+        },
+        {
+          label: 'Schedule',
+          display: (row: User) => (
+            <>
+              <p>{row.schedule}</p>
+              <p>Check schedule</p>
+            </>
+          )
+        },
+        {
+          label: 'Contact',
+          display: (row: User) => (
+            <StyledContact>
+              <p>{row.phone}</p>
+              <span className="material-symbols-outlined" onClick={() => dispatch(RemoveUserThunk(row._id))}>delete</span>
+            </StyledContact>
+          )
+        },
+    ];
     
     const [renderedUsers, setRenderedUsers] = useState<User[]>([]);
     const dispatch = useAppDispatch();

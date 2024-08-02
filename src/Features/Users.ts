@@ -15,12 +15,13 @@ export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: string):
 })
 
 export const AddUserThunk = createAsyncThunk('Users/AddUser', async(newUser: User): Promise<User> => {
-    const { user }: User = await backendAPICall('users', 'POST', newUser) as User;
+    const { user } = await backendAPICall<{user: User}>('users', 'POST', newUser);
     return user;
 })
 
-export const RemoveUserThunk = createAsyncThunk('Users/RemoveUser', async(id: string): Promise<void> => {
-    await backendAPICall('users', 'DELETE', id);
+export const RemoveUserThunk = createAsyncThunk('Users/RemoveUser', async(id: string): Promise<string> => {
+    await backendAPICall(`users/${id}`, 'DELETE');
+    return id;
 })
 
 export const EditUserThunk = createAsyncThunk('Users/EditUser', async(updatedUser: User): Promise<User> => {
