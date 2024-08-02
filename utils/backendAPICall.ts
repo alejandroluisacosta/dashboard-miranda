@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
-import { Booking, BookingInput, CommentInterface, Room, User } from "../src/types";
 
-async function backendAPICall<T>(path: string, method: string = 'GET', data: string | BookingInput | CommentInterface | Room | User | null = null): Promise<T> {
+async function backendAPICall<T>(path: string, method: string = 'GET', data: any = null): Promise<T> {
     const url: string = `${import.meta.env.VITE_API_URL}/${path}`;
     const authString: string | null = localStorage.getItem('auth');
     let token: string = "";

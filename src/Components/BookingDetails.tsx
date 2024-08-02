@@ -180,7 +180,7 @@ const Right = styled.div`
 
 const BookingDetails = () => {
 
-    const [isEditing, setIsEditing] = useState(false);
+    const [ isEditing, setIsEditing ] = useState(false);
     const booking = useAppSelector(state => state.Bookings.single);
     const name = booking.name;
     const id = booking._id;

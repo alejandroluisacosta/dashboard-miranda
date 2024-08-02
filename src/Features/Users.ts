@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from '../types';
+import { User, UserInput } from '../types';
 import backendAPICall from "../../utils/backendAPICall";
 
 export const GetUsersThunk = createAsyncThunk('Users/GetUsers', async(): Promise<User[]> => {
@@ -14,7 +14,7 @@ export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: string):
     return user;
 })
 
-export const AddUserThunk = createAsyncThunk('Users/AddUser', async(newUser: User): Promise<User> => {
+export const AddUserThunk = createAsyncThunk('Users/AddUser', async(newUser: UserInput): Promise<User> => {
     const { user } = await backendAPICall<{user: User}>('users', 'POST', newUser);
     return user;
 })
@@ -25,7 +25,7 @@ export const RemoveUserThunk = createAsyncThunk('Users/RemoveUser', async(id: st
 })
 
 export const EditUserThunk = createAsyncThunk('Users/EditUser', async(updatedUser: User): Promise<User> => {
-    const { user }: User = await backendAPICall('users', 'PUT', updatedUser) as User;
+    const { user } = await backendAPICall<{user: User}>(`users/${updatedUser._id}`, 'PUT', updatedUser);
     return user; 
 })
 
@@ -116,7 +116,7 @@ const Users = createSlice({
         .addCase(EditUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items = state.items.map(user => user._id === action.payload._id ? user = action.payload : user);
+            state.items = state.items.map(user => user._id === action.payload._id ? action.payload : user);
             state.single = action.payload;
         })
     }

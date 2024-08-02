@@ -105,24 +105,28 @@ const AddUser: React.FC = () => {
         const form = event.target as HTMLInputElement;
 
         const name: string = (form.querySelector('#name') as HTMLInputElement).value;
-        const username: string = (form.querySelector('#username') as HTMLInputElement).value;
+        const userName: string = (form.querySelector('#username') as HTMLInputElement).value;
         const incorporatedOn: string = (form.querySelector('#date') as HTMLInputElement).value;
         const jobDesk: string = (form.querySelector('#description') as HTMLInputElement).value;
         const phone: string = (form.querySelector('#phone') as HTMLInputElement).value;
         const password: string = (form.querySelector('#password') as HTMLInputElement).value;
         const status: string = (form.querySelector('#status') as HTMLInputElement).value;
         const role: string = (form.querySelector('#role') as HTMLInputElement).value;
+        const email: string = (form.querySelector('#email') as HTMLInputElement).value;
+        const schedule: string = (form.querySelector('#password') as HTMLInputElement).value;
 
         dispatch(AddUserThunk({
-            name: name,
-            userName: username,
+            name,
+            userName,
             image: `/assets/user.jpeg`,
-            incorporatedOn: incorporatedOn,
-            jobDesk: jobDesk,
-            phone: phone,
-            password: password,
-            status: status,
-            role: role,
+            incorporatedOn,
+            jobDesk,
+            phone,
+            password,
+            status,
+            role,
+            email,
+            schedule,
         }));
 
         notify();
@@ -142,10 +146,20 @@ const AddUser: React.FC = () => {
                             <input id="email" type="text" required />
                         </div>
                     </StyledRow>
-                    <StyledRow className="row-of-three">
+                    <StyledRow>
                         <div>
                             <label htmlFor='username'>* Username</label>
                             <input id='username' type="text" required />
+                        </div>
+                        <div>
+                            <label htmlFor='password'>* Password</label>
+                            <input id='password' type="password" required />
+                        </div>
+                    </StyledRow>
+                    <StyledRow className="row-of-three">
+                        <div>
+                            <label htmlFor="confirm-password">* Confirm password</label>
+                            <input id="confirm-password" type="password" required />
                         </div>
                         <div>
                             <label htmlFor="role">* Role</label>
@@ -162,8 +176,8 @@ const AddUser: React.FC = () => {
                     </StyledRow>
                     <StyledRow className="row-of-three">
                         <div>
-                            <label htmlFor="password">* Password</label>
-                            <input id="password" type="text" required />
+                            <label htmlFor="schedule">* Schedule</label>
+                            <input id="schedule" type="text" required />
                         </div>
                         <div>
                             <label htmlFor="date">* Start Date</label>
