@@ -12,9 +12,12 @@ const Grid = styled.div`
         border-bottom: 1px solid #ccc;
     }
     .grid-header-item {
-        padding: 20px 0;
+        padding: 20px 10px;
     }
     .grid-cell {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         padding: 24px 10px;
     }
 `;

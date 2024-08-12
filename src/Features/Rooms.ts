@@ -1,36 +1,28 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import mockRooms from "../data/mockRooms";
 import { Room } from '../types';
-
-const delay = (data: Room | Room[] | string): Promise<Room | Room[] | string> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(data);
-        }, 200)
-    })
-}
+import backendAPICall from "../../utils/backendAPICall";
 
 export const GetRoomsThunk = createAsyncThunk('Rooms/GetRooms', async(): Promise<Room[]> => {
-    const rooms: Room[] = await delay(mockRooms) as Room[];
+    const { rooms } = await backendAPICall<{rooms: Room[]}>('rooms');
     return rooms;
 })
 
 export const GetRoomThunk = createAsyncThunk('Rooms/GetRoom', async(id: string): Promise<Room> => {
-    const roomId = await delay(id);
-    const room: Room | undefined = mockRooms.find(room => room.id === roomId);
+    const { room } = await backendAPICall<{room: Room}>(`rooms/${id}`, 'GET');
     if (!room)
         throw('Room not found');
     return room;
 })
 
 export const AddRoomThunk = createAsyncThunk('Rooms/AddRoom', async(newRoom: Room): Promise<Room> => {
-    const room: Room = await delay(newRoom) as Room;
+    const { room } = await backendAPICall<{room: Room}>('rooms', 'POST', newRoom);
     return room;
 })
 
 export const RemoveRoomThunk = createAsyncThunk('Rooms/RemoveRoom', async(id: string): Promise<string> => {
-    const roomId: string = await delay(id) as string;
-    return roomId; 
+    await backendAPICall(`rooms/${id}`, 'DELETE')
+    return id; 
 })
 
 export const EditRoomThunk = createAsyncThunk('Rooms/EditRoom', async(updatedRoom: Room): Promise<Room> => {

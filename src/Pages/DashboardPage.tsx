@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 
 const mockData = [
-    {"month":1,"bookings":8023,"occupation":802,"check-ins":152,"check-outs":257},
+{"month":1,"bookings":8023,"occupation":802,"check-ins":152,"check-outs":257},
 {"month":2,"bookings":6304,"occupation":736,"check-ins":216,"check-outs":657},
 {"month":3,"bookings":2074,"occupation":231,"check-ins":175,"check-outs":987},
 {"month":4,"bookings":7985,"occupation":576,"check-ins":400,"check-outs":107}
@@ -114,17 +114,6 @@ const Dashboard = styled.div`
         display: flex;
         overflow: hidden;
     }
-
-    .calendar-graph-container {
-        display: flex;
-        justify-content: space-between;
-        margin: 0 50px;
-        .calendar, .graph {
-            width: 500px;
-            height: 400px;
-            background-color: white;
-        }
-    }
 `;
 
 const KpiContainer = styled.section`
@@ -169,12 +158,12 @@ const BookingSummaryList = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin: 0 50px 40px;
+    // margin: 0 50px 40px;
     border-radius: 20px;
 `;
 
 const CommentList = styled.div`
-    margin: 0 50px 50px;
+    margin: 0 50px;
     background-color: white;
     border-radius: 20px;
     padding: 30px 30px 70px;
@@ -265,10 +254,6 @@ const DashboardPage = () => {
                                     </div>
                                 </Kpi>
                             </KpiContainer>
-                            <div className="calendar-graph-container">
-                                <div className="calendar"></div>
-                                <div className="graph"></div>
-                            </div>
                             <BookingSummaryList>
                                 {sortedBookings.slice(0, 4).map((booking, index) => (
                                     <BookingSummary booking={booking} timeAgo={getTimeDifference(new Date(booking.orderDate).getTime())} key={index}/>

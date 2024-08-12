@@ -16,8 +16,7 @@ export type AuthContextType = {
     authDispatch: React.Dispatch<AuthAction>;
 }
 
-export interface Room {
-    id: string;
+export interface RoomInput {
     image: string;
     name: string;
     roomType: string;
@@ -30,6 +29,10 @@ export interface Room {
     cancellationPolicies?: string;
   }
 
+export interface Room extends RoomInput {
+    _id: string
+}
+
 export interface BookingInput {
     name: string;
     orderDate: string;
@@ -37,7 +40,7 @@ export interface BookingInput {
     checkOutDate: string;
     specialRequest?: string;
     roomType: string;
-    status: string;
+    status: 'Check-In' | 'Check-Out';
 }
 
 export interface Booking extends BookingInput {

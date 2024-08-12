@@ -26,16 +26,36 @@ const StyledBookings = styled.div`
         font-size: 14px;
         margin-left: 50px;
     }
+    @media only screen and (max-width: 1920px) {
+        font-size: 14px;
+    }
+    button {
+        border-radius: 8px;
+        background-color: var(--lighter-green);
+    }
 `;
 
-const StyledStatus = styled.div`
+interface StatusProps {
+  $status: 'Check-In' | 'Check-Out';
+}
+
+const StyledStatus = styled.div<StatusProps>`
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
     border-bottom: 0 !important;
-    span {
-      position: absolute;
-      right: 0;
-      top: 50%;
+    p {
+      background-color: ${props => props.$status === 'Check-In' ? '#DAFFCB' : '#FDA19B'};
+      padding: 10px;
+      font-size: 12px;
+      border-radius: 8px;
+      min-width: 90px;
+      text-align: center;
     }
+      .trash {
+        transform: translate(0, 10%);
+      }
 `;
 
 const StyledGuestColumn = styled.div`
@@ -58,7 +78,7 @@ const BookingsPage = () => {
         <StyledGuestColumn>
             <Link to={row._id}>
               <p>{row.name}</p>
-              <p>{`#${row._id}`}</p>
+              <p>{`#${row._id.slice(0, 7)}...`}</p>
             </Link>
           </StyledGuestColumn>
         )
@@ -88,9 +108,9 @@ const BookingsPage = () => {
       {
         label: 'Status',
         display: (row: Booking) => (
-          <StyledStatus>
+          <StyledStatus $status={row.status}>
             <p>{row.status}</p>
-            <span className="material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row._id))}>delete</span>
+            <span className="trash material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row._id))}>&#xe872;</span>
           </StyledStatus>
         )
       },

@@ -3,10 +3,11 @@ import styled from "styled-components";
 import Table from "../Components/Table";
 import Header from "../Components/Header";
 import { useEffect, useState } from "react";
-import { GetRoomsThunk } from "../Features/Rooms";
+import { GetRoomsThunk, RemoveRoomThunk } from "../Features/Rooms";
 import SideBar from "../Components/SideBar";
 import { Column, Room } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { toast } from "react-toastify";
 
 const StyledNameColumn = styled.div`
     border-bottom: 0 !important;
@@ -25,45 +26,15 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-const columns: Column<Room>[] = [
-    {
-      label: 'Room Name',
-      display: (row: Room) => (
-        <StyledNameColumn>
-          <Link to={row.id}>
-            <img src={row.image} alt="Room image"/>
-            <div>
-              <p>#{row.id}</p>
-              <p>{row.name}</p>
-            </div>
-          </Link>
-        </StyledNameColumn>
-      )
-    },
-    {
-      label: 'Room Type',
-      property: 'room type',
-    },
-    {
-      label: 'Amenities',
-      property: 'amenities'
-
-    },
-    {
-      label: 'Rate',
-      property: 'rate',
-    },
-    {
-      label: 'Offer',
-      property: 'offer',
-    },
-    {
-      label: 'Status',
-      display: (row: Room) => (
-      status === 'Available' ? <button>Available</button> : <button>Booked</button>
-    )
-    },
-  ];
+const StyledStatus = styled.div`
+    position: relative;
+    border-bottom: 0 !important;
+    span {
+      position: absolute;
+      right: 0;
+      top: 50%;
+    }
+`;
   
 const StyledRooms = styled.div`
   background-color: var(--light-gray);
@@ -84,15 +55,69 @@ const StyledRooms = styled.div`
 
 const RoomsPage = () => {
 
-    const [renderedRooms, setRenderedRooms] = useState<Room[]>([]);
-    const dispatch = useAppDispatch();
-    const rooms = useAppSelector(state => state.Rooms.items);
+  const columns: Column<Room>[] = [
+    {
+      label: 'Room Name',
+      display: (row: Room) => (
+        <StyledNameColumn>
+          <Link to={row._id}>
+            <img src={row.image} alt="Room image"/>
+            <div>
+              <p>#{row._id}</p>
+              <p>{row.name}</p>
+            </div>
+          </Link>
+        </StyledNameColumn>
+      )
+    },
+    {
+      label: 'Room Type',
+      property: 'roomType',
+    },
+    {
+      label: 'Amenities',
+      property: 'amenities'
 
-    useEffect(() => {
-      if (!rooms.length)
-        dispatch(GetRoomsThunk());
-      setRenderedRooms(rooms);
-    }, [rooms])
+    },
+    {
+      label: 'Rate',
+      property: 'rate',
+    },
+    {
+      label: 'Offer',
+      property: 'offer',
+    },
+    {
+      label: 'Status',
+      display: (row: Room) => (
+        <StyledStatus>
+          <p>{row.status}</p>
+          <span className="material-symbols-outlined" onClick={() => dispatch(RemoveRoomThunk(row._id))}>delete</span>
+        </StyledStatus>
+      )
+    },
+  ];
+
+    const [ renderedRooms, setRenderedRooms ] = useState<Room[]>([]);
+    const [ fetched, setFetched ] = useState(false);
+    const dispatch = useAppDispatch();
+    const rooms: Room[] = useAppSelector(state => state.Rooms.items);
+
+    const initialFetch = async () => {
+        try {
+          await dispatch(GetRoomsThunk()).unwrap();
+          setFetched(true);
+        } catch (error) {
+          toast.error('Failed to fetch rooms');
+        }
+    }
+
+    useEffect((): void => {
+        if (!fetched)
+          initialFetch();
+        else 
+          setRenderedRooms(rooms);
+    }, [fetched, rooms, dispatch])
 
     return (
         <>
