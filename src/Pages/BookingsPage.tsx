@@ -53,8 +53,8 @@ const StyledStatus = styled.div<StatusProps>`
       min-width: 90px;
       text-align: center;
     }
-      .trash {
-        transform: translate(0, 10%);
+    .delete {
+        transform: translate(0, 15%);
       }
 `;
 
@@ -110,7 +110,7 @@ const BookingsPage = () => {
         display: (row: Booking) => (
           <StyledStatus $status={row.status}>
             <p>{row.status}</p>
-            <span className="trash material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row._id))}>&#xe872;</span>
+            <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row._id))}>delete</span>
           </StyledStatus>
         )
       },

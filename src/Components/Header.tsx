@@ -46,22 +46,18 @@ const Right = styled.div`
     }
 `;
 
-const Header: React.FC = () => {
+const Header: React.FC<{ toggleSidebar: () => void }> = ({ toggleSidebar }) => {
 
     const { authDispatch } = useContext(AuthContext) as AuthContextType;
 
     const logOutHandler = () => {
-        authDispatch({type: 'LOGOUT', payload: {userName: null, userEmail: null, isLoggedIn: false}});
-    }
-
-    const modifyUserHandler = () => {
-        authDispatch({type: 'UPDATE_USER', payload: {userName: 'Joe', userEmail: 'joe@oxygen.com', isLoggedIn: true}});
+        authDispatch({type: 'LOGOUT', payload: {userName: null, email: null, image: null, token: null, isLoggedIn: false}});
     }
 
     return (
         <HeaderContainer>
             <Left>
-                <span className="material-symbols-outlined">
+                <span onClick={toggleSidebar} className="material-symbols-outlined">
                     menu
                 </span>
                 <p>Dashboard</p>
@@ -82,7 +78,7 @@ const Header: React.FC = () => {
             <span className="material-symbols-outlined">
                 chat
             </span>
-            <img src="/assets/user.jpeg" onClick={modifyUserHandler} alt="Profile icon"/>
+            <img src="/assets/user.jpeg" alt="Profile icon"/>
                 <div>
                     <p onClick={logOutHandler}>EN</p>
                     <span className="material-symbols-outlined">

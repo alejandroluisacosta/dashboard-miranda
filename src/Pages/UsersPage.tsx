@@ -46,13 +46,10 @@ const StyledNameColumn = styled.div`
 `;
 
 const StyledContact = styled.div`
-    position: relative;
+    display: flex;
     border-bottom: 0 !important;
-    span {
-      position: absolute;
-      right: 0;
-      top: 50%;
-    }
+    gap: 5%;
+    justify-content: space-between;
 `;
 
 
@@ -67,7 +64,7 @@ const UsersPage = () => {
                 <img src={row.image} alt="User image"/>
                 <div>
                   <p>{row.name}</p>
-                  <p>{row._id}</p>
+                  <p>{`#${row._id.slice(0, 7)}...`}</p>
                   <p>{row.incorporatedOn}</p>
                 </div>
               </Link>
@@ -91,7 +88,7 @@ const UsersPage = () => {
           label: 'Contact',
           display: (row: User) => (
             <StyledContact>
-              <p>{row.phone}</p>
+              <p>{row.phone.split('x')[0]}</p>
               <span className="material-symbols-outlined" onClick={() => dispatch(RemoveUserThunk(row._id))}>delete</span>
             </StyledContact>
           )

@@ -13,6 +13,7 @@ const StyledNameColumn = styled.div`
     border-bottom: 0 !important;
     a {
       display: flex;
+      align-items: center;
       text-decoration: none;
       color: inherit; 
     }
@@ -26,13 +27,25 @@ const StyledNameColumn = styled.div`
     }
 `;
 
-const StyledStatus = styled.div`
-    position: relative;
+interface StatusProps {
+  $status: 'Available' | 'Booked';
+}
+
+const StyledStatus = styled.div<StatusProps>`
     border-bottom: 0 !important;
-    span {
-      position: absolute;
-      right: 0;
-      top: 50%;
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
+    p {
+      background-color: ${props => props.$status === 'Available' ? '#DAFFCB' : '#FDA19B'};
+      padding: 10px;
+      font-size: 12px;
+      border-radius: 8px;
+      min-width: 90px;
+      text-align: center;
+    }
+    .delete {
+        transform: translate(0, 15%);
     }
 `;
   
@@ -63,7 +76,7 @@ const RoomsPage = () => {
           <Link to={row._id}>
             <img src={row.image} alt="Room image"/>
             <div>
-              <p>#{row._id}</p>
+              <p>{`#${row._id.slice(0, 7)}...`}</p>
               <p>{row.name}</p>
             </div>
           </Link>
@@ -90,9 +103,9 @@ const RoomsPage = () => {
     {
       label: 'Status',
       display: (row: Room) => (
-        <StyledStatus>
+        <StyledStatus $status={row.status}>
           <p>{row.status}</p>
-          <span className="material-symbols-outlined" onClick={() => dispatch(RemoveRoomThunk(row._id))}>delete</span>
+          <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveRoomThunk(row._id))}>delete</span>
         </StyledStatus>
       )
     },

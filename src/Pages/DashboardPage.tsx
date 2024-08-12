@@ -20,74 +20,6 @@ const mockData = [
 {"month":4,"bookings":7985,"occupation":576,"check-ins":400,"check-outs":107}
 ]
 
-const mockBookings = [
-    {
-      "images": {
-        "image1": "/path/to/image1.jpg",
-        "image2": "/path/to/image2.jpg",
-        "image3": "/path/to/image3.jpg"
-      },
-      "roomType": "Queen Bed",
-      "roomNumber": "A-1234",
-      "clientName": "John Doe",
-      "checkInDate": "2025-01-05",
-      "checkOutDate": "2025-01-10",
-      "orderDate": "2024-06-19T10:00:00Z"
-    },
-    {
-      "images": {
-        "image1": "/path/to/image4.jpg",
-        "image2": "/path/to/image5.jpg",
-        "image3": "/path/to/image6.jpg"
-      },
-      "roomType": "Deluxe Room",
-      "roomNumber": "B-2345",
-      "clientName": "Jane Smith",
-      "checkInDate": "2025-01-12",
-      "checkOutDate": "2025-01-15",
-      "orderDate": "2024-06-19T12:00:00Z"
-    },
-    {
-      "images": {
-        "image1": "/path/to/image7.jpg",
-        "image2": "/path/to/image8.jpg",
-        "image3": "/path/to/image9.jpg"
-      },
-      "roomType": "King Big",
-      "roomNumber": "C-3456",
-      "clientName": "Alice Johnson",
-      "checkInDate": "2025-01-20",
-      "checkOutDate": "2025-01-25",
-      "orderDate": "2024-06-19T14:00:00Z"
-    },
-    {
-      "images": {
-        "image1": "/path/to/image10.jpg",
-        "image2": "/path/to/image11.jpg",
-        "image3": "/path/to/image12.jpg"
-      },
-      "roomType": "Queen Bed",
-      "roomNumber": "A-4567",
-      "clientName": "Bob Brown",
-      "checkInDate": "2025-01-07",
-      "checkOutDate": "2025-01-09",
-      "orderDate": "2024-06-19T11:00:00Z"
-    },
-    {
-      "images": {
-        "image1": "/path/to/image13.jpg",
-        "image2": "/path/to/image14.jpg",
-        "image3": "/path/to/image15.jpg"
-      },
-      "roomType": "Deluxe Room",
-      "roomNumber": "B-5678",
-      "clientName": "Carol White",
-      "checkInDate": "2025-01-15",
-      "checkOutDate": "2025-01-18",
-      "orderDate": "2024-06-19T12:00:00Z"
-    }
-  ]
-
 const mockComments = [
     {
       "text": "Great article! Really enjoyed reading it.",
@@ -182,6 +114,12 @@ const DashboardPage = () => {
 
     const [sortedBookings, setSortedBookings] = useState<Booking[]>([]);
     const [fetched, setFetched] = useState<Boolean>(false);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
+
 
     const bookings = useAppSelector(state => state.Bookings.items);
     const dispatch = useAppDispatch();
@@ -213,9 +151,9 @@ const DashboardPage = () => {
             <>
                 <Dashboard>
                     <div className="page-container">
-                        <SideBar/>
+                        <SideBar visible={isSidebarVisible}/>
                         <div className="main-content">
-                            <Header/>
+                            <Header toggleSidebar={toggleSidebar}/>
                             <KpiContainer>
                                 <Kpi>
                                     <IconContainer selected={false}>

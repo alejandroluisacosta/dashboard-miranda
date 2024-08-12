@@ -3,13 +3,15 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { TfiKey } from "react-icons/tfi";
 import { LuCalendarCheck2 } from "react-icons/lu";
 import { HiOutlinePuzzle } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const StyledSideBar = styled.div`
+const StyledSideBar = styled.div<{ visible: boolean }>`
     
     padding: 32px 56px 0;
     max-width: 345px;
     background-color: white;
+    transition: transform 0.4s ease-in-out;
+    transform: ${({ visible }) => (visible ? 'translateX(0)' : 'translateX(-100%)')};
 
 `;
 
@@ -122,10 +124,10 @@ const Footer = styled.div`
     }
 `;
 
-const SideBar: React.FC = () => {
+const SideBar: React.FC<{ visible: boolean }> = ({ visible }) => {
 
     return (
-        <StyledSideBar>
+        <StyledSideBar visible={visible}>
             <LogoContainer>
                 <img src="/assets/HotelLogo.svg" className="icon"/>
                 <div>

@@ -7,7 +7,6 @@ import { EditBookingThunk } from "../Features/Bookings";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { Room } from "../types";
 
 const StyledBookingDetails = styled.div`
     display: flex;
@@ -37,11 +36,24 @@ const Left = styled.div<LeftProps>`
 const ClientContainer = styled.div`
     position: relative;
     display: flex;
+    gap: 5%;
     margin-bottom: 30px;
     img {
         width: 156px;
         border-radius: 12px;
         margin-right: 40px;
+    }
+    .image {
+        width: 100%;
+        padding-bottom: 50%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        border-radius: 12px;
+        @media only screen and (min-width: 1920px) {
+            width: 25%;
+            padding-bottom: 25%;
+        }
     }
     div {
         p:first-child {
@@ -69,11 +81,13 @@ const ClientContainer = styled.div`
         color: var(--dark-green);
         background-color: white;
         border-radius: 12px;
+        transform: translate(100%, 0%);
     }
 `;
 
 const ContactContainer = styled.div`
     display: flex;
+    align-items: flex-end;
     .call-container {
         width: 60px;
         height: 60px;
@@ -105,6 +119,7 @@ const SendMessageContainer = styled.div`
     .send-message {
         margin: 0;
         color: white;
+        font-size: 12px;
     }
 `;
 
@@ -232,7 +247,8 @@ const BookingDetails = () => {
                     :
                         <PiDotsThreeOutlineVerticalFill className="edit" onClick={handleEditClick}/>
                     }
-                    <img src="/assets/user.jpeg" alt="User image"/>
+                    <div className="image" style={{backgroundImage: `url(/assets/user.jpeg)`}}></div> 
+                    {/* <img src="/assets/user.jpeg" alt="User image"/> */}
                     <div>
                         <p>{name}</p>
                         <p>Booking {id}</p>
