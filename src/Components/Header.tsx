@@ -45,6 +45,17 @@ const Right = styled.div`
         height: 45px;
         border-radius: 8px;
     }
+    .icon {
+        cursor: pointer;
+    }
+    .logout {
+        color: red;
+        transform: scale(1);
+        transition: transform 0.3s ease-in-out;
+        &:hover {
+            transform: scale(1.3);
+        }
+    }
 `;
 
 const Header: React.FC<{ toggleSidebar: () => void }> = ({ toggleSidebar }) => {
@@ -64,28 +75,25 @@ const Header: React.FC<{ toggleSidebar: () => void }> = ({ toggleSidebar }) => {
                 <p>Dashboard</p>
             </Left>
             <Right>
-            <span className="material-symbols-outlined">
+            <span className="icon material-symbols-outlined">
                 search
             </span>
-            <span className="material-symbols-outlined">
+            <span className="icon material-symbols-outlined">
                 favorite
             </span>
-            <span className="material-symbols-outlined">
+            <span className="icon material-symbols-outlined">
                 inbox
             </span>
-            <span className="material-symbols-outlined">
+            <span className="icon material-symbols-outlined">
                 room_service
             </span>
-            <span className="material-symbols-outlined">
+            <span className="icon material-symbols-outlined">
                 chat
             </span>
             <img src="/assets/user.jpeg" alt="Profile icon"/>
-                <div>
-                    <p onClick={logOutHandler}>EN</p>
-                    <span className="material-symbols-outlined">
-                        keyboard_arrow_down
-                    </span>
-                </div>
+            <span onClick={logOutHandler} className="logout icon material-symbols-outlined">
+                logout
+            </span>
             </Right>
         </HeaderContainer>
     )

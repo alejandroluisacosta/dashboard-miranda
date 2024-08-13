@@ -9,6 +9,7 @@ const StyledSideBar = styled.div<{ visible: boolean }>`
     
     padding: 32px 56px 0;
     max-width: 345px;
+    min-width: 345px;
     background-color: white;
     transition: transform 0.4s ease-in-out;
     transform: ${({ visible }) => (visible ? 'translateX(0)' : 'translateX(-100%)')};

@@ -9,8 +9,26 @@ import { Column, Room, StyledPageContainer } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { toast } from "react-toastify";
 
+const StyledRooms = styled.div`
+    background-color: var(--light-gray);
+    text-align: center;
+    .add-button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin: 30px 50px;
+    .add-button {
+        padding: 15px 50px;
+        background-color: var(--dark-green);
+        border-radius: 12px;
+        color: white;
+        font-size: 20px;
+      }
+    }
+`;
+
 const StyledNameColumn = styled.div`
     border-bottom: 0 !important;
+    text-align: left;
     a {
       display: flex;
       align-items: center;
@@ -49,22 +67,6 @@ const StyledStatus = styled.div<StatusProps>`
         cursor: pointer;
     }
 `;
-  
-const StyledRooms = styled.div`
-  background-color: var(--light-gray);
-    .add-button-container {
-    display: flex;
-    justify-content: flex-start;
-    margin: 30px 50px;
-    .add-button {
-        padding: 15px 50px;
-        background-color: var(--dark-green);
-        border-radius: 12px;
-        color: white;
-        font-size: 20px;
-      }
-    }
-`;
 
 const RoomsPage = () => {
 
@@ -94,7 +96,9 @@ const RoomsPage = () => {
     },
     {
       label: 'Rate',
-      property: 'rate',
+      display: (row: Room) => (
+        <p>{`$${row.rate}`}</p>
+      )
     },
     {
       label: 'Offer',
@@ -147,7 +151,7 @@ const RoomsPage = () => {
                     <div className="add-button-container">
                       <Link to="add"><button className="add-button">+ Add Room</button></Link>
                     </div>
-                    <Table data={renderedRooms} columns={columns}/>
+                    <Table data={renderedRooms.slice(0, 10)} columns={columns}/>
                   </div>
               </StyledPageContainer>
           </StyledRooms>

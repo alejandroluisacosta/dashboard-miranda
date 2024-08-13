@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import mockRooms from "../data/mockRooms";
 import { Room } from '../types';
 import backendAPICall from "../../utils/backendAPICall";
 
@@ -26,7 +25,7 @@ export const RemoveRoomThunk = createAsyncThunk('Rooms/RemoveRoom', async(id: st
 })
 
 export const EditRoomThunk = createAsyncThunk('Rooms/EditRoom', async(updatedRoom: Room): Promise<Room> => {
-    const room: Room = await delay(updatedRoom) as Room;
+    const { room } = await backendAPICall<{room: Room}>(`rooms/${updatedRoom._id}`, 'PUT', updatedRoom);
     return room; 
 })
 
@@ -101,10 +100,10 @@ const Rooms = createSlice({
         .addCase(RemoveRoomThunk.fulfilled, (state, action: PayloadAction<string>) => {
             state.status = 'fulfilled';
             state. error = 'false';
-            const removedRoom = state.items.find(room => room.id === action.payload);
+            const removedRoom = state.items.find(room => room._id === action.payload);
             if (removedRoom)
                 state.single = removedRoom;
-            state.items = state.items.filter(room => room.id !== action.payload);
+            state.items = state.items.filter(room => room._id !== action.payload);
         })
         .addCase(EditRoomThunk.pending, state => {
             state.status = 'pending';
@@ -117,7 +116,7 @@ const Rooms = createSlice({
         .addCase(EditRoomThunk.fulfilled, (state, action: PayloadAction<Room>) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items = state.items.map(room => room.id === action.payload.id ? room = action.payload : room);
+            state.items = state.items.map(room => room._id === action.payload._id ? room = action.payload : room);
             state.single = action.payload;
         })
     }

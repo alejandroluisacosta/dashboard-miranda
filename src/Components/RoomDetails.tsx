@@ -153,8 +153,8 @@ const RoomDetails = () => {
         dispatch(EditRoomThunk({
             name: name,
             _id: room._id,
-            image: 'assets/HotelRoom3.jpeg',
-            roomType: room.roomType,
+            image: image,
+            roomType: roomType,
             amenities: modifiedAmenities.length ? modifiedAmenities : amenities,
             rate: rate,
             offer: offer,
@@ -215,7 +215,7 @@ const RoomDetails = () => {
                 <AmenitiesContainer>
                         <p className="label">Amenities</p>
                         {isEditing ? (
-                            <div className="checkboxes-form" id="amenities">
+                            <div className="checkboxes-form" id="amenities" onChange={(event) => setAmenities((event.target as HTMLInputElement).value)}>
                                 <label><input type="checkbox" name="amenities" value="Wi-Fi"/> Wi-Fi</label>
                                 <label><input type="checkbox" name="amenities" value="Breakfast"/> Breakfast</label>
                                 <label><input type="checkbox" name="amenities" value="Parking"/> Parking</label>

@@ -86,15 +86,6 @@ const IconContainer = styled.div<IconContainerProps>`
     margin-right: 22px;
 `;
 
-const BookingSummaryList = styled.div`
-    background-color: white;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    // margin: 0 50px 40px;
-    border-radius: 20px;
-`;
-
 const CommentList = styled.div`
     margin: 0 50px;
     background-color: white;
@@ -109,6 +100,9 @@ const CommentList = styled.div`
         display: flex;
         justify-content: space-between;
         gap: 5%;
+        @media only screen and (min-width: 1920px) {
+            justify-content: unset;
+        }
     }
     `;
 

@@ -113,7 +113,6 @@ const Bookings = createSlice({
         .addCase(EditBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
             state.status = 'fulfilled',
             state.error = 'false',
-            console.log(action.payload);
             state.items = state.items.map(booking => booking._id === action.payload._id ? action.payload : booking);
             state.single = action.payload;
         })

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 
 const StyledBookings = styled.div`
     background-color: var(--light-gray);
+    text-align: center;
     .filter-container {
       display: flex;
       align-items: center;
