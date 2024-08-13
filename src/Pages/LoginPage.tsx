@@ -111,7 +111,6 @@ const Left = styled.div`
 `;
 
 const Right = styled.div`
-    // height: 1000px;
     .image {
         border-radius: 12px;
         width: 100%;
@@ -180,7 +179,7 @@ const LoginPage = () => {
             <StyledMockCredentials>
                 <p>Login mock credentials / Credenciales para login:</p>
                 <p className="label">Username:</p>
-                <p className="credential">username123</p>
+                <p className="credential">username</p>
                 <p className="label">Password:</p>
                 <p className="credential">1234</p>
             </StyledMockCredentials>

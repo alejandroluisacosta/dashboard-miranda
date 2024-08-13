@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
-import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { useState } from "react";
 import { EditBookingThunk } from "../Features/Bookings";
 import { toast } from 'react-toastify';
@@ -22,6 +21,10 @@ interface LeftProps {
 const Left = styled.div<LeftProps>`
     width: 50%;
     padding: 40px 40px 50px;
+    flex: 60%;
+    @media only screen and (min-width: 1920px) {
+        flex: 50%;
+    }
     background-color: ${props => props.$isEditing ? 'var(--lighter-green)' : 'unset'};
     textarea {
         padding: 10px;
@@ -69,19 +72,16 @@ const ClientContainer = styled.div`
         }
     }
     .edit {
-        position: absolute;
-        right: 0;
-        top: 0;
+        order: 2;
+        height: 40px;
+        border: 1px solid black;
+        border-radius: 8px;
+        padding: 5px;
+        cursor: pointer;
     }
-    button {
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding: 10px 20px;
-        color: var(--dark-green);
+    .save {
         background-color: white;
-        border-radius: 12px;
-        transform: translate(100%, 0%);
+        height: 35px;
     }
 `;
 
@@ -182,6 +182,10 @@ const Facilities = styled.div`
 
 const Right = styled.div`
     width: 50%;
+    flex: 40%;
+    @media only screen and (min-width: 1920px) {
+        flex: 60%;
+    }
     div {
         min-height: 100%;
         width: 100%;
@@ -242,10 +246,14 @@ const BookingDetails = () => {
         <StyledBookingDetails>
             <Left $isEditing={isEditing}>
                 <ClientContainer>
-                    {isEditing ? 
-                        <button onClick={handleSaveClick} className="save">Save changes</button>
+                    {isEditing ?
+                    <span className="edit save material-symbols-outlined" onClick={handleSaveClick}>
+                        check
+                    </span>
                     :
-                        <PiDotsThreeOutlineVerticalFill className="edit" onClick={handleEditClick}/>
+                    <span className="edit material-symbols-outlined" onClick={handleEditClick}>
+                        edit
+                    </span>
                     }
                     <div className="image" style={{backgroundImage: `url(/assets/user.jpeg)`}}></div> 
                     {/* <img src="/assets/user.jpeg" alt="User image"/> */}
