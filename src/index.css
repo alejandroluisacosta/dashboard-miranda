@@ -29,6 +29,14 @@ h1, h2, h3, p {
   display: flex;
 }
 
+.save-button {
+  padding: 10px;
+  border-radius: 12px;
+  background-color: white;
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+}
+
 button {
   cursor: pointer;
 }

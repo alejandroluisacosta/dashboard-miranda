@@ -22,6 +22,9 @@ const Left = styled.div<LeftProps>`
     width: 50%;
     padding: 40px 40px 50px;
     flex: 60%;
+    border-radius: 12px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     @media only screen and (min-width: 1920px) {
         flex: 50%;
     }
@@ -143,13 +146,14 @@ const DatesContainer = styled.div`
 `;
 
 const RoomContainer = styled.div`
+    margin-bottom: 24px;
     .special-request {
         font-size: 14px;
         margin-bottom: 30px;
         min-height: 150px;
     }
     textarea {
-        min-height: 150px;
+        min-height: 80px;
         width: 100%;
     }
 `;
@@ -194,7 +198,8 @@ const Right = styled.div`
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        border-radius: 12px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
     }
 `;
 
@@ -331,6 +336,7 @@ const BookingDetails = () => {
                         <h1>Tags here</h1>
                     </Facilities>
                 </RoomContainer>
+                {isEditing && <button className="save-button" onClick={handleSaveClick}>Save Changes</button>}
             </Left>
             <Right>
                 <div style={{backgroundImage: `url(../assets/HotelRoom4.jpeg)`}}></div>

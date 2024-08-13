@@ -69,12 +69,14 @@ const Left = styled.div<LeftProps>`
         margin-bottom: 12px;
     }
     textarea {
+        width: 100%;
         padding: 10px;
         border-radius: 8px;
         min-height: 80px;
         min-width: 200px;
         overflow: hidden;
         resize: none;
+        margin-bottom: 24px;
     }
 `;
 
@@ -254,6 +256,7 @@ const UserDetails = () => {
                             <p>{user.jobDesk}</p>
                         }
                     </div>
+                    {isEditing && <button className="save-button" onClick={handleSaveClick}>Save Changes</button>}
             </Left>
             <Right>
                 <div style={{backgroundImage: `url(../assets/Door-Opens.jpeg)`}}></div>

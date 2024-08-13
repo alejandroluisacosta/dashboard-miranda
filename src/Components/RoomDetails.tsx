@@ -24,6 +24,9 @@ const Left = styled.div<LeftProps>`
     width: 50%;
     padding: 40px 40px 50px;
     flex: 60%;
+    border-radius: 12px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     @media only screen and (min-width: 1920px) {
         flex: 50%;
     }
@@ -98,6 +101,7 @@ interface BottomContainerProps extends LeftProps {}
 const BottomContainer = styled.div<BottomContainerProps>`
     display: flex;
     gap: ${props => props.$isEditing ? '5%' : '15%'};
+    margin-bottom: 24px;
 `;
 
 
@@ -114,7 +118,8 @@ const Right = styled.div`
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        border-radius: 12px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
     }
 `;
 
@@ -267,6 +272,7 @@ const RoomDetails = () => {
                         }
                     </div>
                 </BottomContainer>
+                {isEditing && <button className="save-button" onClick={handleSaveClick}>Save Changes</button>}
             </Left>
             <Right>
             <div style={{backgroundImage: `url(../assets/HotelAtDawn.jpeg)`}}></div>
