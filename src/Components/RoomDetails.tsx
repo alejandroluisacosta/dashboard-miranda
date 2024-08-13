@@ -269,7 +269,7 @@ const RoomDetails = () => {
                 </BottomContainer>
             </Left>
             <Right>
-            <div style={{backgroundImage: `url(../assets/HotelRoom3.jpeg)`}}></div>
+            <div style={{backgroundImage: `url(../assets/HotelAtDawn.jpeg)`}}></div>
             </Right>
         </StyledRoomDetails>
     )

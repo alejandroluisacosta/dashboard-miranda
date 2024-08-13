@@ -107,6 +107,7 @@ const CommentList = styled.div`
     div {
         display: flex;
         justify-content: space-between;
+        gap: 5%;
     }
     `;
 

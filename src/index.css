@@ -13,6 +13,10 @@ html, * {
   --orange: #FF9C3A;
 }
 
+body {
+  min-width: 1440px;
+}
+
 h1, h2, h3, p {
   margin: 0;
 }

@@ -117,9 +117,9 @@ const UsersPage = () => {
       allUsers.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
         setRenderedUsers(allUsers);
       } else if (value === 'active') {
-        setRenderedUsers(users.filter(user => user.status === 'Active'));
+        setRenderedUsers(users.filter(user => user.status === 'Available'));
       } else if (value === 'inactive') {
-        setRenderedUsers(users.filter(user => user.status === 'Inactive'));
+        setRenderedUsers(users.filter(user => user.status === 'Unavailable'));
       }
     }
 

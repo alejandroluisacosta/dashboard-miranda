@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { toast } from 'react-toastify';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "../types";
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { EditUserThunk } from '../Features/Users';
@@ -116,8 +116,6 @@ const UserDetails = () => {
     const [email, setEmail] = useState(user.email);
     const dispatch = useAppDispatch();
     
-
-    
     const notify = () => toast.success('User successfully modified', {
         position: "top-center",
         autoClose: 1000,
@@ -215,7 +213,7 @@ const UserDetails = () => {
                                     onChange={(event) => setPhone(event.target.value)}
                                 />
                             :
-                                <p>{user.phone.split('x')[0]}</p>
+                                <p>{user.phone}</p>
                             }
                         </div>
                     </StyledRow>
@@ -236,8 +234,8 @@ const UserDetails = () => {
                                 <p>Status</p>
                                 {isEditing ?
                                     <select defaultValue={status} onChange={(event) => setStatus(event.target.value)} required>
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
+                                        <option value="Available">Available</option>
+                                        <option value="Unavailable">Unavailable</option>
                                     </select>
                                 :
                                     <p>{user.status}</p>
