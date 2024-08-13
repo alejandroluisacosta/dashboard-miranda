@@ -79,7 +79,7 @@ const TopContainer = styled.div<TopContainerProps>`
     display: flex;
     gap: ${props => props.$isEditing ? '5%' : '15%'};
     margin-bottom: 60px;
-    word-break: break-all;
+    word-break: ${props => props.$isEditing ? 'break-all' : 'unser'};
 `;
 
 const AmenitiesContainer = styled.div`

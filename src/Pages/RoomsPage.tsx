@@ -5,7 +5,7 @@ import Header from "../Components/Header";
 import { useEffect, useState } from "react";
 import { GetRoomsThunk, RemoveRoomThunk } from "../Features/Rooms";
 import SideBar from "../Components/SideBar";
-import { Column, Room } from "../types";
+import { Column, Room, StyledPageContainer } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { toast } from "react-toastify";
 
@@ -140,7 +140,7 @@ const RoomsPage = () => {
     return (
         <>
           <StyledRooms>
-              <div className="page-container">
+              <StyledPageContainer visible={isSidebarVisible}>
                   <SideBar visible={isSidebarVisible}/>
                   <div className="main-content">
                     <Header toggleSidebar={toggleSidebar}/>
@@ -149,7 +149,7 @@ const RoomsPage = () => {
                     </div>
                     <Table data={renderedRooms} columns={columns}/>
                   </div>
-              </div>
+              </StyledPageContainer>
           </StyledRooms>
       </>
     )

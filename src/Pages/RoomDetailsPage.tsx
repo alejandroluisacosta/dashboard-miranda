@@ -9,6 +9,7 @@ import SideBar from "../Components/SideBar";
 import { useAppDispatch } from "../app/hooks";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { StyledPageContainer } from "../types";
 
 const StyledRoomDetailsPage = styled.div`
     background-color: var(--light-gray);
@@ -58,7 +59,7 @@ const RoomDetailsPage = () => {
     return (
         <>
             <StyledRoomDetailsPage>
-                <div className="page-container">
+                <StyledPageContainer visible={isSidebarVisible}>
                     <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
                         <Header toggleSidebar={toggleSidebar}/>
@@ -74,7 +75,7 @@ const RoomDetailsPage = () => {
                         </Box>
                         }
                     </div>
-                </div>
+                </StyledPageContainer>
             </StyledRoomDetailsPage>
         </>
     )
