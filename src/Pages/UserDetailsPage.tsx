@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { GetUserThunk } from "../Features/Users";
 import styled from "styled-components";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const StyledUserDetails = styled.div`
     background-color: var(--light-gray);
@@ -21,6 +23,11 @@ const StyledUserDetails = styled.div`
             color: inherit; 
         }
     }
+    .progress {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
 `;
 
 
@@ -29,6 +36,11 @@ const UserDetailsPage = () => {
     const [ fetched, setFecthed ] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const { userId } = useParams<{ userId: string }>();
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
     
     if (!userId) {
         console.log(userId);
@@ -49,9 +61,9 @@ const UserDetailsPage = () => {
         <>
             <StyledUserDetails>
                 <div className="page-container">
-                    <SideBar />
+                    <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
-                        <Header />
+                        <Header toggleSidebar={toggleSidebar}/>
                         <div className="back-link-container">
                             <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
                             <Link to="/users">All Users</Link>
@@ -59,7 +71,9 @@ const UserDetailsPage = () => {
                         {fetched ?
                             <UserDetails />
                         :
-                            <h1>Loading</h1>
+                        <Box className="progress" sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                        </Box>
                         }
                     </div>
                 </div>

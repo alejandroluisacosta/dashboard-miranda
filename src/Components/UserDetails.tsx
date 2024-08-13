@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { toast } from 'react-toastify';
 import { useState } from "react";
-import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { User } from "../types";
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { EditUserThunk } from '../Features/Users';
@@ -22,11 +21,19 @@ const StyledUserDetails = styled.div`
 `;
 
 const StyledNameContainer = styled.div`
-    position: relative;
+    display: flex;
+    justify-content: space-between;
     .edit {
-        position: absolute;
-        right: 5%;
-        top: 0;
+        order: 2;
+        height: 40px;
+        border: 1px solid black;
+        border-radius: 8px;
+        padding: 5px;
+        cursor: pointer;
+    }
+    .save {
+        background-color: white;
+        height: 35px;
     }
     button {
         position: absolute;
@@ -59,19 +66,37 @@ const Left = styled.div<LeftProps>`
         font-weight: 600;
         margin-bottom: 12px;
     }
+    textarea {
+        padding: 10px;
+        border-radius: 8px;
+        min-height: 80px;
+        min-width: 200px;
+        overflow: hidden;
+        resize: none;
+    }
 `;
 
 const StyledRow = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 24px;
+    word-break: break-all;
     div {
         width: 48%;
     }
 `;
 
 const Right = styled.div`
-
+    width: 50%;
+    div {
+        min-height: 100%;
+        width: 100%;
+        padding-bottom: 50%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        border-radius: 12px;
+    }
 `;
 
 const UserDetails = () => {
@@ -133,10 +158,15 @@ const UserDetails = () => {
                 <StyledNameContainer>
                     <h2>{name} - {userName}</h2>
                     {isEditing ?
-                        <button onClick={handleSaveClick}>Save Changes</button>
+                    <span className="edit save material-symbols-outlined" onClick={handleSaveClick}>
+                    check
+                    </span>
                     :
-                        <PiDotsThreeOutlineVerticalFill className="edit" onClick={handleEditClick}/>
+                    <span className="edit material-symbols-outlined" onClick={handleEditClick}>
+                        edit
+                    </span>
                     }
+                    </StyledNameContainer>
                     <StyledRow>
                         <div>
                             <p>Schedule</p>
@@ -185,7 +215,7 @@ const UserDetails = () => {
                                     onChange={(event) => setPhone(event.target.value)}
                                 />
                             :
-                                <p>{user.phone}</p>
+                                <p>{user.phone.split('x')[0]}</p>
                             }
                         </div>
                     </StyledRow>
@@ -222,10 +252,9 @@ const UserDetails = () => {
                             <p>{user.jobDesk}</p>
                         }
                     </div>
-                </StyledNameContainer>
             </Left>
             <Right>
-
+                <div style={{backgroundImage: `url(../assets/Door-Opens.jpeg)`}}></div>
             </Right>
         </StyledUserDetails>
     )

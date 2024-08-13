@@ -36,7 +36,6 @@ const BookingDetailsPage = () => {
     const { bookingId = '' } = useParams<{bookingId: string}>();
     const dispatch = useAppDispatch();
     const [fetched, setFetched] = useState<Boolean>(false);
-
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
     const toggleSidebar = () => {

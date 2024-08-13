@@ -98,33 +98,38 @@ const UsersPage = () => {
     const [renderedUsers, setRenderedUsers] = useState<User[]>([]);
     const dispatch = useAppDispatch();
     const users = useAppSelector(state => state.Users.items);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
-  useEffect(() => {
-    if (!users.length) {
-      dispatch(GetUsersThunk());
-    }
-    sortUsersHandler('incorporatedOn');
-  }, [users])
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
 
-  const sortUsersHandler = (value: string) => {
-  if (value === 'incorporatedOn') {
-    const allUsers = [...users];
-    allUsers.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
-      setRenderedUsers(allUsers);
-    } else if (value === 'active') {
-      setRenderedUsers(users.filter(user => user.status === 'Active'));
-    } else if (value === 'inactive') {
-      setRenderedUsers(users.filter(user => user.status === 'Inactive'));
+    useEffect(() => {
+      if (!users.length) {
+        dispatch(GetUsersThunk());
+      }
+      sortUsersHandler('incorporatedOn');
+    }, [users])
+
+    const sortUsersHandler = (value: string) => {
+    if (value === 'incorporatedOn') {
+      const allUsers = [...users];
+      allUsers.sort((a, b) => (new Date(a.incorporatedOn).getTime() as number) - (new Date(b.incorporatedOn).getTime() as number));
+        setRenderedUsers(allUsers);
+      } else if (value === 'active') {
+        setRenderedUsers(users.filter(user => user.status === 'Active'));
+      } else if (value === 'inactive') {
+        setRenderedUsers(users.filter(user => user.status === 'Inactive'));
+      }
     }
-  }
 
     return (
         <>
           <StyledUsers>
               <div className="page-container">
-                  <SideBar/>
+                  <SideBar visible={isSidebarVisible}/>
                   <div className="main-content">
-                      <Header/>
+                      <Header toggleSidebar={toggleSidebar}/>
                       <div className="filter-container">
                         <FilterTabs 
                           sortHandler={sortUsersHandler}
