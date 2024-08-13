@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { toast } from 'react-toastify';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { User } from "../types";
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { EditUserThunk } from '../Features/Users';
@@ -102,7 +102,7 @@ const Right = styled.div`
 const UserDetails = () => {
 
     const [ isEditing, setIsEditing ] = useState<boolean>(false);
-    const user: User = useAppSelector(state => state.Users.single);
+    const user = useAppSelector(state => state.Users.single);
     const name = user.name;
     const id = user._id;
     const userName = user.userName;
@@ -115,7 +115,7 @@ const UserDetails = () => {
     const [role, setRole] = useState(user.role);
     const [email, setEmail] = useState(user.email);
     const dispatch = useAppDispatch();
-    
+
     const notify = () => toast.success('User successfully modified', {
         position: "top-center",
         autoClose: 1000,
@@ -175,7 +175,7 @@ const UserDetails = () => {
                                     onChange={(event) => setSchedule(event.target.value)}
                                 />
                             ) :
-                                <p>{user.schedule}</p>
+                                <p>{schedule}</p>
                             }
                         </div>
                         <div>
@@ -187,7 +187,7 @@ const UserDetails = () => {
                                     <option value="Room Service">Room service</option>
                                 </select>
                             :
-                                <p>{user.role}</p>
+                                <p>{role}</p>
                             }
                         </div>
                     </StyledRow>
@@ -201,7 +201,7 @@ const UserDetails = () => {
                                     onChange={(event) => setEmail(event.target.value)}
                                 />
                             :
-                                <p>{user.email}</p>
+                                <p>{email}</p>
                             }
                         </div>
                         <div>
@@ -213,7 +213,7 @@ const UserDetails = () => {
                                     onChange={(event) => setPhone(event.target.value)}
                                 />
                             :
-                                <p>{user.phone}</p>
+                                <p>{phone}</p>
                             }
                         </div>
                     </StyledRow>

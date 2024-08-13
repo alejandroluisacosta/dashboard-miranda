@@ -100,7 +100,7 @@ const AddBooking: React.FC = () => {
         const checkOutDate: string = (form.querySelector('#checkOut') as HTMLInputElement).value;
         const specialRequest: string = (form.querySelector('#special-request') as HTMLInputElement).value;
         const roomType: string = (form.querySelector('#room-type') as HTMLInputElement).value;
-        const status: string = (form.querySelector('#status') as HTMLInputElement).value;
+        const status: 'Check-In' | 'Check-Out' = (form.querySelector('#status') as HTMLInputElement).value;
 
         dispatch(AddBookingThunk({
             name: name,
@@ -136,23 +136,23 @@ const AddBooking: React.FC = () => {
                     <form onSubmit={addBookingHandler}>
                         <StyledRow>
                             <div className="name-row">
-                                <label htmlFor="name">* Name</label>
+                                <label htmlFor="name">Name *</label>
                                 <input id="name" type="text" required/>
                             </div>
                         </StyledRow>
                         <StyledRow>
                             <div>
-                                <label htmlFor="checkIn">* Check In Date</label>
+                                <label htmlFor="checkIn">Check In Date *</label>
                                 <input id="checkIn" type="date" required/>
                             </div>
                             <div>
-                                <label htmlFor="checkOut">* Check Out Date</label>
+                                <label htmlFor="checkOut">Check Out Date *</label>
                                 <input id="checkOut" type="date" required/>
                             </div>
                         </StyledRow>
                         <StyledRow>
                             <div>
-                                <label htmlFor="room-type">* Room Type</label>
+                                <label htmlFor="room-type">Room Type *</label>
                                 <select id="room-type" required>
                                     <option value="Single">Single Room</option>
                                     <option value="Double">Double Room</option>
@@ -161,7 +161,7 @@ const AddBooking: React.FC = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="status">* Status</label>
+                                <label htmlFor="status">Status *</label>
                                 <select id="status" required>
                                     <option value="booked">Booked</option>
                                     <option value="pending">Pending</option>

@@ -125,7 +125,7 @@ const AddRoom: React.FC = () => {
 
         dispatch(AddRoomThunk({
             name: `${roomType} ${roomNumber}`,
-            id: `${Math.floor(Math.random() * 1000)}`,
+            _id: `${Math.floor(Math.random() * 1000)}`,
             image: '/assets/HotelInside.jpeg',
             roomType: roomType,
             amenities: amenities,
@@ -161,7 +161,7 @@ const AddRoom: React.FC = () => {
                     <form onSubmit={addRoomHandler}>
                         <StyledRow>
                             <div>
-                                <label htmlFor="room-type">* Room Type</label>
+                                <label htmlFor="room-type">Room Type *</label>
                                 <select id="room-type" required>
                                     <option value="Single">Single Room</option>
                                     <option value="Double">Double Room</option>
@@ -170,31 +170,31 @@ const AddRoom: React.FC = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="room-number">* Room Number</label>
+                                <label htmlFor="room-number">Room Number *</label>
                                 <input id="room-number" type="text" required/>
                             </div>
                         </StyledRow>
                         <StyledRow className="row-of-three">
                             <div>
-                                <label htmlFor="offer">* Offer</label>
+                                <label htmlFor="offer">Offer *</label>
                                 <select id="offer" required>
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="rate">* Rate</label>
+                                <label htmlFor="rate">Rate *</label>
                                 <input id="rate" type="number" required placeholder="$/night"/>
                             </div>
                             <div>
-                                <label htmlFor="discount">* Discount</label>
+                                <label htmlFor="discount">Discount *</label>
                                 <input id="discount" type="number" required placeholder="%"/>
                             </div>
                         </StyledRow>
                         <StyledRow>
                         </StyledRow>
                         <div>
-                            <label htmlFor="description">* Description</label>
+                            <label htmlFor="description">Description *</label>
                             <textarea id="description" required/>
                         </div>
                         <div>

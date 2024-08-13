@@ -138,31 +138,31 @@ const AddUser: React.FC = () => {
                 <form onSubmit={addUserHandler}>
                     <StyledRow>
                         <div>
-                            <label htmlFor='name'>* Full Name</label>
+                            <label htmlFor='name'>Full Name *</label>
                             <input id='name' type="text" required />
                         </div>
                         <div>
-                            <label htmlFor="email">* Email</label>
+                            <label htmlFor="email">Email *</label>
                             <input id="email" type="text" required />
                         </div>
                     </StyledRow>
                     <StyledRow>
                         <div>
-                            <label htmlFor='username'>* Username</label>
+                            <label htmlFor='username'>Username *</label>
                             <input id='username' type="text" required />
                         </div>
                         <div>
-                            <label htmlFor='password'>* Password</label>
+                            <label htmlFor='password'>Password *</label>
                             <input id='password' type="password" required />
                         </div>
                     </StyledRow>
                     <StyledRow className="row-of-three">
                         <div>
-                            <label htmlFor="confirm-password">* Confirm password</label>
+                            <label htmlFor="confirm-password">Confirm pass *</label>
                             <input id="confirm-password" type="password" required />
                         </div>
                         <div>
-                            <label htmlFor="role">* Role</label>
+                            <label htmlFor="role">Role *</label>
                             <select id="role" required>
                                 <option value="Manager">Manager</option>
                                 <option value="Reception">Reception</option>
@@ -170,17 +170,17 @@ const AddUser: React.FC = () => {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="phone">* Phone</label>
+                            <label htmlFor="phone">Phone *</label>
                             <input id="phone" type="text" required />
                         </div>
                     </StyledRow>
                     <StyledRow className="row-of-three">
                         <div>
-                            <label htmlFor="schedule">* Schedule</label>
+                            <label htmlFor="schedule">Schedule *</label>
                             <input id="schedule" type="text" required />
                         </div>
                         <div>
-                            <label htmlFor="date">* Start Date</label>
+                            <label htmlFor="date">Start Date *</label>
                             <input id="date" type="date" required />
                         </div>
                         <div>

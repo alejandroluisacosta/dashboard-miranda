@@ -197,9 +197,9 @@ const LoginPage = () => {
                         {error && <p style={{ color: 'red' }}>{error}</p>}
                         <form onSubmit={submitHandler}>
                             <label htmlFor="username">Username</label>
-                            <input type="text" id="username" placeholder="Your username"/>
+                            <input type="text" id="username" value="username"/>
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" placeholder="Your password" autoComplete="true"/>
+                            <input type="password" id="password" value="1234" autoComplete="true"/>
                             <button type="submit">Login now</button>
                         </form>
                     </div>
