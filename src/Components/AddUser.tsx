@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { useAppDispatch } from "../app/hooks";
 import { toast } from "react-toastify";
@@ -99,6 +99,7 @@ const AddUser: React.FC = () => {
         progress: undefined,
         theme: "light",
     });
+    const navigate = useNavigate();
 
     const addUserHandler = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -130,6 +131,8 @@ const AddUser: React.FC = () => {
         }));
 
         notify();
+
+        navigate('/users');
     }
     return (
         <StyledAddUser>

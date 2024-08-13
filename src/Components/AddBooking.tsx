@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { AddBookingThunk } from "../Features/Bookings";
-import { Link } from "react-router-dom";
+import { Link, useAsyncValue, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
@@ -90,6 +90,8 @@ const AddBooking: React.FC = () => {
         theme: "light",
     });
 
+    const navigate = useNavigate();
+
     const addBookingHandler = (event: React.FormEvent<HTMLFormElement>): void => {
 
         event.preventDefault();
@@ -113,7 +115,7 @@ const AddBooking: React.FC = () => {
         })) 
 
         notify();
-
+        navigate('/bookings');
     }
 
     return (

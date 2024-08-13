@@ -1,11 +1,12 @@
 import styled from "styled-components"
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EditBookingThunk } from "../Features/Bookings";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useNavigate } from "react-router-dom";
 
 const StyledBookingDetails = styled.div`
     display: flex;
@@ -247,6 +248,10 @@ const BookingDetails = () => {
         setIsEditing(false);
         notify();
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <StyledBookingDetails>

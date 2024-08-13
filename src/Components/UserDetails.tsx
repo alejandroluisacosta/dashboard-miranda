@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { toast } from 'react-toastify';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { EditUserThunk } from '../Features/Users';
 
@@ -155,6 +155,10 @@ const UserDetails = () => {
         setIsEditing(false);
         notify();
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <StyledUserDetails>

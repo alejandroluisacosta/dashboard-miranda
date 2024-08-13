@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { toast } from 'react-toastify';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EditRoomThunk } from "../Features/Rooms";
 import Button from './Button';
 import { Room } from '../types';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useNavigate } from "react-router-dom";
 
 const StyledRoomDetails = styled.div`
     display: flex;
@@ -169,6 +170,10 @@ const RoomDetails = () => {
         setIsEditing(false);
         notify();
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <StyledRoomDetails>
