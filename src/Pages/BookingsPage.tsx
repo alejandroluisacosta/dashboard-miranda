@@ -7,7 +7,7 @@ import { GetBookingsThunk, RemoveBookingThunk } from "../Features/Bookings";
 import { Link } from "react-router-dom";
 import Table from "../Components/Table";
 import SideBar from "../Components/SideBar";
-import { Booking, Column } from "../types";
+import { Booking, Column, StyledPageContainer } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { toast } from "react-toastify";
 
@@ -169,7 +169,7 @@ const BookingsPage = () => {
     return (
         <>
           <StyledBookings>
-              <div className="page-container">
+              <StyledPageContainer visible={isSidebarVisible}>
                   <SideBar visible={isSidebarVisible}/>
                   <div className="main-content">
                     <Header toggleSidebar={toggleSidebar}/>
@@ -188,7 +188,7 @@ const BookingsPage = () => {
                     </div>
                     <Table data={renderedBookings} columns={columns}/>
                   </div>
-              </div>
+              </StyledPageContainer>
           </StyledBookings>
         </>
     )

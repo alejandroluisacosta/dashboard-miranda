@@ -107,6 +107,7 @@ const ContactContainer = styled.div`
 const SendMessageContainer = styled.div`
     display: flex;
     padding: 18px 26px 18px 18px;
+    max-height: 60px;
     background-color: var(--dark-green);
     border-radius: 12px;
     align-items: center;

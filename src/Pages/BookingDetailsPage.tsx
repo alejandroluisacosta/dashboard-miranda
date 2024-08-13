@@ -9,6 +9,7 @@ import SideBar from "../Components/SideBar";
 import { useAppDispatch } from "../app/hooks";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { StyledPageContainer } from "../types";
 
 
 const StyledBookingDetailsPage = styled.div`
@@ -54,7 +55,7 @@ const BookingDetailsPage = () => {
     return (
         <>
             <StyledBookingDetailsPage>
-                <div className="page-container">
+                <StyledPageContainer visible={isSidebarVisible}>
                     <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
                         <Header toggleSidebar={toggleSidebar}/>
@@ -70,7 +71,7 @@ const BookingDetailsPage = () => {
                         </Box>
                         }
                     </div>
-                </div>
+                </StyledPageContainer>
             </StyledBookingDetailsPage>
         </>
     )
