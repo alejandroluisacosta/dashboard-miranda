@@ -24,3 +24,7 @@ h1, h2, h3, p {
 .page-container {
   display: flex;
 }
+
+button {
+  cursor: pointer;
+}

@@ -25,6 +25,7 @@ const StyledBookings = styled.div`
         color: white;
         font-size: 14px;
         margin-left: 50px;
+        cursor: pointer;
     }
     @media only screen and (max-width: 1920px) {
         font-size: 14px;
@@ -55,6 +56,7 @@ const StyledStatus = styled.div<StatusProps>`
     }
     .delete {
         transform: translate(0, 15%);
+        cursor: pointer;
       }
 `;
 
@@ -120,6 +122,11 @@ const BookingsPage = () => {
     const [fetched, setFetched] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const bookings: Booking[] = useAppSelector(state => state.Bookings.items);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const toggleSidebar = () => {
+      setIsSidebarVisible(!isSidebarVisible);
+    };
 
     const sortBookingsHandler = (value: string): void => {
       const allBookings = [...bookings];
@@ -163,9 +170,9 @@ const BookingsPage = () => {
         <>
           <StyledBookings>
               <div className="page-container">
-                  <SideBar/>
+                  <SideBar visible={isSidebarVisible}/>
                   <div className="main-content">
-                    <Header/>
+                    <Header toggleSidebar={toggleSidebar}/>
                     <div className="filter-container">
                       <FilterTabs 
                         sortHandler={sortBookingsHandler}
