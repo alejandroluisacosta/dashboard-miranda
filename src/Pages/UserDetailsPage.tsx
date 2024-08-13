@@ -9,6 +9,7 @@ import { GetUserThunk } from "../Features/Users";
 import styled from "styled-components";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { StyledPageContainer } from "../types";
 
 const StyledUserDetails = styled.div`
     background-color: var(--light-gray);
@@ -60,7 +61,7 @@ const UserDetailsPage = () => {
     return (
         <>
             <StyledUserDetails>
-                <div className="page-container">
+                <StyledPageContainer visible={isSidebarVisible}>
                     <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
                         <Header toggleSidebar={toggleSidebar}/>
@@ -76,7 +77,7 @@ const UserDetailsPage = () => {
                         </Box>
                         }
                     </div>
-                </div>
+                </StyledPageContainer>
             </StyledUserDetails>
         </>
     )

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import FilterTabs from "../Components/FilterTabs";
 import SideBar from "../Components/SideBar";
 import Table from "../Components/Table";
-import { Column, User } from "../types";
+import { Column, StyledPageContainer, User } from "../types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { GetUsersThunk, RemoveUserThunk } from "../Features/Users";
 import { Link } from "react-router-dom";
@@ -126,7 +126,7 @@ const UsersPage = () => {
     return (
         <>
           <StyledUsers>
-              <div className="page-container">
+              <StyledPageContainer visible={isSidebarVisible}>
                   <SideBar visible={isSidebarVisible}/>
                   <div className="main-content">
                       <Header toggleSidebar={toggleSidebar}/>
@@ -143,7 +143,7 @@ const UsersPage = () => {
                       </div>
                       <Table data={renderedUsers} columns={columns}/>
                   </div>
-              </div>
+              </StyledPageContainer>
           </StyledUsers>
       </>
     )
