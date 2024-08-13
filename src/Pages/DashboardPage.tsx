@@ -1,15 +1,10 @@
-import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { LuBedDouble, LuCalendarCheck2 } from "react-icons/lu";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import Header from "../Components/Header";
-import BookingSummary from "../Components/BookingSummary";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Comment from "../Components/Comment";
 import SideBar from "../Components/SideBar";
-import { GetBookingsThunk } from "../Features/Bookings";
-import { Booking } from "../types";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 
 
@@ -22,30 +17,36 @@ const mockData = [
 
 const mockComments = [
     {
-      "text": "Great article! Really enjoyed reading it.",
+      "text": "I loved my visit. Hoping to get some vacations this summer to come back and enjoy it again!",
       "userName": "John Doe",
       "timestamp": "2023-06-15T08:30:00Z"
     },
     {
-      "text": "Interesting insights. Looking forward to more!",
-      "userName": "Alice Johnson",
+      "text": "With a well-crafted experience, Miranda was up to the expectations. I'll surely be back next year.",
+      "userName": "Alice Lloyd",
       "timestamp": "2024-06-19T15:25:00Z"
     },
     {
-      "text": "Well written. Thanks for sharing.",
+      "text": "Nice vacation. A bit overrated.",
       "userName": "Jane Smith",
       "timestamp": "2023-06-13T12:00:00Z"
     }
   ]
   
-  
-
 const Dashboard = styled.div`
     background-color: #F8F8F8;
-    .page-container {
-        display: flex;
-        overflow: hidden;
-    }
+    display: flex;
+    overflow: hidden;
+`;
+
+interface MainContentProps {
+    visible: boolean;
+}
+
+const StyledMainContent = styled.div<MainContentProps>`
+    flex-grow: 1;
+    transition: margin-left 0.4s ease-in-out;
+    margin-left: ${props => props.visible ? '0' : '-345px'};
 `;
 
 const KpiContainer = styled.section`
@@ -113,21 +114,11 @@ const CommentList = styled.div`
 
 const DashboardPage = () => {
 
-    const [sortedBookings, setSortedBookings] = useState<Booking[]>([]);
-    const [fetched, setFetched] = useState<Boolean>(false);
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
-
-
-    const bookings = useAppSelector(state => state.Bookings.items);
-    const dispatch = useAppDispatch();
-
-    const sortBookings = (bookings: Booking[]): Booking[] => {
-        return bookings.sort((a, b) => (new Date(a.checkInDate).getTime() as number) - (new Date(b.checkInDate).getTime() as number));
-    }
 
     const getTimeDifference = (timestamp: number): string => {
         const now = new Date().getTime() as number;
@@ -138,76 +129,59 @@ const DashboardPage = () => {
       };
       
 
-    // INITIAL FETCH NOT WORKING
-    useEffect(() => {
-        const initialFetch = async () => {
-            await dispatch(GetBookingsThunk()).unwrap();
-            setFetched(true)
-        }
-        initialFetch();
-        setSortedBookings(sortBookings(bookings));
-    }, [])
-
     return (
             <>
                 <Dashboard>
-                    <div className="page-container">
-                        <SideBar visible={isSidebarVisible}/>
-                        <div className="main-content">
-                            <Header toggleSidebar={toggleSidebar}/>
-                            <KpiContainer>
-                                <Kpi>
-                                    <IconContainer selected={false}>
-                                        <LuBedDouble className="icon"/>
-                                    </IconContainer>
-                                    <div className="data">
-                                        <p className="value">{mockData[0].bookings}</p>
-                                        <p className="description">New booking</p>
-                                    </div>
-                                </Kpi>
-                                <Kpi>
-                                    <IconContainer selected={true}>
-                                        <LuCalendarCheck2 className="icon"/>
-                                    </IconContainer>
-                                    <div className="data">
-                                        <p className="value">{mockData[0].occupation}</p>
-                                        <p className="description">New booking</p>
-                                    </div>
-                                </Kpi>
-                                <Kpi>
-                                    <IconContainer selected={false}>
-                                        <BiLogIn className="icon"/>
-                                    </IconContainer>
-                                    <div className="data">
-                                        <p className="value">{mockData[0]["check-ins"]}</p>
-                                        <p className="description">New booking</p>
-                                    </div>
-                                </Kpi>
-                                <Kpi>
-                                    <IconContainer selected={false}>
-                                        <BiLogOut className="icon"/>
-                                    </IconContainer>
-                                    <div className="data">
-                                        <p className="value">{mockData[0]["check-outs"]}</p>
-                                        <p className="description">New booking</p>
-                                    </div>
-                                </Kpi>
-                            </KpiContainer>
-                            <BookingSummaryList>
-                                {sortedBookings.slice(0, 4).map((booking, index) => (
-                                    <BookingSummary booking={booking} timeAgo={getTimeDifference(new Date(booking.orderDate).getTime())} key={index}/>
+                    <SideBar visible={isSidebarVisible}/>
+                    <StyledMainContent visible={isSidebarVisible}>
+                        <Header toggleSidebar={toggleSidebar}/>
+                        <KpiContainer>
+                            <Kpi>
+                                <IconContainer selected={false}>
+                                    <LuBedDouble className="icon"/>
+                                </IconContainer>
+                                <div className="data">
+                                    <p className="value">{mockData[0].bookings}</p>
+                                    <p className="description">New booking</p>
+                                </div>
+                            </Kpi>
+                            <Kpi>
+                                <IconContainer selected={true}>
+                                    <LuCalendarCheck2 className="icon"/>
+                                </IconContainer>
+                                <div className="data">
+                                    <p className="value">{mockData[0].occupation}</p>
+                                    <p className="description">New booking</p>
+                                </div>
+                            </Kpi>
+                            <Kpi>
+                                <IconContainer selected={false}>
+                                    <BiLogIn className="icon"/>
+                                </IconContainer>
+                                <div className="data">
+                                    <p className="value">{mockData[0]["check-ins"]}</p>
+                                    <p className="description">New booking</p>
+                                </div>
+                            </Kpi>
+                            <Kpi>
+                                <IconContainer selected={false}>
+                                    <BiLogOut className="icon"/>
+                                </IconContainer>
+                                <div className="data">
+                                    <p className="value">{mockData[0]["check-outs"]}</p>
+                                    <p className="description">New booking</p>
+                                </div>
+                            </Kpi>
+                        </KpiContainer>
+                        <CommentList>
+                            <h3>Latest Reviews by Customers</h3>
+                            <div>
+                                {mockComments.map((comment, index) => (
+                                    <Comment comment={comment} timeAgo={getTimeDifference(new Date(comment.timestamp).getTime())} key={index}/>
                                 ))}
-                            </BookingSummaryList>
-                            <CommentList>
-                                <h3>Latest Reviews by Customers</h3>
-                                <div>
-                                    {mockComments.map((comment, index) => (
-                                        <Comment comment={comment} timeAgo={getTimeDifference(new Date(comment.timestamp).getTime())} key={index}/>
-                                    ))}
-                                </div>    
-                            </CommentList>
-                        </div>
-                    </div>
+                            </div>    
+                        </CommentList>
+                    </StyledMainContent>
                 </Dashboard>
         </>
     )

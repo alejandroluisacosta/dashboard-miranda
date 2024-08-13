@@ -1,5 +1,3 @@
-import { FaRegCheckCircle } from "react-icons/fa";
-import { GiCancel } from "react-icons/gi";
 import styled from "styled-components";
 import { CommentInterface } from "../types";
 import React from "react";
@@ -52,15 +50,6 @@ const UserContainer = styled.div`
     }
 `;
 
-const IconsContainer = styled.div`
-    display: flex;
-    gap: 15px;
-    .icon {
-        width: 24px;
-        height: 24px;
-    }
-`;
-
 interface CommentProps {
     comment: CommentInterface;
     timeAgo: string;
@@ -72,16 +61,12 @@ const Comment: React.FC<CommentProps> = ({ comment, timeAgo }) => {
             <p>{comment.text}</p>
             <BottomContainer>
                 <UserContainer>
-                    <img src="/assets/user.jpeg" alt="User image"/>
+                    <img src="/assets/Avatar.png" alt="User image"/>
                     <div>
                         <p>{comment.userName}</p>
                         <p>{Number(timeAgo) > 30 ? '+30' : timeAgo} minutes ago</p>
                     </div>
                 </UserContainer>
-                <IconsContainer>
-                    <FaRegCheckCircle className="icon"/>
-                    <GiCancel className="icon"/>
-                </IconsContainer>
             </BottomContainer>
         </CommentContainer>
     )

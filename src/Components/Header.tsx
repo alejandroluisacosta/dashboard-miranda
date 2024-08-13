@@ -16,6 +16,7 @@ const Left = styled.div`
     align-items: center;
     span {
         margin-right: 25px;
+        cursor: pointer;
     }
     p {
         font-size: 22px;
