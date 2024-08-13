@@ -7,6 +7,9 @@ import { GetBookingThunk } from "../Features/Bookings";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import SideBar from "../Components/SideBar";
 import { useAppDispatch } from "../app/hooks";
+import * as React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 const StyledBookingDetailsPage = styled.div`
@@ -22,6 +25,11 @@ const StyledBookingDetailsPage = styled.div`
             color: inherit; 
         }
     }
+    .progress {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
 `;
 
 const BookingDetailsPage = () => {
@@ -33,6 +41,12 @@ const BookingDetailsPage = () => {
     const { bookingId = '' } = useParams<{bookingId: string}>();
     const dispatch = useAppDispatch();
     const [fetched, setFetched] = useState<Boolean>(false);
+
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
 
     const initialFetch = async () => {
         await dispatch(GetBookingThunk(bookingId)).unwrap();
@@ -47,9 +61,9 @@ const BookingDetailsPage = () => {
         <>
             <StyledBookingDetailsPage>
                 <div className="page-container">
-                    <SideBar/>
+                    <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
-                        <Header />
+                        <Header toggleSidebar={toggleSidebar}/>
                         <div className="back-link-container">
                             <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
                             <Link to="/bookings">All Bookings</Link>
@@ -57,7 +71,9 @@ const BookingDetailsPage = () => {
                         {fetched ? 
                         <BookingDetails />
                         :
-                        <h1>Loading</h1>
+                        <Box className="progress" sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                        </Box>
                         }
                     </div>
                 </div>
