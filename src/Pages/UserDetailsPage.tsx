@@ -19,10 +19,10 @@ const StyledUserDetails = styled.div`
         margin: 30px 50px 15px;
         font-size: 20px;
         color: black;
-        a {
-            text-decoration: none;
-            color: inherit; 
         }
+    a {
+        text-decoration: none;
+        color: inherit; 
     }
     .progress {
         position: absolute;
@@ -65,10 +65,12 @@ const UserDetailsPage = () => {
                     <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
                         <Header toggleSidebar={toggleSidebar}/>
-                        <div className="back-link-container">
-                            <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
-                            <Link to="/users">All Users</Link>
-                        </div>
+                        <Link to="/users">
+                            <div className="back-link-container">
+                                <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
+                                <span>All Users</span>
+                            </div>
+                        </Link>
                         {fetched ?
                             <UserDetails />
                         :

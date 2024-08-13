@@ -20,10 +20,10 @@ const StyledBookingDetailsPage = styled.div`
         margin: 30px 50px 15px;
         font-size: 20px;
         color: black;
-        a {
-            text-decoration: none;
-            color: inherit; 
         }
+    a {
+        text-decoration: none;
+        color: inherit; 
     }
     .progress {
         position: absolute;
@@ -59,10 +59,12 @@ const BookingDetailsPage = () => {
                     <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
                         <Header toggleSidebar={toggleSidebar}/>
-                        <div className="back-link-container">
-                            <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
-                            <Link to="/bookings">All Bookings</Link>
-                        </div>
+                        <Link to="/bookings">
+                            <div className="back-link-container">
+                                <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
+                                <span>All Bookings</span>
+                            </div>
+                        </Link>
                         {fetched ? 
                         <BookingDetails />
                         :

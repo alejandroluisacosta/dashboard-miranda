@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { toast } from 'react-toastify';
 import { useState } from "react";
-import { User } from "../types";
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { EditUserThunk } from '../Features/Users';
 
@@ -54,6 +53,9 @@ const Left = styled.div<LeftProps>`
     width: 50%;
     padding: 40px 40px 50px;
     background-color: ${props => props.$isEditing ? 'var(--lighter-green)' : 'unset'};
+    border-radius: 12px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     input {
         border-radius: 8px;
         padding: 5px;
@@ -95,8 +97,10 @@ const Right = styled.div`
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        border-radius: 12px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
     }
+
 `;
 
 const UserDetails = () => {
