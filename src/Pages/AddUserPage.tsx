@@ -3,6 +3,8 @@ import Header from "../Components/Header";
 import AddRoom from "../Components/AddRoom";
 import SideBar from "../Components/SideBar";
 import AddUser from "../Components/AddUser";
+import { useState } from "react";
+import { StyledPageContainer } from "../types";
 ;
 
 const StyledAddUserPage = styled.div`
@@ -10,16 +12,23 @@ const StyledAddUserPage = styled.div`
 `;
 
 const AddUserPage = () => {
+
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
+
     return (
         <>
             <StyledAddUserPage>
-                <div className="page-container">
-                    <SideBar/>
+                <StyledPageContainer visible={isSidebarVisible}>
+                    <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
-                        <Header />
+                        <Header toggleSidebar={toggleSidebar}/>
                         <AddUser />
                     </div>
-                </div>
+                </StyledPageContainer>
             </StyledAddUserPage>
         </>
     )

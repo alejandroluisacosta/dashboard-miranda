@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Header from "../Components/Header";
 import AddRoom from "../Components/AddRoom";
 import SideBar from "../Components/SideBar";
+import { useState } from "react";
+import { StyledPageContainer } from "../types";
 ;
 
 const StyledAddRoomPage = styled.div`
@@ -9,16 +11,23 @@ const StyledAddRoomPage = styled.div`
 `;
 
 const AddRoomPage = () => {
+
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
+
     return (
         <>
             <StyledAddRoomPage>
-                <div className="page-container">
-                    <SideBar/>
+                <StyledPageContainer visible={isSidebarVisible}>
+                    <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
-                        <Header />
+                        <Header toggleSidebar={toggleSidebar}/>
                         <AddRoom />
                     </div>
-                </div>
+                </StyledPageContainer>
             </StyledAddRoomPage>
         </>
     )

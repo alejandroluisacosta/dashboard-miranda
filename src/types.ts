@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export type AuthState = {
     userName: string | null;
     email: string | null;
@@ -77,3 +79,14 @@ export interface Column<T> {
     userName: string;
     timestamp: string;
   }
+
+  export interface PageContainerProps {
+    visible: boolean;
+  }
+
+  export const StyledPageContainer = styled.div<PageContainerProps>`
+    display: flex;
+    flex-grow: 1;
+    transition: margin-left 0.4s ease-in-out;
+    margin-left: ${props => props.visible ? '0' : '-345px'};
+  `;

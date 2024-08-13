@@ -3,6 +3,7 @@ import Header from "../Components/Header";
 import AddBooking from "../Components/AddBooking";
 import SideBar from "../Components/SideBar";
 import { useState } from "react";
+import { StyledPageContainer } from "../types";
 
 const StyledAddBookingPage = styled.div`
     background-color: var(--light-gray);
@@ -19,13 +20,13 @@ const AddBookingPage = () => {
     return (
         <>
             <StyledAddBookingPage>
-                <div className="page-container">
+                <StyledPageContainer visible={isSidebarVisible}>
                     <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
                         <Header toggleSidebar={toggleSidebar}/>
                         <AddBooking />
                     </div>
-                </div>
+                </StyledPageContainer>
             </StyledAddBookingPage>
         </>
     )
