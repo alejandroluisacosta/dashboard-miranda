@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import RoomDetails from "../Components/RoomDetails";
 import SideBar from "../Components/SideBar";
 import { useAppDispatch } from "../app/hooks";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const StyledRoomDetailsPage = styled.div`
     background-color: var(--light-gray);
@@ -21,6 +23,11 @@ const StyledRoomDetailsPage = styled.div`
             color: inherit; 
         }
     }
+    .progress {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
 `;
 
 const RoomDetailsPage = () => {
@@ -28,6 +35,11 @@ const RoomDetailsPage = () => {
     const [fetched, setFetched] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const { roomId } = useParams<{ roomId: string }>();
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
 
 
     if (!roomId) {
@@ -47,9 +59,9 @@ const RoomDetailsPage = () => {
         <>
             <StyledRoomDetailsPage>
                 <div className="page-container">
-                    <SideBar/>
+                    <SideBar visible={isSidebarVisible}/>
                     <div className="main-content">
-                        <Header />
+                        <Header toggleSidebar={toggleSidebar}/>
                         <div className="back-link-container">
                             <IoIosArrowRoundBack style={{ fontSize: '30px', marginRight: '2.5px' }}/>
                             <Link to="/rooms">All Rooms</Link>
@@ -57,7 +69,9 @@ const RoomDetailsPage = () => {
                         {fetched ? 
                             <RoomDetails/>
                         :
-                            <h1>Loading</h1>
+                        <Box className="progress" sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                        </Box>
                         }
                     </div>
                 </div>

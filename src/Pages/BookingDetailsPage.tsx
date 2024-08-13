@@ -7,7 +7,6 @@ import { GetBookingThunk } from "../Features/Bookings";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import SideBar from "../Components/SideBar";
 import { useAppDispatch } from "../app/hooks";
-import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
@@ -33,10 +32,6 @@ const StyledBookingDetailsPage = styled.div`
 `;
 
 const BookingDetailsPage = () => {
-
-    interface RouteParams {
-        bookingId: string;
-    }
 
     const { bookingId = '' } = useParams<{bookingId: string}>();
     const dispatch = useAppDispatch();

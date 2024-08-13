@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { toast } from 'react-toastify';
 import { useState } from "react";
-import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { EditRoomThunk } from "../Features/Rooms";
 import Button from './Button';
 import { Room } from '../types';
@@ -24,6 +23,10 @@ interface LeftProps {
 const Left = styled.div<LeftProps>`
     width: 50%;
     padding: 40px 40px 50px;
+    flex: 60%;
+    @media only screen and (min-width: 1920px) {
+        flex: 50%;
+    }
     background-color: ${props => props.$isEditing ? 'var(--lighter-green)' : 'unset'};
     input {
         border-radius: 8px;
@@ -36,6 +39,18 @@ const Left = styled.div<LeftProps>`
     .label {
         font-weight: 600;
         margin-bottom: 12px;
+    }
+    .edit {
+        order: 2;
+        height: 40px;
+        border: 1px solid black;
+        border-radius: 8px;
+        padding: 5px;
+        cursor: pointer;
+    }
+    .save {
+        background-color: white;
+        height: 35px;
     }
 `;
 
@@ -62,8 +77,9 @@ interface TopContainerProps extends LeftProps {}
 const TopContainer = styled.div<TopContainerProps>`
     position: relative;
     display: flex;
-    gap: 15%;
+    gap: ${props => props.$isEditing ? '5%' : '15%'};
     margin-bottom: 60px;
+    word-break: break-all;
 `;
 
 const AmenitiesContainer = styled.div`
@@ -77,14 +93,20 @@ const AmenitiesContainer = styled.div`
     }
 `;
 
-const BottomContainer = styled.div`
+interface BottomContainerProps extends LeftProps {}
+
+const BottomContainer = styled.div<BottomContainerProps>`
     display: flex;
-    gap: 15%;
+    gap: ${props => props.$isEditing ? '5%' : '15%'};
 `;
 
 
 const Right = styled.div`
     width: 50%;
+    flex: 40%;
+    @media only screen and (min-width: 1920px) {
+        flex: 50%;
+    }
     div {
         min-height: 100%;
         width: 100%;
@@ -130,7 +152,7 @@ const RoomDetails = () => {
         
         dispatch(EditRoomThunk({
             name: name,
-            id: room.id,
+            _id: room._id,
             image: 'assets/HotelRoom3.jpeg',
             roomType: room.roomType,
             amenities: modifiedAmenities.length ? modifiedAmenities : amenities,
@@ -150,9 +172,13 @@ const RoomDetails = () => {
                 <h2>Room {name}</h2>
                 <Button $isEditing={isEditing} content='test button'></Button>
                 {isEditing ? 
-                    <button onClick={handleSaveClick} className="save">Save Changes</button>
+                <span className="edit save material-symbols-outlined" onClick={handleSaveClick}>
+                    check
+                </span>
                 :
-                    <PiDotsThreeOutlineVerticalFill className="edit" onClick={handleEditClick}/>
+                <span className="edit material-symbols-outlined" onClick={handleEditClick}>
+                    edit
+                </span>
                 }
                 </StyledNameContainer>
                 <TopContainer $isEditing={isEditing}>
@@ -183,7 +209,7 @@ const RoomDetails = () => {
                     </div>
                     <div>
                         <p className="label">Room ID</p>
-                        <p>{room.id}</p>
+                        <p className="id">{room._id}</p>
                     </div>
                 </TopContainer>
                 <AmenitiesContainer>
@@ -200,7 +226,7 @@ const RoomDetails = () => {
                         <p>{amenities}</p>
                         } 
                 </AmenitiesContainer>
-                <BottomContainer>
+                <BottomContainer $isEditing={isEditing}>
                     <div>
                         <p className="label">Price</p>
                         {isEditing ? (
@@ -212,7 +238,7 @@ const RoomDetails = () => {
                                 onChange={(event) => setRate(Number(event.target.value))}
                             />
                         ) :
-                            <p>{room.rate}</p>
+                            <p>{`$${room.rate}/night`}</p>
                     }
                     </div>
                     <div>

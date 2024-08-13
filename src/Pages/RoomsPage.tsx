@@ -46,6 +46,7 @@ const StyledStatus = styled.div<StatusProps>`
     }
     .delete {
         transform: translate(0, 15%);
+        cursor: pointer;
     }
 `;
   
@@ -61,7 +62,6 @@ const StyledRooms = styled.div`
         border-radius: 12px;
         color: white;
         font-size: 20px;
-        cursor: pointer
       }
     }
 `;
@@ -115,6 +115,11 @@ const RoomsPage = () => {
     const [ fetched, setFetched ] = useState(false);
     const dispatch = useAppDispatch();
     const rooms: Room[] = useAppSelector(state => state.Rooms.items);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
 
     const initialFetch = async () => {
         try {
@@ -136,9 +141,9 @@ const RoomsPage = () => {
         <>
           <StyledRooms>
               <div className="page-container">
-                  <SideBar/>
+                  <SideBar visible={isSidebarVisible}/>
                   <div className="main-content">
-                    <Header/>
+                    <Header toggleSidebar={toggleSidebar}/>
                     <div className="add-button-container">
                       <Link to="add"><button className="add-button">+ Add Room</button></Link>
                     </div>
