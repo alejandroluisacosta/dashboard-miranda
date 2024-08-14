@@ -1,6 +1,6 @@
 import { User } from "../types";
 
-const mockUsers: User[] = [
+const mockUsers = [
     {
       name: 'Alice Johnson',
       id: '001',

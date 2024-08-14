@@ -101,11 +101,38 @@ const User = styled.div`
         margin-bottom: 16px;
     }
     button {
-        padding: 16px 42px;
+        position: relative;
+        padding: 16px 40px;
         border-radius: 8px;
         border: 0;
         background-color: var(--lighter-green);
         color: var(--dark-green);
+        transition: background-color 0.3s, color 0.3s;
+        &:hover {
+            background-color: #333333;
+        }
+    }
+    .button-text,
+    .button-hover-text {
+        transition: opacity 0.3s;
+    }
+
+    .button-hover-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+        color: white;
+        opacity: 0;
+    }
+
+    button:hover .button-hover-text {
+        opacity: 1;
+    }
+
+    button:hover .button-text {
+        opacity: 0;
     }
 `;
 
@@ -168,7 +195,8 @@ const SideBar: React.FC<{ visible: boolean }> = ({ visible }) => {
                 <p>William Johanson</p>
                 <p>williajohn@mail.com</p>
                 <button onClick={() => window.open("https://docs.google.com/document/d/1pB2hUX5Q8-TqChKeaIbjghglU5dVLyA33SL3q_Lo0Tk/edit?usp=sharing", "_blank")}>
-                    Contact Us
+                    <span className="button-text">Contact us</span>
+                    <span className="button-hover-text">?</span>
                 </button>
             </User>
             <Footer>

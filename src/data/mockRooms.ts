@@ -1,6 +1,6 @@
 import { Room } from "../types";
 
-const mockRooms: Room[] = [
+const mockRooms = [
     {
       name: 'Deluxe A-91235',
       id: '1234',
