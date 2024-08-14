@@ -187,7 +187,7 @@ const BookingsPage = () => {
                       <FilterInput filterByName={filterByNameHandler}/>
                       <Link to='add'><button className="add-button">Add Booking</button></Link>
                     </div>
-                    <Table data={renderedBookings} columns={columns}/>
+                    <Table data={renderedBookings.slice(0, 15)} columns={columns}/>
                   </div>
               </StyledPageContainer>
           </StyledBookings>

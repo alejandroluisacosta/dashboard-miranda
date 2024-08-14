@@ -115,11 +115,13 @@ const AddUser: React.FC = () => {
         const role: string = (form.querySelector('#role') as HTMLInputElement).value;
         const email: string = (form.querySelector('#email') as HTMLInputElement).value;
         const schedule: string = (form.querySelector('#password') as HTMLInputElement).value;
+        const images = ['/assets/user2.jpeg', '/assets/user3.jpeg', '/assets/user4.jpeg', '/assets/user5.jpeg', '/assets/user6.jpeg'];
+        const image = images[Math.floor(Math.random() * images.length)];
 
         dispatch(AddUserThunk({
             name,
             userName,
-            image: `/assets/user.jpeg`,
+            image,
             incorporatedOn,
             jobDesk,
             phone,

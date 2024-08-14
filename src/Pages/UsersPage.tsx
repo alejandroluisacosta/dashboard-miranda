@@ -35,10 +35,14 @@ const StyledNameColumn = styled.div`
       text-decoration: none;
       color: inherit; 
     }
-    img {
-        width: 80px;
-        height: 80px;
+    .single-image-container {
+        width: 150px;
         margin-right: 30px;
+        min-height: 100%;
+        padding-bottom: 25%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
     }
     div {
       border-bottom: 0;
@@ -64,7 +68,7 @@ const UsersPage = () => {
           display: (row: User) => (
             <StyledNameColumn>
               <Link to={row._id}>
-                <img src={row.image} alt="User image"/>
+                <div className="single-image-container" style={{ backgroundImage: `url(${row.image})` }}/>
                 <div>
                   <p>{row.name}</p>
                   <p>{`#${row._id.slice(0, 7)}...`}</p>
@@ -83,7 +87,6 @@ const UsersPage = () => {
           display: (row: User) => (
             <>
               <p>{row.schedule}</p>
-              <p>Check schedule</p>
             </>
           )
         },
@@ -144,7 +147,7 @@ const UsersPage = () => {
                         />
                         <Link to='add'><button className="add-button">Add User</button></Link>
                       </div>
-                      <Table data={renderedUsers} columns={columns}/>
+                      <Table data={renderedUsers.slice(0, 10)} columns={columns}/>
                   </div>
               </StyledPageContainer>
           </StyledUsers>

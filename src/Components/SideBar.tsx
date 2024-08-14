@@ -27,6 +27,7 @@ const LogoContainer = styled.div`
             height: 48px;
         }
         div {
+            text-align: left;
             p:first-child {
                 font-size: 24px;
                 font-weight: bold;
@@ -166,7 +167,9 @@ const SideBar: React.FC<{ visible: boolean }> = ({ visible }) => {
                 <img src="/assets/user.jpeg"/>
                 <p>William Johanson</p>
                 <p>williajohn@mail.com</p>
-                <button>Contact Us</button>
+                <button onClick={() => window.open("https://docs.google.com/document/d/1pB2hUX5Q8-TqChKeaIbjghglU5dVLyA33SL3q_Lo0Tk/edit?usp=sharing", "_blank")}>
+                    Contact Us
+                </button>
             </User>
             <Footer>
                 <p>Travl Hotel Admin Dashboard</p>

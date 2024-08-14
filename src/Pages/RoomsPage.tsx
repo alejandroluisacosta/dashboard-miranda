@@ -80,7 +80,7 @@ const RoomsPage = () => {
       display: (row: Room) => (
         <StyledNameColumn>
           <Link to={row._id}>
-          <div className="single-image-container" style={{ backgroundImage: `url(${row.image})` }}/>
+            <div className="single-image-container" style={{ backgroundImage: `url(${row.image})` }}/>
             <div>
               <p>{`#${row._id.slice(0, 7)}...`}</p>
               <p>{row.name}</p>
