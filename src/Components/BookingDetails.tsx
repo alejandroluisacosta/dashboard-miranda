@@ -6,7 +6,6 @@ import { EditBookingThunk } from "../Features/Bookings";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { useNavigate } from "react-router-dom";
 
 const StyledBookingDetails = styled.div`
     display: flex;
@@ -217,6 +216,8 @@ const BookingDetails = () => {
     const [roomType, setRoomType] = useState(booking.roomType);
     const [specialRequest, setSpecialRequest] = useState(booking.specialRequest);
     const dispatch = useAppDispatch();
+    const images = ['/assets/user2.jpeg', '/assets/user3.jpeg', '/assets/user4.jpeg', '/assets/user5.jpeg', '/assets/user6.jpeg'];
+    const image = images[Math.floor(Math.random() * images.length)];
 
     const notify = () => toast.success('Booking successfully modified', {
         position: "top-center",
@@ -266,8 +267,7 @@ const BookingDetails = () => {
                         edit
                     </span>
                     }
-                    <div className="image" style={{backgroundImage: `url(/assets/user.jpeg)`}}></div> 
-                    {/* <img src="/assets/user.jpeg" alt="User image"/> */}
+                    <div className="image" style={{backgroundImage: `url(${image})`}}></div> 
                     <div>
                         <p>{name}</p>
                         <p>Booking {id}</p>

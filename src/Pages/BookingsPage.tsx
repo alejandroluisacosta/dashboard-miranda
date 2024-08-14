@@ -164,7 +164,7 @@ const BookingsPage = () => {
       if (!fetched)
         initialFetch();
       else 
-        setRenderedBookigs(bookings);
+        setRenderedBookigs([...bookings].reverse());
     }, [fetched, bookings])
 
     return (

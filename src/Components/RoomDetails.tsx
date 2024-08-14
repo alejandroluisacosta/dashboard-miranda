@@ -280,7 +280,7 @@ const RoomDetails = () => {
                 {isEditing && <button className="save-button" onClick={handleSaveClick}>Save Changes</button>}
             </Left>
             <Right>
-            <div style={{backgroundImage: `url(../assets/HotelAtDawn.jpeg)`}}></div>
+            <div style={{backgroundImage: `url(${image})`}}></div>
             </Right>
         </StyledRoomDetails>
     )

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Room } from '../types';
+import { Room, RoomInput } from '../types';
 import backendAPICall from "../../utils/backendAPICall";
 
 export const GetRoomsThunk = createAsyncThunk('Rooms/GetRooms', async(): Promise<Room[]> => {
@@ -14,7 +14,7 @@ export const GetRoomThunk = createAsyncThunk('Rooms/GetRoom', async(id: string):
     return room;
 })
 
-export const AddRoomThunk = createAsyncThunk('Rooms/AddRoom', async(newRoom: Room): Promise<Room> => {
+export const AddRoomThunk = createAsyncThunk('Rooms/AddRoom', async(newRoom: RoomInput): Promise<Room> => {
     const { room } = await backendAPICall<{room: Room}>('rooms', 'POST', newRoom);
     return room;
 })

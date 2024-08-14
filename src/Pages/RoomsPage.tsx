@@ -35,10 +35,14 @@ const StyledNameColumn = styled.div`
       text-decoration: none;
       color: inherit; 
     }
-    img {
+    .single-image-container {
         width: 150px;
-        height: 77px;
         margin-right: 30px;
+        min-height: 100%;
+        padding-bottom: 25%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
     }
     div {
       border-bottom: 0;
@@ -76,7 +80,7 @@ const RoomsPage = () => {
       display: (row: Room) => (
         <StyledNameColumn>
           <Link to={row._id}>
-            <img src={row.image} alt="Room image"/>
+          <div className="single-image-container" style={{ backgroundImage: `url(${row.image})` }}/>
             <div>
               <p>{`#${row._id.slice(0, 7)}...`}</p>
               <p>{row.name}</p>
@@ -138,7 +142,7 @@ const RoomsPage = () => {
         if (!fetched)
           initialFetch();
         else 
-          setRenderedRooms(rooms);
+          setRenderedRooms([...rooms].reverse());
     }, [fetched, rooms, dispatch])
 
     return (

@@ -111,6 +111,8 @@ const AddRoom: React.FC = () => {
     });
     const navigate = useNavigate();
 
+    const roomImages = ['/assets/HotelRoom.jpeg', '/assets/HotelRoom2.jpeg', '/assets/HotelRoom4.jpeg', '/assets/HotelRoom6.jpeg'];
+
     const addRoomHandler = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         const form = event.target as HTMLInputElement;
@@ -124,10 +126,27 @@ const AddRoom: React.FC = () => {
         const amenities: string = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="amenities"]:checked')).map(input => input.value).join(', ');
         const cancellationPolicies: string = (form.querySelector('#cancellation') as HTMLInputElement).value;
 
+        let image;
+        switch (roomType) {
+            case 'Single Room':
+                image = roomImages[0];
+                break;
+            case 'Double':
+                image = roomImages[1];
+                break;
+            case 'Double Superior':
+                image = roomImages[2];
+                break;
+            case 'Suite':
+                image = roomImages[3];
+                break;
+            default:
+                image = roomImages[0];
+        }
+
         dispatch(AddRoomThunk({
             name: `${roomType} ${roomNumber}`,
-            _id: `${Math.floor(Math.random() * 1000)}`,
-            image: '/assets/HotelInside.jpeg',
+            image: image,
             roomType: roomType,
             amenities: amenities,
             rate: price,
@@ -140,7 +159,7 @@ const AddRoom: React.FC = () => {
     
         notify();
 
-        navigate('/rooms');
+        setTimeout(() => navigate('/rooms'), 1000);
     }
     
 

@@ -50,6 +50,9 @@ const StyledContact = styled.div`
     border-bottom: 0 !important;
     gap: 5%;
     justify-content: space-between;
+    .delete {
+        cursor: pointer;
+    }
 `;
 
 
@@ -89,7 +92,7 @@ const UsersPage = () => {
           display: (row: User) => (
             <StyledContact>
               <p>{row.phone.split('x')[0]}</p>
-              <span className="material-symbols-outlined" onClick={() => dispatch(RemoveUserThunk(row._id))}>delete</span>
+              <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveUserThunk(row._id))}>delete</span>
             </StyledContact>
           )
         },
@@ -108,7 +111,7 @@ const UsersPage = () => {
       if (!users.length) {
         dispatch(GetUsersThunk());
       }
-      sortUsersHandler('incorporatedOn');
+      setRenderedUsers([...users].reverse());
     }, [users])
 
     const sortUsersHandler = (value: string) => {

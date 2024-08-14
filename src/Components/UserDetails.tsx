@@ -237,7 +237,7 @@ const UserDetails = () => {
                                         onChange={(event) => setIncorporatedOn(event.target.value)}
                                     />
                                 :
-                                    <p>{user.incorporatedOn}</p>
+                                    <p>{incorporatedOn}</p>
                                 }
                             </div>
                             <div>
@@ -248,7 +248,7 @@ const UserDetails = () => {
                                         <option value="Unavailable">Unavailable</option>
                                     </select>
                                 :
-                                    <p>{user.status}</p>
+                                    <p>{status}</p>
                                 }
                             </div>
                     </StyledRow>
@@ -257,7 +257,7 @@ const UserDetails = () => {
                         {isEditing ?
                             <textarea placeholder={jobDesk ? jobDesk : ""} onChange={(event) => setJobDesk(event.target.value)}/>
                         :
-                            <p>{user.jobDesk}</p>
+                            <p>{jobDesk}</p>
                         }
                     </div>
                     {isEditing && <button className="save-button" onClick={handleSaveClick}>Save Changes</button>}

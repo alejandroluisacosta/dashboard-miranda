@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { AddBookingThunk } from "../Features/Bookings";
-import { Link, useAsyncValue, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
 import { useAppDispatch } from "../app/hooks";
-import { Booking, Room } from "../types";
 
 const StyledAddBooking = styled.div`
     display: flex;
@@ -102,7 +101,7 @@ const AddBooking: React.FC = () => {
         const checkOutDate: string = (form.querySelector('#checkOut') as HTMLInputElement).value;
         const specialRequest: string = (form.querySelector('#special-request') as HTMLInputElement).value;
         const roomType: string = (form.querySelector('#room-type') as HTMLInputElement).value;
-        const status: 'Check-In' | 'Check-Out' = (form.querySelector('#status') as HTMLInputElement).value;
+        const status: 'Check-In' | 'Check-Out' = (form.querySelector('#status') as HTMLInputElement).value as 'Check-In' | 'Check-Out';
 
         dispatch(AddBookingThunk({
             name: name,
@@ -115,7 +114,7 @@ const AddBooking: React.FC = () => {
         })) 
 
         notify();
-        navigate('/bookings');
+        setTimeout(() => navigate('/bookings'), 1000);
     }
 
     return (
