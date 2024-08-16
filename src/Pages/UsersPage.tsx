@@ -26,6 +26,9 @@ const StyledUsers = styled.div`
         font-size: 14px;
         margin-left: 50px;
     }
+    .delete {
+        cursor: pointer;
+    }
 `;
 
 const StyledNameColumn = styled.div`
@@ -54,9 +57,6 @@ const StyledContact = styled.div`
     border-bottom: 0 !important;
     gap: 5%;
     justify-content: space-between;
-    .delete {
-        cursor: pointer;
-    }
 `;
 
 
@@ -95,10 +95,15 @@ const UsersPage = () => {
           display: (row: User) => (
             <StyledContact>
               <p>{row.phone}</p>
-              <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveUserThunk(row._id))}>delete</span>
             </StyledContact>
           )
         },
+        {
+          label: ' ',
+          display: (row: User) => (
+            <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveUserThunk(row._id))}>delete</span>
+          )
+        }
     ];
     
     const [renderedUsers, setRenderedUsers] = useState<User[]>([]);
