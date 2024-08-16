@@ -163,8 +163,8 @@ const UserDetails = () => {
     }, []);
 
     useEffect(() => {
-        // GetUserThunk(userId)
-    }, [])
+        GetUserThunk(userId as string)
+    }, [user])
 
     return (
         <StyledUserDetails>

@@ -150,7 +150,6 @@ const RoomContainer = styled.div`
     .special-request {
         font-size: 14px;
         margin-bottom: 30px;
-        min-height: 150px;
     }
     textarea {
         min-height: 80px;
@@ -217,7 +216,8 @@ const BookingDetails = () => {
     const [specialRequest, setSpecialRequest] = useState(booking.specialRequest);
     const dispatch = useAppDispatch();
     const images = ['/assets/user2.jpeg', '/assets/user3.jpeg', '/assets/user4.jpeg', '/assets/user5.jpeg', '/assets/user6.jpeg'];
-    const image = images[Math.floor(Math.random() * images.length)];
+    const imageIndex = name.charCodeAt(0) % images.length;
+    const image = images[imageIndex];
 
     const notify = () => toast.success('Booking successfully modified', {
         position: "top-center",
