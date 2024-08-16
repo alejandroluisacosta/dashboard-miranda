@@ -24,6 +24,10 @@ const StyledRooms = styled.div`
         font-size: 20px;
       }
     }
+    .delete {
+        transform: translate(0, 15%);
+        cursor: pointer;
+    }
 `;
 
 const StyledNameColumn = styled.div`
@@ -55,20 +59,12 @@ interface StatusProps {
 
 const StyledStatus = styled.div<StatusProps>`
     border-bottom: 0 !important;
-    display: flex;
-    justify-content: space-between;
-    gap: 5%;
     p {
       background-color: ${props => props.$status === 'Available' ? '#DAFFCB' : '#FDA19B'};
       padding: 10px;
       font-size: 12px;
       border-radius: 8px;
       min-width: 90px;
-      text-align: center;
-    }
-    .delete {
-        transform: translate(0, 15%);
-        cursor: pointer;
     }
 `;
 
@@ -113,10 +109,15 @@ const RoomsPage = () => {
       display: (row: Room) => (
         <StyledStatus $status={row.status}>
           <p>{row.status}</p>
-          <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveRoomThunk(row._id))}>delete</span>
         </StyledStatus>
       )
     },
+    {
+      label: ' ',
+      display: (row: Room) => (
+        <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveRoomThunk(row._id))}>delete</span>
+      )
+    }
   ];
 
     const [ renderedRooms, setRenderedRooms ] = useState<Room[]>([]);
