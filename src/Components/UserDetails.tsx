@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { toast } from 'react-toastify';
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { EditUserThunk } from '../Features/Users';
+import { EditUserThunk, GetUserThunk } from '../Features/Users';
+import { useParams } from "react-router-dom";
 
 const StyledUserDetails = styled.div`
     display: flex;
@@ -121,6 +122,7 @@ const UserDetails = () => {
     const [role, setRole] = useState(user.role);
     const [email, setEmail] = useState(user.email);
     const dispatch = useAppDispatch();
+    const { userId } = useParams<{ userId: string}>();
 
     const notify = () => toast.success('User successfully modified', {
         position: "top-center",
@@ -159,6 +161,10 @@ const UserDetails = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    useEffect(() => {
+        // GetUserThunk(userId)
+    }, [])
 
     return (
         <StyledUserDetails>

@@ -57,6 +57,8 @@ const UserDetailsPage = () => {
         initialFetch();
     }, [])
 
+    if (!fetched)
+        return null;``
 
     return (
         <>

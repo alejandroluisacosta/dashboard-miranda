@@ -35,6 +35,9 @@ const StyledBookings = styled.div`
         border-radius: 8px;
         background-color: var(--lighter-green);
     }
+    .delete {
+      cursor: pointer;
+    }
 `;
 
 interface StatusProps {
@@ -42,10 +45,6 @@ interface StatusProps {
 }
 
 const StyledStatus = styled.div<StatusProps>`
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    gap: 5%;
     border-bottom: 0 !important;
     p {
       background-color: ${props => props.$status === 'Check-In' ? '#DAFFCB' : '#FDA19B'};
@@ -55,10 +54,6 @@ const StyledStatus = styled.div<StatusProps>`
       min-width: 90px;
       text-align: center;
     }
-    .delete {
-        transform: translate(0, 15%);
-        cursor: pointer;
-      }
 `;
 
 const StyledGuestColumn = styled.div`
@@ -113,8 +108,13 @@ const BookingsPage = () => {
         display: (row: Booking) => (
           <StyledStatus $status={row.status}>
             <p>{row.status}</p>
-            <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row._id))}>delete</span>
           </StyledStatus>
+        )
+      },
+      {
+        label: ' ',
+        display: (row: Booking) => (
+            <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row._id))}>delete</span>
         )
       },
     ];

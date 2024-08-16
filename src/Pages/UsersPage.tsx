@@ -94,7 +94,7 @@ const UsersPage = () => {
           label: 'Contact',
           display: (row: User) => (
             <StyledContact>
-              <p>{row.phone.split('x')[0]}</p>
+              <p>{row.phone}</p>
               <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveUserThunk(row._id))}>delete</span>
             </StyledContact>
           )
