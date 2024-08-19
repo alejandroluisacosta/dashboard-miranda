@@ -98,7 +98,9 @@ const User = styled.div`
         margin-bottom: 9px;
     }
     p:nth-child(3) {
+        font-size: 14px;
         margin-bottom: 16px;
+        word-break: break-word;
     }
     button {
         position: relative;
@@ -192,8 +194,8 @@ const SideBar: React.FC<{ visible: boolean }> = ({ visible }) => {
             </Navigation>
             <User>
                 <img src="/assets/user.jpeg"/>
-                <p>William Johanson</p>
-                <p>williajohn@mail.com</p>
+                <p>Alejandro Luis Acosta</p>
+                <p>alejandroluisacosta95@gmail.com</p>
                 <button onClick={() => window.open("https://docs.google.com/document/d/1pB2hUX5Q8-TqChKeaIbjghglU5dVLyA33SL3q_Lo0Tk/edit?usp=sharing", "_blank")}>
                     <span className="button-text">Contact us</span>
                     <span className="button-hover-text">?</span>
