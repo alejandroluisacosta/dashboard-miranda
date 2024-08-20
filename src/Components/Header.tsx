@@ -40,10 +40,13 @@ const Right = styled.div`
             color: var(--red);
         }
     }
-    img {
+    .img {
         width: 45px;
         height: 45px;
         border-radius: 8px;
+        background-size: cover;
+        background-position: center calc(50% + 17px);
+        background-repeat: no-repeat;
     }
     .icon {
         cursor: pointer;
@@ -90,7 +93,7 @@ const Header: React.FC<{ toggleSidebar: () => void }> = ({ toggleSidebar }) => {
             <span className="icon material-symbols-outlined">
                 chat
             </span>
-            <img src="/assets/user.jpeg" alt="Profile icon"/>
+            <div className="img" style={{backgroundImage: `url(../assets/alejandroluis.jpeg)`}}></div>
             <span onClick={logOutHandler} className="logout icon material-symbols-outlined">
                 logout
             </span>
