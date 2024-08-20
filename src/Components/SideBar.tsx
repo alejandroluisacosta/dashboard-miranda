@@ -83,11 +83,15 @@ const User = styled.div`
     box-shadow: 0px 20px 30px #00000014;
     border-radius: 18px;
     margin-bottom: 60px;
-    img {
+    .img {
         width: 70px;
         height: 70px;
         border-radius: 8px;
-        transform: translateY(-50%);
+        margin-left: 50%;
+        transform: translate(-50%, -50%);
+        background-size: cover;
+        background-position: center calc(50% + 25px);
+        background-repeat: no-repeat;
     }
     p:nth-child(2) {
         letter-spacing: 0px;
@@ -193,7 +197,7 @@ const SideBar: React.FC<{ visible: boolean }> = ({ visible }) => {
                 </NavigationLink>
             </Navigation>
             <User>
-                <img src="/assets/user.jpeg"/>
+                <div className="img" style={{backgroundImage: `url(../assets/alejandroluis.jpeg)`}}></div>
                 <p>Alejandro Luis Acosta</p>
                 <p>alejandroluisacosta95@gmail.com</p>
                 <button onClick={() => window.open("https://docs.google.com/document/d/1pB2hUX5Q8-TqChKeaIbjghglU5dVLyA33SL3q_Lo0Tk/edit?usp=sharing", "_blank")}>
