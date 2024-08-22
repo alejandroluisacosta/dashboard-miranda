@@ -7,7 +7,7 @@ export const GetUsersThunk = createAsyncThunk('Users/GetUsers', async(): Promise
     return users;
 })
 
-export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: string): Promise<User> => {
+export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: number): Promise<User> => {
     const { user } = await backendAPICall<{user: User}>(`users/${id}`, 'GET', id);
     if (!user)
         throw('Room not found');
@@ -19,13 +19,13 @@ export const AddUserThunk = createAsyncThunk('Users/AddUser', async(newUser: Use
     return user;
 })
 
-export const RemoveUserThunk = createAsyncThunk('Users/RemoveUser', async(id: string): Promise<string> => {
+export const RemoveUserThunk = createAsyncThunk('Users/RemoveUser', async(id: number): Promise<number> => {
     await backendAPICall(`users/${id}`, 'DELETE');
     return id;
 })
 
 export const EditUserThunk = createAsyncThunk('Users/EditUser', async(updatedUser: User): Promise<User> => {
-    const { user } = await backendAPICall<{user: User}>(`users/${updatedUser._id}`, 'PUT', updatedUser);
+    const { user } = await backendAPICall<{user: User}>(`users/${updatedUser.id}`, 'PUT', updatedUser);
     return user; 
 })
 
@@ -97,13 +97,13 @@ const Users = createSlice({
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(RemoveUserThunk.fulfilled, (state, action: PayloadAction<string>) => {
+        .addCase(RemoveUserThunk.fulfilled, (state, action: PayloadAction<number>) => {
             state.status = 'fulfilled';
             state. error = 'false';
-            const removedUser = state.items.find(user => user._id === action.payload);
+            const removedUser = state.items.find(user => user.id === action.payload);
             if (removedUser)
                 state.single = removedUser;
-            state.items = state.items.filter(user => user._id !== action.payload);
+            state.items = state.items.filter(user => user.id !== action.payload);
         })
         .addCase(EditUserThunk.pending, state => {
             state.status = 'pending';
@@ -116,7 +116,7 @@ const Users = createSlice({
         .addCase(EditUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items = state.items.map(user => user._id === action.payload._id ? action.payload : user);
+            state.items = state.items.map(user => user.id === action.payload.id ? action.payload : user);
             state.single = action.payload;
         })
     }
