@@ -32,7 +32,7 @@ export interface RoomInput {
   }
 
 export interface Room extends RoomInput {
-    _id: string
+    id: number;
 }
 
 export interface BookingInput {
@@ -46,7 +46,7 @@ export interface BookingInput {
 }
 
 export interface Booking extends BookingInput {
-    _id: string;
+    id: number;
     roomId: string;
 }
 
@@ -65,7 +65,7 @@ export interface UserInput {
 }
 
 export interface User extends UserInput {
-    _id: string;
+    id: number;
 }
 
 export interface Column<T> {

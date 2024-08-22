@@ -167,7 +167,7 @@ const LoginPage = () => {
         const authData = await authTokenRequest(username, password);
         
         if (authData) {
-            authDispatch({type: 'LOGIN', payload: {userName: authData.userData[0].userName, email: authData.userData[0].email, image: authData.userData[0].image, token: authData.token, isLoggedIn: true}});
+            authDispatch({type: 'LOGIN', payload: {userName: authData.userData.userName, email: authData.userData.email, image: authData.userData.image, token: authData.token, isLoggedIn: true}});
             navigate('/');
         }
         else 

@@ -74,9 +74,9 @@ const BookingsPage = () => {
       label: 'Guest',
       display: (row: Booking) => (
         <StyledGuestColumn>
-            <Link to={row._id}>
+            <Link to={row.id.toString()}>
               <p>{row.name}</p>
-              <p>{`#${row._id.slice(0, 7)}...`}</p>
+              <p>{`#${row.id}`}</p>
             </Link>
           </StyledGuestColumn>
         )
@@ -114,7 +114,7 @@ const BookingsPage = () => {
       {
         label: ' ',
         display: (row: Booking) => (
-            <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row._id))}>delete</span>
+            <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveBookingThunk(row.id))}>delete</span>
         )
       },
     ];

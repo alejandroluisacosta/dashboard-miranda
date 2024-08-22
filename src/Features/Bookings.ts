@@ -7,7 +7,7 @@ export const GetBookingsThunk = createAsyncThunk('Bookings/GetBookings', async()
     return bookings;
 })
 
-export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id: string): Promise<Booking> => {
+export const GetBookingThunk = createAsyncThunk('Bookings/GetBooking', async(id: number): Promise<Booking> => {
     const { booking } = await backendAPICall<{booking: Booking}>(`bookings/${id}`, 'GET');
     if (!booking) 
         throw('Booking not found');
@@ -19,13 +19,13 @@ export const AddBookingThunk = createAsyncThunk('Bookings/AddBooking', async(new
     return booking;
 })
 
-export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', async(id: string): Promise<string> => {
+export const RemoveBookingThunk = createAsyncThunk('Bookings/RemoveBooking', async(id: number): Promise<number> => {
     await backendAPICall(`bookings/${id}`, 'DELETE');
     return id;
 })
 
 export const EditBookingThunk = createAsyncThunk('Bookings/EditBooking', async(updatedBooking: Booking): Promise<Booking> => {
-    const { booking } = await backendAPICall<{booking: Booking}>(`bookings/${updatedBooking._id}`, 'PUT', updatedBooking);
+    const { booking } = await backendAPICall<{booking: Booking}>(`bookings/${updatedBooking.id}`, 'PUT', updatedBooking);
     return booking; 
 })
 
@@ -97,10 +97,10 @@ const Bookings = createSlice({
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(RemoveBookingThunk.fulfilled, (state, action: PayloadAction<string>) => {
+        .addCase(RemoveBookingThunk.fulfilled, (state, action: PayloadAction<number>) => {
             state.status = 'fulfilled';
             state.error = 'false';
-            state.items = state.items.filter(booking => booking._id !== action.payload);
+            state.items = state.items.filter(booking => booking.id !== action.payload);
         })
         .addCase(EditBookingThunk.pending, state => {
             state.status = 'pending';
@@ -113,7 +113,7 @@ const Bookings = createSlice({
         .addCase(EditBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
             state.status = 'fulfilled',
             state.error = 'false',
-            state.items = state.items.map(booking => booking._id === action.payload._id ? action.payload : booking);
+            state.items = state.items.map(booking => booking.id === action.payload.id ? action.payload : booking);
             state.single = action.payload;
         })
     }
