@@ -5,7 +5,6 @@ import { EditRoomThunk } from "../Features/Rooms";
 import Button from './Button';
 import { Room } from '../types';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { useNavigate } from "react-router-dom";
 
 const StyledRoomDetails = styled.div`
     display: flex;
@@ -158,7 +157,7 @@ const RoomDetails = () => {
         
         dispatch(EditRoomThunk({
             name: name,
-            _id: room._id,
+            id: room.id,
             image: image,
             roomType: roomType,
             amenities: modifiedAmenities.length ? modifiedAmenities : amenities,
@@ -219,7 +218,7 @@ const RoomDetails = () => {
                     </div>
                     <div>
                         <p className="label">Room ID</p>
-                        <p className="id">{room._id}</p>
+                        <p className="id">{room.id}</p>
                     </div>
                 </TopContainer>
                 <AmenitiesContainer>

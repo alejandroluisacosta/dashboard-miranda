@@ -10,7 +10,7 @@ export const GetUsersThunk = createAsyncThunk('Users/GetUsers', async(): Promise
 export const GetUserThunk = createAsyncThunk('Users/GetUser', async(id: number): Promise<User> => {
     const { user } = await backendAPICall<{user: User}>(`users/${id}`, 'GET', id);
     if (!user)
-        throw('Room not found');
+        throw('User not found');
     return user;
 })
 

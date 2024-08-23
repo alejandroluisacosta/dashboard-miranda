@@ -49,7 +49,7 @@ const UserDetailsPage = () => {
     }
 
     const initialFetch = async (): Promise<void> => {
-        await dispatch(GetUserThunk(userId)).unwrap();
+        await dispatch(GetUserThunk(parseInt(userId))).unwrap();
         setFecthed(true);
     }
 

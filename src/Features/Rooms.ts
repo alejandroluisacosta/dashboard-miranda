@@ -7,7 +7,7 @@ export const GetRoomsThunk = createAsyncThunk('Rooms/GetRooms', async(): Promise
     return rooms;
 })
 
-export const GetRoomThunk = createAsyncThunk('Rooms/GetRoom', async(id: string): Promise<Room> => {
+export const GetRoomThunk = createAsyncThunk('Rooms/GetRoom', async(id: number): Promise<Room> => {
     const { room } = await backendAPICall<{room: Room}>(`rooms/${id}`, 'GET');
     if (!room)
         throw('Room not found');
@@ -19,13 +19,13 @@ export const AddRoomThunk = createAsyncThunk('Rooms/AddRoom', async(newRoom: Roo
     return room;
 })
 
-export const RemoveRoomThunk = createAsyncThunk('Rooms/RemoveRoom', async(id: string): Promise<string> => {
+export const RemoveRoomThunk = createAsyncThunk('Rooms/RemoveRoom', async(id: number): Promise<number> => {
     await backendAPICall(`rooms/${id}`, 'DELETE')
     return id; 
 })
 
 export const EditRoomThunk = createAsyncThunk('Rooms/EditRoom', async(updatedRoom: Room): Promise<Room> => {
-    const { room } = await backendAPICall<{room: Room}>(`rooms/${updatedRoom._id}`, 'PUT', updatedRoom);
+    const { room } = await backendAPICall<{room: Room}>(`rooms/${updatedRoom.id}`, 'PUT', updatedRoom);
     return room; 
 })
 
@@ -97,13 +97,13 @@ const Rooms = createSlice({
             state.status = 'rejected';
             state.error = 'true';
         })
-        .addCase(RemoveRoomThunk.fulfilled, (state, action: PayloadAction<string>) => {
+        .addCase(RemoveRoomThunk.fulfilled, (state, action: PayloadAction<number>) => {
             state.status = 'fulfilled';
             state. error = 'false';
-            const removedRoom = state.items.find(room => room._id === action.payload);
+            const removedRoom = state.items.find(room => room.id === action.payload);
             if (removedRoom)
                 state.single = removedRoom;
-            state.items = state.items.filter(room => room._id !== action.payload);
+            state.items = state.items.filter(room => room.id !== action.payload);
         })
         .addCase(EditRoomThunk.pending, state => {
             state.status = 'pending';
@@ -116,7 +116,7 @@ const Rooms = createSlice({
         .addCase(EditRoomThunk.fulfilled, (state, action: PayloadAction<Room>) => {
             state.status = 'fulfilled',
             state. error = 'false',
-            state.items = state.items.map(room => room._id === action.payload._id ? room = action.payload : room);
+            state.items = state.items.map(room => room.id === action.payload.id ? room = action.payload : room);
             state.single = action.payload;
         })
     }

@@ -75,10 +75,10 @@ const RoomsPage = () => {
       label: 'Room Name',
       display: (row: Room) => (
         <StyledNameColumn>
-          <Link to={row._id}>
+          <Link to={row.id.toString()}>
             <div className="single-image-container" style={{ backgroundImage: `url(${row.image})` }}/>
             <div>
-              <p>{`#${row._id.slice(0, 7)}...`}</p>
+              <p>{`#${row.id}`}</p>
               <p>{row.name}</p>
             </div>
           </Link>
@@ -115,7 +115,7 @@ const RoomsPage = () => {
     {
       label: ' ',
       display: (row: Room) => (
-        <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveRoomThunk(row._id))}>delete</span>
+        <span className="delete material-symbols-outlined" onClick={() => dispatch(RemoveRoomThunk(row.id))}>delete</span>
       )
     }
   ];

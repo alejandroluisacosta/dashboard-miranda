@@ -71,7 +71,7 @@ const UsersPage = () => {
                 <div className="single-image-container" style={{ backgroundImage: `url(${row.image})` }}/>
                 <div>
                   <p>{row.name}</p>
-                  <p>{`#${row.id}...`}</p>
+                  <p>{`#${row.id}`}</p>
                   <p>{row.incorporatedOn}</p>
                 </div>
               </Link>

@@ -48,7 +48,7 @@ const RoomDetailsPage = () => {
     }
 
     const initialFetch = async (): Promise<void> => {
-        await dispatch(GetRoomThunk(roomId)).unwrap();
+        await dispatch(GetRoomThunk(parseInt(roomId))).unwrap();
         setFetched(true)
     }
 
