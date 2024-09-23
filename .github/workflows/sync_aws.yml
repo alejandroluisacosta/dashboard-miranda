@@ -25,6 +25,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      # Install Node.js and dependencies
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Change this to your desired Node.js version
+
+      # Install project dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Build the project
+      - name: Build Project
+        run: npm run build
+
       # Configure AWS credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -35,4 +49,4 @@ jobs:
 
       # Sync repo files to S3 bucket
       - name: Sync files to S3
-        run: aws s3 sync . s3://devops-test-alejandroluis
+        run: aws s3 sync dist s3://devops-test-alejandroluis --delete
