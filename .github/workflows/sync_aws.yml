@@ -49,4 +49,4 @@ jobs:
 
       # Sync repo files to S3 bucket
       - name: Sync files to S3
-        run: aws s3 sync dist s3://devops-test-alejandroluis --delete
+        run: aws s3 sync dist s3://dashboard-miranda-alejandroluis --delete
